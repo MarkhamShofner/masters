@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Original
+public class Assignment2_1
 {
   public static void main( String [] args )
   {
@@ -23,12 +23,22 @@ public class Original
     v5 = input.nextInt();     // Input fifth value
     v6 = input.nextInt();     // Input sixth value
 
+    // Sum across the inputs where needed
+    int columnOneTotal = v1 + v3 + v5;
+    int columnTwoTotal = v2 + v4 + v6;
+    int rowOneTotal = v1 + v2;
+    int rowTwoTotal = v3 + v4;
+    int rowThreeTotal = v5 + v6;
+    int allInputsTotal = columnOneTotal + columnTwoTotal; // could also calculate this by adding all inputs individually, or by adding the three row totals
+
     // Output using System.out.println()
     System.out.println( "\n\n" );
-    System.out.println( "\t" + "Value" + "\t" + "Value" );
-    System.out.println( "\t" + v1 + "\t" + v2 );
-    System.out.println( "\t" + v3 + "\t" + v4 );
-    System.out.println( "\t" + v5 + "\t" + v6 );
+    System.out.println( "\t" + "Value" + "\t" + "Value" + "\t" + "Total");
+    System.out.println( "\t" + v1 + "\t" + v2 + "\t" + rowOneTotal);
+    System.out.println( "\t" + v3 + "\t" + v4 + "\t" + rowTwoTotal);
+    System.out.println( "\t" + v5 + "\t" + v6 + "\t" + rowThreeTotal);
+    System.out.println( "\t---\t---\t---");
+    System.out.println( "Total" + "\t" + columnOneTotal + "\t" + columnTwoTotal + "\t" + allInputsTotal);
     System.out.println( "\n\n" );
   }
 }
