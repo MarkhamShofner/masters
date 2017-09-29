@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package assignment4;
+import java.util.Scanner;
 
 /**
  *
@@ -15,17 +16,19 @@ public class Assignment4 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println( "\n\n\n" );
-
-        int testMonth = 9;
-//        int testDay = 15;
-        int testYear = 2017;
-        printMonthCalendar(testMonth, testYear);
-//        System.out.println(isLeapYear(testYear));
-//        System.out.println(getNumDaysInMonth(testMonth, testYear));
-        System.out.println( "\n\n\n" );
-
+        Scanner input = new Scanner (System.in);        
+        System.out.println("**PART ONE**");
+        System.out.println("Enter a month (1-12) and a year (e.g., 2012):");
+        int inputMonth = input.nextInt();
+        int inputYear = input.nextInt();
+        printMonthCalendar(inputMonth, inputYear);
+        System.out.println("\n");
+        System.out.println("**PART TWO**");
+        System.out.println("Enter a year (e.g., 2012):");
+        inputYear = input.nextInt();
+        for (int i = 1; i<=12; i++) {
+            printMonthCalendar(i, inputYear);
+        }
     }
 
     /****
@@ -73,6 +76,7 @@ public class Assignment4 {
     // Displays the header information ( month, year, line separator, 3- character day names) for a calendar.
     public static void printMonthHeader( int m, int y )
     {
+        System.out.println( "" );
         System.out.println( "      " + getMonthName(m) + "  " + y);
         System.out.println( "-----------------------------");
         System.out.println( " Sun Mon Tue Wed Thu Fri Sat ");
@@ -80,25 +84,32 @@ public class Assignment4 {
     // Displays the days in the calendar associated with the corresponding days of the week.
     public static void printMonthBody( int m, int y )
     {
-        int startDay = getStartDay(m, y, 1);
+        int startDay = getStartDay(m, 1, y);
         int dayCount = getNumDaysInMonth(m, y);        
-        int weekCounter = startDay; 
+        int weekCounter = startDay+1; 
         int monthCounter = 1;
+        String spaceHolder; 
         
-        while (monthCounter < dayCount) {
-            if (weekCounter < 8) {
-                System.out.print("  " + monthCounter + " ");
+        for (int i = 1; i < weekCounter; i++) {
+            System.out.print("    ");
+        }
+        
+        while (monthCounter <= dayCount) {
+            if (monthCounter < 10) {
+                spaceHolder = "   ";
+            } else {
+                spaceHolder = "  ";
+            }
+            if (weekCounter <= 7) {
             } else {
                 weekCounter = 1;
                 System.out.print("\n");
             }
+            System.out.print(spaceHolder + monthCounter);
             weekCounter++;
             monthCounter++;
         }
-        
-        System.out.println( "StartDate:" + startDay );
-        System.out.println( "dayCount:" + dayCount );
-        System.out.println( "------+++++++++++++++++++----");
+        System.out.println("");
     }
     // Returns the name of the month for a specified month number (e.g., returns March for m=3).
     public static String getMonthName( int m )
@@ -172,6 +183,5 @@ public class Assignment4 {
     {
         return y % 4 == 0;
     }
-    // TODO document all code and method
-    // TODO string up both programs
+    
 }
