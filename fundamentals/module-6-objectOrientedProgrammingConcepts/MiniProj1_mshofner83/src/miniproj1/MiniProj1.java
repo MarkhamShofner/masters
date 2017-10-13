@@ -15,7 +15,7 @@ public class MiniProj1 {
      */
     // Initiate an instance of the project. Run the raceController function
     public static void main( String [] args )
-    {        
+    {
         MiniProj1 miniProj1 = new MiniProj1();
         miniProj1.raceController();
     }
@@ -29,29 +29,29 @@ public class MiniProj1 {
         int chanceyPosition = 1;
         String[] tracker = raceTrack.tracker(larryPosition, chanceyPosition);
         System.out.println("AND THEY'RE OFF!!");
-        
+
         while (raceTrack.racing) {
             larryPosition = raceTrack.position(larryPosition, larry.takeTurn(randomInt()));
-            chanceyPosition = raceTrack.position(chanceyPosition, chancey.takeTurn(randomInt()));            
+            chanceyPosition = raceTrack.position(chanceyPosition, chancey.takeTurn(randomInt()));
             tracker = raceTrack.tracker(larryPosition, chanceyPosition);
             raceTrack.display(tracker);
             System.out.println("\n --------------------------------------------------");
         }
         System.out.println(raceTrack.endStatus);
     }
-    
+
     // [race]Track class that keeps track of - if the race is still going, the end condition, and the position of the raceers
     // can also display the current state of the Track
     class Track {
         boolean racing = true;
         String endStatus = "";
-        
+
         int position (int pos, int move) {
             pos = pos + move;
             if (pos < 1) pos = 1; // can’t slip any further left than position 1
             return pos;
         }
-        
+
         void display (String[] tracker) {
             for (String tracker1 : tracker) {
                 if (tracker1 != null) {
@@ -61,7 +61,7 @@ public class MiniProj1 {
                 }
             }
         }
-        
+
         String[] tracker (int tortoise, int hare) {
             String[] tracker = new String[75];
             if (tortoise == hare) {
@@ -79,7 +79,7 @@ public class MiniProj1 {
                 } else if (hare > 49) {
                     endStatus = "HARE WINS!!";
                 }
-            } 
+            }
             return tracker;
         }
     }
@@ -122,7 +122,7 @@ public class MiniProj1 {
                     move = -2;
                     break;
                 case 9: case 10:
-                    move = 0; // TODO handle the sleeping (assign a # outside the possible range)
+                    move = 0;
                     break;
                 default:
                     move = 0;
