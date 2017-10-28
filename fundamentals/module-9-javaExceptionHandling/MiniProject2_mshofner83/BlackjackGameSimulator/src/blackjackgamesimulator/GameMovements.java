@@ -9,13 +9,7 @@ package blackjackgamesimulator;
  *
  * @author mark8604
  */
-public class BlackjackGameSimulator {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
+public interface GameMovements {
+    void hit();
+    void stay();
 }
