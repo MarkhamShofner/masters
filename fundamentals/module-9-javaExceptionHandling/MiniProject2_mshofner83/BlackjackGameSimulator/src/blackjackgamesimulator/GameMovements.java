@@ -6,8 +6,8 @@
 package blackjackgamesimulator;
 
 /**
- *
- * @author mark8604
+ * This interface provides an outline for Contestant Game Movements.
+ * @author Markham Shofner
  */
 public interface GameMovements {
     void hit();

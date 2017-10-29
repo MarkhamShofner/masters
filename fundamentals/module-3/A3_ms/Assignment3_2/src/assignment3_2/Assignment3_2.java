@@ -16,7 +16,7 @@ public class Assignment3_2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Scanner input = new Scanner (System.in);        
+        Scanner input = new Scanner (System.in);
         boolean optingToPlay = true;
         // Game loop that runs at least once
         do {
@@ -54,7 +54,7 @@ public class Assignment3_2 {
             if (!success) {
                 System.out.println("You ran out of guesses D:");
             }
-            
+
             // Check if the user wants to play again
             System.out.println("Would you like to play again? Input '1' for yes, '2' for no.");
             int playChoice = input.nextInt();
@@ -69,5 +69,5 @@ public class Assignment3_2 {
             }
         } while (optingToPlay);
     }
-    
+
 }

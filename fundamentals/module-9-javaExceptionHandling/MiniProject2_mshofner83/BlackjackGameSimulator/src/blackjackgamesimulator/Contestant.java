@@ -6,8 +6,9 @@
 package blackjackgamesimulator;
 
 /**
- *
- * @author mark8604
+ * This class provides a data/logic structure for contestants in a game of blackjack.
+ * Superclass of Player and Dealer. Implements GameMovements interface.
+ * @author Markham Shofner
  */
 public class Contestant implements GameMovements{
     private int score;
@@ -18,17 +19,30 @@ public class Contestant implements GameMovements{
     Contestant () {
     }
     
+    /**
+    * Public facing getter method to provide the value of the card.
+    * @param i int that gets passed in to alter the Player's stack by a determined integer value
+    */
     public void hit () {
         hand[handLength] = new Card();
         handLength+=1; 
     }
     public void stay () {
     }
+    
+    /**
+    * Reset the Contestent's hand.
+    */
     public void generateHand () {
         hand[0] = new Card();
         hand[1] = new Card();
         this.handLength = 2;
     }
+    
+    /**
+    * Public facing getter method to provide the value of the contestant hand.
+    * @return score int
+    */
     public int getHandValue () {
         int total = 0;
         for (int i = 0; i < handLength; i++) {

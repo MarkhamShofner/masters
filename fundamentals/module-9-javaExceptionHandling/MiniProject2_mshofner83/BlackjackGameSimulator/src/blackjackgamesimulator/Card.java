@@ -6,17 +6,21 @@
 package blackjackgamesimulator;
 
 /**
- *
- * @author mark8604
+ * This class represents Cards that eventually make up the Contestant's hands.
+ * @author Markham Shofner
  */
 public class Card {
-    private int RANGE_TOP = 13;
+    private final int RANGE_TOP = 13;
     private int rank;
 
     Card () {
         rank = this.generateRank();
     }
 
+    /**
+    * Randomly generate a card value.
+    * @return cardRank int
+    */
     private int generateRank() {
         int cardValue = (int) ( RANGE_TOP * Math.random() ) + 1;
         int cardRank;
@@ -57,6 +61,10 @@ public class Card {
         return cardRank;
     }
 
+    /**
+    * Public facing getter method to provide the value of the card.
+    * @return rank int
+    */
     public int getRank() {
         return rank;
     }
