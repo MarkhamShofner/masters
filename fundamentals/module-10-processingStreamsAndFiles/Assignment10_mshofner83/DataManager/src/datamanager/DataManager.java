@@ -65,7 +65,7 @@ public class DataManager {
                 if (dataset[i].id == stateId) {
                     statePopulation += dataset[i].population;
                     stateChildPopulation += dataset[i].childPopulation;
-                    stateChildPovertyPopulation += dataset[i].childPovertyPopulation;                    
+                    stateChildPovertyPopulation += dataset[i].childPovertyPopulation;
                 } else {
                     double stateChildPovertyPopulationPercentage = 0;
                     if (stateChildPopulation != 0) {
@@ -79,14 +79,14 @@ public class DataManager {
                     stateChildPopulation = 0;
                     stateChildPovertyPopulation = 0;
                     i--;
-                    stateId++;                    
+                    stateId++;
                 }
             }
 
         } catch (IOException e) {
             System.out.println("I/O Error: " + e);
         }
-        
+
         int x = 12;
         return manipulatedData;
     };

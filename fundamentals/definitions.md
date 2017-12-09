@@ -356,3 +356,35 @@ Unified Modeling Language (UML),
   - class diagrams concisely illustrate the attributes and methods a class will have, and also the relationships between classes
   - `+` indicates public visibility, `-` indicates private visibility, `#` indicates protected visibility
   +;
+
+Module 8,
+  Polymorphism
+  - Implement abstract methods & abstract classes.
+  - Implement Interfaces.
+  - Use interfaces to implement polymorphism.
+  - Use interfaces to share constants.
+  +;
+Interface,
+  - keyword can fully abstract a class' interface from its implementation.
+  - syntactically similar to classes, but lack instance variables (do not maintain state)
+  - designed to support dynamic method resolution at run time
+  class Classname implements Interfacename
+  - when variables are declared as object references, this goes a long way towards run time polymorphism because it allows references to different interface implementations (depending on the object) with the same method calls - push() and pop() for example
+    - the method to be executed is looked up dynamically at run time, allowing classes to be created later than the code which calls methods on them. The calling code can dispatch through an interface without having to know anything about the "callee".
+  +;
+
+Module 9,
+  Java Exception Handling
+  - Explain return code processing.
+  - Explain the advantages of exception processing vs return code processing.
+  - Design effective Java exception processing and custom exception classes.
+  - Design effective throwing Java exceptions.
+  +;
+Exception,
+  - abnormal condition that arises in a code sequence at run time.
+  - a run time error.
+  +;
+Java Exception,
+  - object that describes an exceptional (error) condition that has occurred in a piece of code
+  - when an exception condition arises, an object representing that exception is created and thrown in the method that caused the error. That method may choose to handle to exception itself, or pass it on.
+  +;
