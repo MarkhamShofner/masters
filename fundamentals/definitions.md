@@ -1,7 +1,7 @@
 CPU, Central processing unit. electronic circuitry within a computer that carries out the instructions of a computer program by performing the basic arithmetic, logical, control and input/output (I/O) operations specified by the instructions. Stores temp memory in ram, permanent memory on hard drives.+;
 Machine language, a computer programming language consisting of binary or hexadecimal instructions that a computer can respond to directly. Low level languages.+;
 Compiler, is itself a computer program, reads a program written in a high-level language and translates it into an executable machine language program that a particular type of computer can understand.+;
-Source Code, any collection of computer instructions, possible with comments, written using a human-readable programming language, usually as ordinary text.+;
+Source Code, any collection of computer instructions, possibly with comments, written using a human-readable programming language, usually as ordinary text.+;
 Java Language Compilation, compiled/interpreted into bytecode, which is architecturally neutral (ie only needs to occur once, and then any type of OS can consume the output). "Write once, run everywhere." High portability.+;
 Structure of a Java Program,
 public class AllWordsCapatilized
@@ -45,15 +45,17 @@ Java Primitive types,
   - boolean
   -	Floats use an f suffix, and an upper or lowercase f can be used. Similarly, doubles may have an upper or lowercase d suffix. If a suffix is not specified for a floating point literal, Java assumes it is of type double.
 	-	Chars should be assigned with single quotes
+  +;
 Statement, smallest standalone element of an imperative programming language that expresses some action to be carried out. It is an instruction written in a high-level language that commands the computer to perform a specified action +;
 Basic Arithmetic Operators, + - * / %. Binary operators. Need 2 operands.
   - Expressions results in a single value being produced.
   - Remainders or division between integers will be dropped. Use floats or doubles for more accuracy. +;
-Automatic type conversion, java attempts to convert the result of an expression or assignment to the largest or most accurate data type. Java does not allow automatic conversion from more accurate to less accurate (ie a double cannot become a float, and a float cannot be assigned to a long). ;
+Automatic type conversion, java attempts to convert the result of an expression or assignment to the largest or most accurate data type. Java does not allow automatic conversion from more accurate to less accurate (ie a double cannot become a float, and a float cannot be assigned to a long).
+  +;
 Number Systems,
   - Decimal is base 10
   - Binary is base 2. Modern computer design is based in this system (on/off switches). [indicated in java with a leading 0b or 0B]
-  - Hexadecimal is base 16. a=10, b=11, ..., f= 15. Compacy way of representing binary digits. Indicated with 0x or 0X.
+  - Hexadecimal is base 16. a=10, b=11, ..., f= 15. Compact way of representing binary digits. Indicated with 0x or 0X.
   - Conversion from decimal to either just requires finding the largest place that can fit into the remaining value, and chopping that off. i.e. 100 = 01100100
   -	Conversion between hex and binary - split the binary into chunks of four digits and aggregate that value, or the reverse. ie 0x6|4 = 0b0110|0100
   -	Be careful with positive to negative representations. Most Significant Bit (MSB, the first bit) represents if the value is positive or negative. If the MSB is 0, the integer is positive, if 1, the integer is negative.
@@ -61,7 +63,7 @@ Number Systems,
 Java Assignment and Arithmetic operators,
   - Assignment operator moves some calculated results into a variable (=, +=, -=, etc...)
   - Arithmetic operators
-    - increment (++) and decrement (++)
+    - increment (++) and decrement (--)
     - Order of the operator wrt the variable affects the value
       -	a = 1; b = a++; // b = 1 (assigned before increase), a = 2
       -	a = 1; b = ++a; // b = 2, a = 2
@@ -86,10 +88,14 @@ Logical Operators, operate on boolean objects producing a boolean result.
 	-	? - Ternary (short circuit for if-else control statement)
 - Using parenthesis to break up boolean operand interaction helps clarify for human readers (and code writers!)
   +;
-Control Statements, If (binary execution path and control flow), Ternary (shorthand), Switch (multiple execution path control flow) +;
-If statement, two-way (binary) flow based on a condition +;
-Ternary statement, more compact way to write code and assign variables for binary flow control. +;
-Switch statement, compact way to implement multiple paths on the value of a single calculation.
+Control Statements,
+  If (binary execution path and control flow), Ternary (shorthand), Switch (multiple execution path control flow) +;
+If statement,
+  two-way (binary) flow based on a condition +;
+Ternary statement,
+  more compact way to write code and assign variables for binary flow control. +;
+Switch statement,
+  compact way to implement multiple paths on the value of a single calculation.
   - calculation results in primitive types of String
   - results must be compared against constants (which are determined at compile, not run, time)
   - break statements prevent the next case action (and all following) from being executed
@@ -307,7 +313,7 @@ Inheritance,
   - one of the cornerstones of oop because it allows the creation of hierarchical classifications
   - general superclasses can be inherited by other, more specific subclasses
   - class B extends A {}
-  - private members of A are not directly accessibly by B
+  - private members of A are not directly accessible by B
   - protected members are inherited and are directly accessible to the subclasses only
   +;
 Super,
@@ -323,7 +329,7 @@ Method overriding,
   +;
 Dynamic Method Dispatch,
   - mechanism by which a call to an overridden method is resolved at run time, rather than compile time
-  - support run-tim Polymorphism
+  - support run-time Polymorphism
   - it is the type of object being referred to that determines which version of the method will be executed
   +;
 Abstract Type Modifier,
@@ -351,6 +357,7 @@ Casting Objects,
   - objects may be cast up or down the inheritance path in an inheritance hierarchy
   - Animal anAnimal = (Animal) myDog; // casting up (or upcasting) the inheritance path.
 	 - Could also say Animal anAnimal = myDog; because a base class object can always reference a subclass object
+  +;
 Unified Modeling Language (UML),
   - standard industry diagramming notation for object-oriented software development projects
   - class diagrams concisely illustrate the attributes and methods a class will have, and also the relationships between classes
@@ -387,4 +394,177 @@ Exception,
 Java Exception,
   - object that describes an exceptional (error) condition that has occurred in a piece of code
   - when an exception condition arises, an object representing that exception is created and thrown in the method that caused the error. That method may choose to handle to exception itself, or pass it on.
+  +;
+
+Module 10,
+  Processing Streams and Files
+  - Explain what I/O streams, files, and directories are from a Java program’s context.
+  - Explain what text and binary files are from a Java program’s context.
+  - Conduct sequential reading, writing, and random access of text and binary files.
+  - Describe object serialization.
+  - Describe I/O processing design patterns.
+  +;
+Stream,
+  - an abstraction that either produces or consumes information.
+  - same I/O classes and methods can be applied to different types of devices.
+    - can abstract many different kinds of input: disk file, keyboard, network socket.
+    - similarly for outputs, could refer to a: console, disk file, or network connection
+  - two primary types, byte and character
+  +;
+Byte Stream Classes,
+  - defined by using two class hierarchies (two abstract classes at the top), InputStream and OutputSteam
+  - each abstract class has several concrete subclasses that handle the differences among various devices, such as disk files, network connections, and even memory buffers.
+  +;
+Closing a file,
+  - releases the system resources allocated to the file, allowing them to be used by another file. Failing to do so may result in "memory leaks" because of unused resources remaining unallocated.
+  - try-with-resources statements were added in JDK 7, which help solve this problem by automatically closing a file when it is no longer needed.
+  +;
+try-with-resources,
+  - resources automatically is released after the try block ends, there is no need to call close() explicitly.
+  - resource(s) declared in the try are implicitly final.
+  - can manage more than one resource by separating each declaration be a semicolon.
+  +;
+Applet,
+  - small application that is accessed on an internet server, transported over the internet, automatically installed, and run as part of a web document.
+  - as opposed to console-based applications, applets interact with the user through a GUI framework (not through console-based I/O classes)
+  +;
+instanceof,
+  - run time operator that returns a boolean comparing a specific object reference and an object type
+  +;
+I/O stream,
+  - logical entity that either produces or consumes information.
+  - linked to a physical device by the Java I/O System
+  +;
+File class,
+  - deals directly with files and the file system.
+  - does not specify how information is received from or stored in files; it describes the properties of a file itself.
+  - used to obtain or manipulate the information associated with a disk file, such as the permissions, time, date, and directory path, and to navigate subdirectory hierarchies.
+  - central resource for storing persistent and shared information.
+  +;
+Directory,
+  - file that contains a list of other files and directories
+  +;
+Stream classes,
+  - InputStream and OutputStream are designed for byte stream.
+  - Reader and Writer are designed for character streams.
+  - Constructed with a file or path, and have many methods that can be called on them (mark, reset, etc...).
+  +;
+Buffered Byte Stream,
+  - allows Java to do I/O operations on more than a byte at a time, thereby improving performance.
+  - because the buffer is available, skipping, marking, and resetting of the stream become possible.
+  +;
+FileReader,
+  - creates a Reader that you can use to read the contents of a file.
+  +;
+FileWriter,
+  - creates a Write that you can use to write to a file.
+  - Not dependent on the file already existing. Can create the file before opening it for output when the object is created.
+  +;
+List of lots of I/O Classes...,
+  - CharArrayReader
+  - CharArrayWriter
+  - Buffered Reader/Writer - improves performances
+  - PushbackReader
+  - PrintWriter
+  - Object(Output/Input)Stream - reading/writing objects to a stream
+  +;
+Object serialization,
+  - the storage and retrieval of Objects.
+  - process of writing the state of an object to a byte stream. Useful when a programmer would like to save the state of the program to a persistent storage area, such as a file.
+  - Only an object that implements the Serializable interface can be saved and restored by the serialization facilities.
+  +;
+
+Module 11,
+  Collections, Wrappers, and Generics
+  - Create wrapper classes, Java-supplied collections, and programmer-designed generic classes.
+  - Use wrapper classes, Java-supplied collections, and programmer-designed generic classes.
+  +;
+Type Wrappers,
+  - classes that encapsulate a primitive type within an object.
+  +;
+Character,
+  - wrapper around a char.
+  - to obtain the char value contained in a Character object, call charValue()
+  +;
+Boolean object,
+  - wrapper around boolean values.
+  - to obtain the boolean value within the Boolean object, call booleanValue()
+  +;
+Numeric Type Wrappers,
+  - the most commonly used type wrappers are those that represent numeric values.
+  - Byte, Short, Integer, Long, Float, and Double.
+  +;
+Autoboxing and Auto-unboxing,
+  - process by which a primitive type is automatically encapsulated (boxed) into its equivalent type wrapper whenever an object of that type is needed.
+  There is no need to explicitly construct an object, or call intValue() etc... to get the primitive type value.
+  - lots of different types of functions.
+    - toString(), intValue(), isNaN(), isInfinite(), max() etc...
+    - Integer.parseInt(str) returns an int val of that string
+  +;
+Generics,
+  - parameterized types.
+  - by using these, it is possible to create classes, interfaces, and methods that will work in a type-safe manner with various kinds of data.
+  - Can define an algorithm once, independently of any specific type of data, and then apply that algorithm to a wide variety of data types without an additional effort.
+  - class Gen<T> {}
+  +;
+Collection,
+  - group of objects.
+  - framework defines several classes, such as list and maps, that manage collections.
+  - Collection - enables you to work with groups of objects; it is at the top of the collections hierarchy. `interface Collection<E>` [E is type of objects lists will hold]
+  - List - extends Collection to handle sequences (lists of objects).
+  - Set - extends Collection to handle sets, which must contain unique elements.
+  - SortedSet - extends Set to handle sorted sets.
+  - NavigableSet - extends SortedSet to handle retrieval of elements based on closest-match searches.
+  - Queue - extends Collection to handle special types of lists in which elements are removed only from the head.
+  - Deque - extends Queue to handle a double-ended queue.
+  +;
+Collection Classes,
+  - LinkedList - implements a linked list by extending AbstractSequentialList (extends AbstractList (extends AbstractCollection(Implements most of the Collection interface) and implements most of the List interface) and implements most of the List interface) for use by a collection that uses sequential rather than random access of its elements.
+  - Hash set - Extends AbstractSet for use with a hash table. AS (Extends Abstract Collection and implements most of the set interface).
+  - TreeSet - collection that uses a tree for storage, objects are stored in sorted, ascending order. Access and retrieval times are quite fast, which makes this a good choice for storing large amounts of sorted information that must be found quickly.
+  +;
+Map Interfaces,
+  - maps unique keys to values. Key is an object that you use to retrieve a value at a later date.
+  - SortedMap - extends Map so that they keys are maintained in ascending order.
+  - NavigableMap - extends SortedMap to handle the retrieval of entries based on closest-match searches.
+Map Classes,
+  - HashMap - extends AbstractMap to use a hash table (to store the map). Allows execution time of get() and put() to remain constant even for large sets.
+  - TreeMap - extends AbstractMap to use a tree structure. Provides an efficient means of storing key/value pairs in sorted order and allows rapid retrieval.
+
+Module 12,
+  GUI Interfaces - 1
+  By the end of this module, you will be able to successfully design and implement simple but effective Java FX GUI components, including:
+  - Labels
+  - Text fields
+  - Buttons
+  - Layout managers
+  +;
+JavaFX,
+  - (one particular) client platform and GUI framework for Java.
+  - stage, defines a space, and a scene defines what goes onto that space.
+    - stage is a container for scenes and a scene is a container for the items that comprise it.
+  - individual elements of a scene are called nodes.
+  - init (), start(), stop(). only start() needs to be overwritten.
+  +;
+
+Module 13,
+  GUI Interfaces - 2
+  - Implement Java FX event handlers
+  - Implement radio buttons
+  - Implement check boxes
+  - Implement the ListView control
+  - Implement combo boxes
+  +;
+Event class,
+  - handles action events.
+  - events are processed via an event dispatch chain, passed down the chain to the target, after target node processes, the event is passed back up the chain (event bubbling).
+  - when a button is pressed, an ActionEvent is generated. You can register listeners for events by using setOnAction()
+  +;
+Types of controls,
+  - Toggle Button - two states, pushed and released. isSelected() will return true or false
+  - Radio Button - group of mutually exclusive buttons, in which only one button can be selected at any time.
+  - Check Box - group of non mutually exclusive buttons
+  - List View - displays a list of entries from which you can select one or more.
+  - Combo Box - displays one selection, but offers a dropdown of options if selecting a different item.
+  - Text Field - allows one line of text to be entered.
   +;
