@@ -10,10 +10,10 @@ package postfixexpressor;
  * @author mark8604
  */
 public class PostfixStackNode {
-    char data;
+    int data;
     PostfixStackNode next;
     
-    PostfixStackNode (char data /*, PostfixStackNode next*/) {
+    PostfixStackNode (int data /*, PostfixStackNode next*/) {
         this.data = data;
 //        next = next;
     }

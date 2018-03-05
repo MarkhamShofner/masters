@@ -24,7 +24,7 @@ public class PostfixStack {
     }
     
     // create a node based on a provided data value, then push that node onto the stack
-    public void push (char data) {
+    public void push (int data) {
         PostfixStackNode node = new PostfixStackNode(data);
         if (size == 0) {
             head = node;
@@ -46,8 +46,8 @@ public class PostfixStack {
 //    
     
     // pop top of stack
-    public char pop() {
-        char topData; 
+    public int pop() {
+        int topData; 
         if (this.head != null) {
             topData = this.head.data;
             this.head = this.head.next;
