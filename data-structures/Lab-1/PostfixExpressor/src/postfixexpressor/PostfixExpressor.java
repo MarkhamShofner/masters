@@ -5,14 +5,10 @@
  */
 package postfixexpressor;
 
-// TODOs 
-
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
-    // file input output
 
 // General plan
     // operator class
@@ -30,28 +26,101 @@ public class PostfixExpressor {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("main");
         // read the data
-        try ( FileReader fr = new FileReader("../ProvidedStrings.txt"))
-        {
+        try {
+            FileReader fr = new FileReader("../ProvidedStrings.txt"); // input file
+            FileWriter fw = new FileWriter("../OutputStrings.txt"); // output file
+
             int c;
-            while((c = fr.read()) != -1) {
-                System.out.print((char) c);
+            while ((c = fr.read()) != -1) { // read and process one character
+                if (c=='a') { // replace all occurrences of 'a' with '@'
+                    fw.write('t');
+                    System.out.println('0');
+                }
+                else { 
+                    fw.write('t');
+                    System.out.println('1');
+                }
             }
+            fw.close();
         } catch (IOException e) {
             System.out.println("I/O Error: " + e);
-        }
-        
-        
-        try ( BufferedWriter bw = new BufferedWriter (new FileWriter("../OutputStrings.txt")) )
-        {
-            bw.append("Placeholder Output Strings");
-        } catch (IOException e) {
-            System.out.println("I/O Error: " + e);
-        }
-        
+        } 
+
+        PostfixStack myPostfixStack = new PostfixStack();
+
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.push('a');
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.push('b');
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.push('c');
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.push('d');
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.push('e');
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.push('f');
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.pop();
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.pop();
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.pop();
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.pop();
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.pop();
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.pop();
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.pop();
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.pop();
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.pop();
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.pop();
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.pop();
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
+//        myPostfixStack.pop();
+//        System.out.println(myPostfixStack.head.data + "  data");
+//        System.out.println(myPostfixStack.head.next + "  next");
+//        System.out.println(myPostfixStack.isEmpty() + "  :empty?");
     }
-    
 }
-
-
