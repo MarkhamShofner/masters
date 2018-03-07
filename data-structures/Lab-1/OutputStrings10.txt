@@ -1,0 +1,3 @@
+LD 	B
+AD	C
+ST 	TEMP1
