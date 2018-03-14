@@ -368,6 +368,96 @@ Lists: Linked implementation,
   for insert, search, delete - special care needs to be taken around behavior at the front and end of the lists, as well as if there are duplicate elements (esp in the case of search)
   +;
 
+Module 6 - More on lists (then Graphs),
+  Goals:
+  - Discuss the pros and cons of each list variation, including costs, and match to applications, separately and in combination.
+  - Implement each access restriction type and list variation using the hybrid implementation. Discuss the impact on costs.
+  - Categorize and label graphs accurately using basic graph terminology.
+  +;
+Doubly-linked list,
+  A doubly-linked list is a data structure for implementing a list ADT, where each node has data, a pointer to the next node, and a pointer to the previous node. The list structure typically points to the first node and the last node. The doubly-linked list's first node is called the head, and the last node the tail.
+  +;
+Multi-linked list,
+  useful to follow more than one kind of path through the data. Could track towards to pointers (maybe a horizontal and a vertical one)
+  +;
+Hybrid-implementation,
+  ex - two stacks coming from either end of an array towards the middle.
+  Idea is to generalize the solution, support the concept of multiple data structures sharing the same space.
+  another ex - could have a series of linked lists stored in an array. first piece is value, second piece is pointer to index of the next value.
+  +;
+Structures Summary,
+  List Type,
+    - General List
+      - sorted
+      - unsorted
+    - Stack
+    - Queue
+      - Priority Queue
+    - Deque
+    - Other Access Restricted structures
+    - Tree
+  Implementations,
+    - Array based
+      - traditional
+      - using Marked deletes
+    - Linked (references)
+      - Header
+      - Circular
+      - Doubly-linked
+      - Multiply-linked
+    - Hybrid
+  Methods
+    - insert
+    - delete
+    - search
+    - copy
+    - print
+    - peek
+    - etc...
+  +;
+Graph,
+  data structure for representing connections among items, and consists of vertices connected by edges.
+  - A vertex (or node) represents an item in a graph.
+  - An edge represents a connection between two vertices in a graph.
+  - Two vertices are adjacent if connected by an edge.
+  - A path is a sequence of edges leading from a source (starting) vertex to a destination (ending) vertex. The path length is the number of edges in the path.
+  - The distance between two vertices is the number of edges on the shortest path between those vertices.
+  +;
+Sparse graph,
+  graph with far fewer edges than the maximum possible. Many graphs are sparse, like those representing a computer network, flights between cities, or friendships among people (every person isn't friends with every other person). Thus, the adjacency list graph representation is very common.
+directed graph - or digraph,
+  consists of vertices connected by directed edges. A directed edge is a connection between a starting vertex and a terminating vertex. In a directed graph, a vertex Y is adjacent to a vertex X, if there is an edge from X to Y.
+  +;
+(graph) path,
+  sequence of directed edges leading from a source (starting) vertex to a destination (ending) vertex.
+  +;
+(graph) cycle,
+  path that starts and ends at the same vertex. A directed graph is cyclic if the graph contains a cycle, and acyclic if the graph does not contain a cycle.
+  +;
+weighted graph,
+  associates a weight with each edge. A graph edge's weight, or cost, represents some numerical value between vertex items, such as flight cost between airports, connection speed between computers, or travel time between cities. A weighted graph may be directed or undirected.
+  +;
+Basic Graph Theory,
+  Context for follow-on material on binary trees.
+  Pictoral way to represent information. Modeling tool.
+  +;
+Graph definition,
+  G=(V,E), an ordered pair, where V is a set of vertices (nodes), & E is a set of edges on the vertices.
+  V is not empty. E may be empty.
+  +;
+Degree of a vertex,
+  - number of incident (describes the relationship between an edge and a vertex) edges
+  - if a directed graph, can do (in, out) ordered pair of edges wrt a specific node
+  +;
+Sink,
+  when a vertex has an out-degree of 0
+  +;
+Source,
+  in-degree zero and positive out-degree
+  +;
+Regular graph,
+  If the degree of each vertex is the same
+  +;
 
 
 
@@ -380,13 +470,4 @@ Lists: Linked implementation,
 
 
 
-
-
-
-
-
-
-
-
-
-    a
+  +;

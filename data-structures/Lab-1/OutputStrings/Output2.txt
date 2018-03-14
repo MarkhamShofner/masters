@@ -1,6 +1,8 @@
+input: ABC+-
+-------------
 LD 	B
 AD	C
 ST 	TEMP1
-LD 	TEMP23
+LD 	A
 SB	TEMP1
 ST 	TEMP2

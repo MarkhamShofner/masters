@@ -1,5 +1,7 @@
-LD 	TEMP23
-DV	TEMP23
+input: A/CBA+-/
+-------------
+LD 	A
+DV	A
 ST 	TEMP1
 LD 	B
 AD	A

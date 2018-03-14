@@ -1,6 +1,8 @@
+input: AEF*-
+-------------
 LD 	E
 ML	F
 ST 	TEMP1
-LD 	TEMP23
+LD 	A
 SB	TEMP1
 ST 	TEMP2

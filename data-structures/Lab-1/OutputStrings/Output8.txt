@@ -1,7 +1,9 @@
-LD 	TEMP23
+input: AB-*CBA+-*
+-------------
+LD 	A
 SB	B
 ST 	TEMP1
-LD 	TEMP23
+LD 	A
 ML	TEMP1
 ST 	TEMP2
 LD 	B

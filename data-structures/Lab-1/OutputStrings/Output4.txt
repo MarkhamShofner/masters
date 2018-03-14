@@ -1,0 +1,9 @@
+input: AABCDE-+
+-------------
+LD 	D
+SB	E
+ST 	TEMP1
+LD 	C
+AD	TEMP1
+ST 	TEMP2
+java.lang.Exception: This character is not in the acceptable range

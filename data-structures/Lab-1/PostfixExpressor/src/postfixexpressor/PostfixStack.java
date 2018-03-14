@@ -7,15 +7,16 @@ package postfixexpressor;
 
 /**
  * A list of items with a reference for the top of the stack, initialized to empty
- * @author mark8604
+ * @author Markham Shofner
  */
 public class PostfixStack {
     // pointer to the top of the stack    
-    /*private*/ public PostfixStackNode head; // = null;
+    public PostfixStackNode head;
     
     // stack size
     private int size; // = 0;
 
+    // construct the stack
     PostfixStack () {
         this.head = null;
         this.size = 0;
@@ -41,11 +42,12 @@ public class PostfixStack {
             this.head = this.head.next;
             this.size--;
         } else {
-            topData = 'z'; // dummy value
+            topData = 'A'; // dummy value
         }
         return topData;
     }
     
+    // check to see if the stack is empty
     public boolean isEmpty () {
         return this.size<1;
     }

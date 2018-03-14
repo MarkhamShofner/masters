@@ -1,0 +1,15 @@
+input: AB-C+DEF-+
+-------------
+LD 	A
+SB	B
+ST 	TEMP1
+LD 	TEMP1
+AD	C
+ST 	TEMP2
+LD 	E
+SB	F
+ST 	TEMP3
+LD 	D
+AD	TEMP3
+ST 	TEMP4
+java.lang.Exception: This character is not in the acceptable range

@@ -1,9 +1,11 @@
+input: ABA-+*
+-------------
 LD 	B
 SB	A
 ST 	TEMP1
-LD 	TEMP23
+LD 	A
 AD	TEMP1
 ST 	TEMP2
-LD 	TEMP23
+LD 	A
 ML	TEMP2
 ST 	TEMP3

@@ -1,0 +1,17 @@
+input: ABC+*CBA-+*
+-------------
+LD 	B
+AD	C
+ST 	TEMP1
+LD 	A
+ML	TEMP1
+ST 	TEMP2
+LD 	B
+SB	A
+ST 	TEMP3
+LD 	C
+AD	TEMP3
+ST 	TEMP4
+LD 	TEMP2
+ML	TEMP4
+ST 	TEMP5

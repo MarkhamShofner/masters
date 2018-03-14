@@ -1,3 +1,5 @@
+input: AB+C-
+-------------
 LD 	A
 AD	B
 ST 	TEMP1

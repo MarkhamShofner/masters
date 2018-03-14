@@ -1,0 +1,3 @@
+input: AB
+-------------
+java.lang.Exception: This character is not in the acceptable range

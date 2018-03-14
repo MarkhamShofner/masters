@@ -1,6 +1,0 @@
-LD 	D
-SB	E
-ST 	TEMP1
-LD 	C
-AD	TEMP1
-ST 	TEMP2
