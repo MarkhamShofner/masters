@@ -459,6 +459,139 @@ Regular graph,
   If the degree of each vertex is the same
   +;
 
+Module 6 - Trees,
+  Goals:
+    Define an m-ary tree in terms of an underlying graph.
+    Restrict an m-ary tree into a rooted tree.
+    Build a general tree using a random list of data.
+    Define and build a heap using an example data set.
+    Define and implement priority queues
+    Implement a tree using both array based and linked implementations
+    Define a Binary Tree recursively.
+    Specify the three traversal orders and generate the traversal orders on example trees.
+    Define and implement threaded trees.  
+    Appreciate Binary-op trees as an application of Binary trees and tying in earlier material from Stacks.
+    Build a balanced tree using a sorted list of data, then compare and contrast with the balanced trees built earlier.
+    Define the search tree characteristic
+    Perform basic insertions and deletions on search trees, explaining why the rational behind the traditional strategy.
+    +;
+Binary trees,
+  - each node has up to two children, known as a left child and a right child.
+  - Leaf: A tree node with no children.
+  - Internal node: A node with at least one child.
+  - Parent: A node with a child is said to be that child's parent. A node's ancestors include the node's parent, the parent's parent, etc., up to the tree's root.
+  - Root: The one tree node with no parent (the "top" node).
+
+  - edge: the link from a node to a child.
+  - depth: the number of edges on the path from the root to the node. The root node thus has depth 0.
+  - level: all nodes with the same depth form a tree level.
+  - height: the largest depth of any node. A tree with just one node has height 0.
+  +;
+Types of binary trees,
+  - A binary tree is full if every node contains 0 or 2 children.
+  - A binary tree is complete if all levels, except possibly the last level, are completely full and all nodes in the last level are as far left as possible.
+  - A binary tree is perfect, if all internal nodes have 2 children and all leaf nodes are at the same level.
+Minimum spanning tree,
+  Subset of the graph's edges that connect all vertices in the graph together with the minimum sum of edge weights. The graph must be weighted and connected. A connected graph contains a path between every pair of vertices.
+  +;
+Kruskal's minimum spanning tree algorithm,
+  determines subset of the graph's edges that connect all vertices in an undirected graph with the minimum sum of edge weights. Kruskal's minimum spanning tree algorithm uses 3 collections:
+  - An edge list initialized with all edges in the graph.
+  - A collection of vertex sets that represent the subsets of vertices connected by current set of edges in the minimum spanning tree. Initially, the vertex sets consists of one set for each vertex.
+  - A set of edges forming the resulting minimum spanning tree.
+  +;
+Max-heap,
+  binary tree that maintains the simple property that a node's key is greater than or equal to the node's childrens' keys. (Actually, a max-heap may be any tree, but is commonly a binary tree). Because x ≥ y and y ≥ z implies x ≥ z, the property results in a node's key being greater than or equal to all the node's descendants' keys. Therefore, a max-heap's root always has the maximum key in the entire tree.
+  +;
+insert: max-heap,
+  starts by inserting the node in the tree's last level, and then swapping the node with its parent until no max-heap property violation occurs. Inserts fill a level (left-to-right) before adding another level, so the tree's height is always the minimum possible. The upward movement of a node in a max-heap is sometime called percolating.
++;
+remove: max-heap,
+  always a removal of the root, and is done by replacing the root with the last level's last node, and swapping that node with its greatest child until no max-heap property violation occurs. Because upon completion that node will occupy another node's location (which was swapped upwards), the tree height remains the minimum possible.
+  +;
+min-heap,
+  similar to a max-heap, but a node's key is less than or equal to its children's keys.
+  +;
+Heaps,
+  Heaps are typically stored using arrays. Given a tree representation of a heap, the heap's array form is produced by traversing the tree's levels from left to right and top to bottom. The root node is always the entry at index 0 in the array, the root's left child is the entry at index 1, the root's right child is the entry at index 2, and so on.
+  +;
+General tree,
+  A (general) tree T=(V,E') is defined on graph G=(V,E)
+  Where E' is a subset of the original set of edges (E)
+  If the size of V = n, then |E'| = n - 1.
+  Note: T is connected and acyclic.
+  +;
+Rooted tree,
+  in-degree will always be 1 in a rooted tree, so when talking about degree we are talking about out-degree (#of child vertices)
+  +;
+Ancestor/Descendant,
+  Nodes in the same lineage but separated by more than one level (as you should call that parent/child).
+  +;
+M-ary tree,
+  rooted tree, with m or fewer children per vertex.
+  m describes the maximum (out) degree of the tree
+  +;
+Regular m-ary tree,
+  Every node that has children has to have the same number of children (o or m).
+  +;
+Complete m-ary tree,
+  regular and has all the leaves at same level k (which is the height)
+  +;
+Almost complete tree,
+  Allow missing a few nodes from the right hand end on the bottom level.
+  +;
+Binary Tree ADT,
+  Constructor - initialize empty tree
+  MakeTree - create tree containing 1 value as root with no children
+  SetLeft - attach value as left child
+  SetRight - attach value as right child
+  Display Tree - optional
+  TraverseTree - move through tree in orderly fashion
+  SearchTree - look for a specified value
+  DeleteNode - deletes specified node
+  Data section:
+    - reference to tree (root)
+    - NumNodes // optional
+    - Height // optional
+    - Actual data
+  +;
+Sequential Array Binary Tree representation,
+  works well if the tree is complete or almost complete (so that a lot of space is not wasted in allocating space for the complete version of the array)
+  +;
+Linked Binary Tree representation,
+  dynamic allocation
+  node specified as for doubly linked lists, except for child nodes. |left|data|right|
+  +;
+Recursive Binary Trees,
+  A tree is a collection of three things
+    - root
+    - left subtree (LST)
+    - right subtree (RST)
+  Traversal
+    - Pre-order traversal (ROOT LST RST), visit root, traverse left, traverse right
+    - In-order traversal (LST ROOT RST)
+    - Post-order traversal (LST RST ROOT)
+  +;
+Parent pointers,
+  can also keep track of an additional piece of data in each node (the parent), effectively making the structure a doubly linked list
+  +;
+Threaded trees,
+  - A binary tree is made threaded by making all right child pointers that would normally be NULL point to the in-order successor of the node (if it exists).
+  - eliminates some of the redundancy of recursive traversals
+  +;
+Binary op-trees,
+  - heterogeneous binary trees with operands as the leaves and operators as non-leaves.
+  - operator with least precedence is the root of the tree
+  +;
+Binary Search Trees,
+  - "Search Tree" characteristic defines that everything in the LST is <= the root of the subtree. And everything in the RST is >= the root of the subtree.
+  - recursive characteristic
+  - an in-order traversal will yield the values in a sorted order
+  +;
+
+
+
+
 
 
 
