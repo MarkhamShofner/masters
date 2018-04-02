@@ -281,7 +281,7 @@ Towers of Hanoi,
   - Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack.
   - No disk may be placed on top of a smaller disk.
   Goal: move the stack from one of the three posts to a separate post.
-  The minimal number of moves required to solve a Tower of Hanoi puzzle is 2n − 1, where n is the number of disks.
+  The minimal number of moves required to solve a Tower of Hanoi puzzle is 2^n − 1, where n is the number of disks.
   +;
 Issues with recursion,
   - can be inefficient, redundant, and resource hogging
