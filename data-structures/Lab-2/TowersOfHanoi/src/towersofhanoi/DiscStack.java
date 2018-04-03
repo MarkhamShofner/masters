@@ -83,16 +83,9 @@ public class DiscStack {
         return topData;
     }
 
+    // check if the head of the stack is larger than the disc attempting to be placed
+    // didn't end up needing this function but leaving it in for potential future expansion
     public boolean isPlaceable (int n) {
         return this.head.data > n;
     }    
-    
-    // set up three separate stacks
-        // stack should track the number of discs it has
-        // isEmpty
-        // disc size of top
-        // pop
-        // push
-    
-    // flesh out the rest of the interface
 }
