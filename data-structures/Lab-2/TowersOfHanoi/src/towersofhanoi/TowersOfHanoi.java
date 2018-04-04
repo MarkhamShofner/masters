@@ -19,15 +19,12 @@ public class TowersOfHanoi {
     /**
      * set up # of discs, name of output file, and whether to solve to problem
      * recursively or iteratively
-     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         System.out.println("-------------Start Of Main Method-------------");
         String solvingMethod = args[0];
         int n = Integer.parseInt(args[1]);
-        n = 4;
-        solvingMethod = "i";
         String fn;
         if (args.length < 3) {
             fn = "moves";
@@ -64,8 +61,10 @@ public class TowersOfHanoi {
         try (FileWriter fw = new FileWriter("../OutputMoves/" + fileName + ".txt")) {
             startTime = System.nanoTime();
             if (solvingMethod.equals("r")) {
+                fw.write("Recursively solving the Towers of Hanoi problem.\n-------------------------\n");
                 moveStackRecursively(stackA, stackB, stackC, stackA.size, fw);
             } else if (solvingMethod.equals("i")) {
+                fw.write("Iteratively solving the Towers of Hanoi problem.\n-------------------------\n");
                 moveStackIteratively(stackA, stackB, stackC, stackA.size, fw);
             }
             endTime = System.nanoTime();
@@ -83,7 +82,6 @@ public class TowersOfHanoi {
     public static void moveStackRecursively(DiscStack giveStack, DiscStack receiveStack, DiscStack otherStack, int n, FileWriter fw) {
         try {
             if (n == 0) { // base case where the initial stack somehow empty
-                // throw some sort of error
                 throw new java.lang.RuntimeException("Unreachable base case reached");
             } else if (n == 1) { // base case where there is one disc left
                 fw.write("Move disc " + n + " from tower " + giveStack.name + " to tower " + receiveStack.name + "\n");
@@ -102,21 +100,15 @@ public class TowersOfHanoi {
         }
     }
 
+    
+    // iteratively solve the problem
+    // accepts three stacks, a file writer, and an initial number of discs
     public static void moveStackIteratively(DiscStack giveStack, DiscStack receiveStack, DiscStack otherStack, int n, FileWriter fw) {
         try {
             double i = Math.pow(2, n) - 1;
             double j = 1;
             boolean useSmallestDisc = true;
             int flipDestination = 1;
-
-            DiscStack[] stackOrderArray = new DiscStack[3];
-            stackOrderArray[0] = giveStack;
-            stackOrderArray[1] = receiveStack;
-            stackOrderArray[2] = otherStack;
-
-            DiscStack A = giveStack;
-            DiscStack B = receiveStack;
-            DiscStack C = otherStack;
             DiscStack tempStack = new DiscStack("temp");
 
             while (j <= i) {
@@ -124,54 +116,27 @@ public class TowersOfHanoi {
                         System.out.print("pre " + giveStack.name);
                         System.out.print(receiveStack.name);
                         System.out.println(otherStack.name);
-                    // find where
                     if ((giveStack.head != null) && (giveStack.head.data == 1)) {
-                        System.out.println("in the smallest disc giveStack");
-                    } 
-    //                else if (receiveStack.head.data == 1) {
-    //                    System.out.println("in the smallest disc receiveStack");
-    //                    tempStack = giveStack;
-    //                    giveStack = receiveStack;
-    //                    receiveStack = otherStack;
-    //                    otherStack = tempStack;
-    //                } 
-                    else {
-                        System.out.println("in the smallest disc auxStack");
+                    } else {
                         tempStack = giveStack;
                         giveStack = otherStack;
                         otherStack = tempStack;
                     }
-
                     if (flipDestination % 3 == 0) {
                         tempStack = otherStack;
                         otherStack = receiveStack;
                         receiveStack = tempStack;
                     }
-
-                        System.out.print("post " + giveStack.name);
-                        System.out.print(receiveStack.name);
-                        System.out.println(otherStack.name);
-
-                    System.out.println(giveStack.head.data + " <smallest> from " + giveStack.name + " to " + receiveStack.name);
+                    System.out.println("Move disc " + giveStack.head.data + " from tower " + giveStack.name + " to tower " + receiveStack.name);
                     fw.write("Move disc " + giveStack.head.data + " from tower " + giveStack.name + " to tower " + receiveStack.name + "\n");
                     receiveStack.push(giveStack.pop());
 
                     flipDestination++;
                 } else {
-                        System.out.print("pre " + giveStack.name);
-                        System.out.print(receiveStack.name);
-                        System.out.println(otherStack.name);
-                    // find the next smallest top of stack
-                    //            if 
-    //                if ((otherStack.head != null) && (giveStack.head.data > otherStack.head.data)) {
-    //                    if (giveStack.head.data > otherStack.head.data) {
-    //                        tempStack = giveStack;
-    //                        giveStack = otherStack;
-    //                        otherStack = tempStack;
-    //                    }
-    //                }
+                    System.out.print("pre " + giveStack.name);
+                    System.out.print(receiveStack.name);
+                    System.out.println(otherStack.name);
                     if (giveStack.head == null) {
-                        System.out.println("givestackNULL---------------------------------");
                         tempStack = giveStack;
                         giveStack = otherStack;
                         otherStack = tempStack;
@@ -179,127 +144,16 @@ public class TowersOfHanoi {
                     tempStack = otherStack;
                     otherStack = receiveStack;
                     receiveStack = tempStack;
-
-                                        System.out.print("post " + giveStack.name);
-                        System.out.print(receiveStack.name);
-                        System.out.println(otherStack.name);
-
-                    System.out.println(giveStack.head.data + " <2ndsmallest> from " + giveStack.name + " to " + receiveStack.name);
-                    giveStack.head.destinationStack = receiveStack.name;
+                    System.out.println("Move disc " + giveStack.head.data + " from tower " + giveStack.name + " to tower " + receiveStack.name);
                     fw.write("Move disc " + giveStack.head.data + " from tower " + giveStack.name + " to tower " + receiveStack.name + "\n");
                     receiveStack.push(giveStack.pop());
                 }
-
                 // alternate between smallest and next smallest 
                 useSmallestDisc = !useSmallestDisc;
                 j++;
             }
         } catch (IOException e) {
             System.out.println("I/O Error: " + e);
-        }
-    }
-
-    // iteratively solve the problem
-    public static void mMoveStackIteratively(DiscStack giveStack, DiscStack receiveStack, DiscStack otherStack, int n, FileWriter fw) {
-        double i = Math.pow(2, n) - 1;
-        double j = 1;
-        System.out.println("i: " + i);
-        System.out.println("n: " + n);
-
-        DiscStack tempStack = new DiscStack("temp");
-        while (j <= i) {
-            if (j % 2 == 1) {
-                if (receiveStack.head.data == 1) {
-                    tempStack = giveStack;
-                    giveStack = receiveStack;
-//                    receiveStack = tempStack.head.destinationStack;
-                }
-                System.out.println(giveStack.head);
-                if (giveStack.head.destinationStack.equals(receiveStack.name)) {
-
-                } else if (giveStack.head.destinationStack == otherStack.name) {
-                    tempStack = receiveStack;
-                    receiveStack = otherStack;
-                    otherStack = receiveStack;
-                }
-
-                System.out.println(giveStack.head.data + " <1> from " + giveStack.name + " to " + receiveStack.name);
-                receiveStack.push(giveStack.pop());
-            } else {
-                if (giveStack.head.data % 2 == 1) { // if the disc is odd
-                    //        moveStackRecursively(giveStack, otherStack, receiveStack, n-1, fw);
-                    //                System.out.println(giveStack.head.data + " " + giveStack.name);
-                    System.out.println("j:" + j);
-                    System.out.println(giveStack.head.data + " from " + giveStack.name + " to " + receiveStack.name);
-                    //                String tempPrevious = giveStack.head.previousStack;
-
-                    if (giveStack.head.destinationStack == receiveStack.name) {
-
-                    } else if (giveStack.head.destinationStack == otherStack.name) {
-                        tempStack = receiveStack;
-                        receiveStack = otherStack;
-                        otherStack = receiveStack;
-                    }
-
-                    giveStack.head.destinationStack = receiveStack.name;
-                    //                giveStack.head.previousStack = giveStack.head.destinationStack;
-                    System.out.println(giveStack.head.data + " <2a> from " + giveStack.name + " to " + receiveStack.name);
-                    receiveStack.push(giveStack.pop());
-                    //                tempStack = otherStack;
-                    //                otherStack = receiveStack;
-                    //                receiveStack = tempStack;
-                } else {
-                    //                            moveStackRecursively(otherStack, receiveStack, giveStack, n-1, fw);
-                    //                if (giveStack.isEmpty()) {
-                    //                    tempStack = giveStack;
-                    //                    giveStack = otherStack;
-                    //                    otherStack = tempStack;
-                    //                }
-                    tempStack = otherStack;
-                    otherStack = receiveStack;
-                    receiveStack = tempStack;
-
-                    //                System.out.println(giveStack.head.data + " " + giveStack.name);
-                    System.out.println("j:" + j);
-                    System.out.println(giveStack.head.data + " <2b> from " + giveStack.name + " to " + receiveStack.name);
-                    receiveStack.push(giveStack.pop());
-
-                    //                tempStack = otherStack;
-                    //                otherStack = receiveStack;
-                    //                receiveStack = tempStack;
-                    //                if (receiveStack.head.data > otherStack.head.data) {
-                    //                    tempStack = giveStack;
-                    //                    giveStack = otherStack;
-                    //                    otherStack = tempStack;
-                    //                } 
-                }
-            }
-//                else {
-//                }
-
-//                if (j % 3 == 1) {
-//                    System.out.println(giveStack.head.data + " from " + giveStack.name + " to " + receiveStack.name);
-//                    receiveStack.push(giveStack.pop());
-//                    tempStack = otherStack;
-//                    otherStack = receiveStack;
-//                    receiveStack = tempStack;
-//                } else if (j % 3 == 2) {
-//                                   System.out.println(giveStack.head.data + " from " + giveStack.name + " to " + receiveStack.name);
-//                    receiveStack.push(giveStack.pop());
-//                    tempStack = giveStack;
-//                    giveStack = otherStack;
-//                    otherStack = tempStack;
-//          
-//                } else if (j % 3 == 0) {
-//                                    System.out.println(giveStack.head.data + " from " + giveStack.name + " to " + receiveStack.name);
-//                    receiveStack.push(giveStack.pop());
-//                    tempStack = giveStack;
-//                    giveStack = otherStack;
-//                    otherStack = receiveStack;
-//                    receiveStack = tempStack;
-//                }
-//             
-            j++;
         }
     }
 }
