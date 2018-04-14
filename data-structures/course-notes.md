@@ -589,17 +589,93 @@ Binary Search Trees,
   - an in-order traversal will yield the values in a sorted order
   +;
 
+Module 9 - Huffman Encoding and Sorting,
+  Goals:
+    - Given an alphabet, a set of protocols, and a frequency table, construct a Huffman Encoded Tree. Code and decode example messages.
+    - Discuss the viability of using Huffman Encoding as a compression technique.
+    - Discuss the costs of Huffman Encoding, as a function of various possible implementations.
+    - Enumerate at least 10 factors that need to be considered in selecting a sort.
+    - Discuss the pros and cons, including costs, of each of the standard sorting strategies. Consider best, average, and worst cases, and implementation and application needs, where appropriate.
+    - Apply material on List Structures (Modules 2,4, and 6) to the discussion.
+  +;
+Quicksort,
+  - sorting algorithm that repeatedly partitions the input into low and high parts (each part unsorted), and then recursively sorts each of those parts. To partition the input, quicksort chooses a pivot to divide the data into low and high parts. The _pivot_ can be any value within the array being sorted, commonly the value of the middle array element.
+  - quicksort algorithm's runtime is typically O(N log N). Quicksort has several partitioning levels , the first level dividing the input into 2 parts, the second into 4 parts, the third into 8 parts, etc. At each level, the algorithm does at most N comparisons moving the l and h indices. If the pivot yields two equal-sized parts, then there will be log N levels, requiring the N * log N comparisons.
+  +;
+Huffman Encoding,
+  - application of binary trees
+  - useful for data compression. can require fewer bits to represent information.
+  - ciphers
+  - sometimes substitution codes can be decoded via frequency analysis. huffman encoding cannot be decoded in this fashion.
+  - binary code
+  - more frequently used letters get shorter codes
+  - less frequently used letters get longer codes
+  +;
+Sorting Terminology,
+  - Record: unit or piece of data. (what gets sorted)
+  - File: collection of records
+  - Key: identifier, searchable. Primary (unique identifier, SSN). Secondary (not necessarily unique, address).
+  - External Key: outside the record.
+  - External vs. Internal Sorting
+    - internal sorting can occur when the amount of data is small enough that the sort can be handled in main memory
+    - external is when the files are too large. can chunk parts of the file and sort and merge in pieces.
+  +;
+Sort Types,
+  Exchange Sorts
+    - Bubble Sorts
+      - simple, inefficient
+      - good for small data files because it needs to be done in an array
+      - simple double nested for-loop
+      - pattern: compare across 2 indeces at a time (increasing as you go 1 v 2, 2 v 3 etc..) with swaps in between if needed to have the higher value be the higher index. _bubbling_ up the higher values. repeat the process until sorted.
+        - # of comparisons stays constant, # of exchanges goes down with each sort.
+        - BUT we can start to ignore the last index of each progressive comparison (since the top value will bubble up), which will reduce the # of comparisons by one at each level
+        - can also improve by having a test flag to check the # of exchanges, which if it ever reaches 0 can exit the sort (say the list happens to be sorted with 4 or 5 cycles left)
+      - cost:
+        - If just counting the comparisons, we are quadratic. (n(n+1))/2.
+          - If also counting the exchanges, we are still quadratic but with different modifiers. n(n+1).
+        - Not well suited for reverse order files, as every exchange / comparison will occur. In order files are great, would give linear performance.
+    - Quick Sort
+      - quite efficient. comes close to the 'all occasion' sort
+      - primarily recursive
+      - select a pivot, partition, repeat on partitions until sorted
+      - many ways to partition / select pivot
+      - sometimes pivots are selected arbitrarily (beginning, middle, etc...), and sometimes picking the middle makes the most sense if the file happens to be sorted.
+        - could also do something like check beginning/middle/end and pick the median. leads to O(nlogn) performance for all data orders.
+        - could also select the mean of all values in the file. MeanSort. O(n) to get the average. then O(nlogn)
+          - may also not be a value in the file.
+      - cost:
+        - n(k) or n log n. simplified way to look at cost all the way down if assuming fairly even splits. (1x2^k)+(2x2^[k-1]+...+(Nx2^0)).
+  Selection Sorts
+    - Simple Selection Sort
+    - Binary Tree Sort
+    - Simple BT Sort
+    - HeapSort
+    - Quadratic Selection Sort
+  Insertion Sorts
+    - Simple Insertion Sort
+    - Shell Sort
+  Merge Sorts
+    - Straight Merge
+    - Natural Merge
+  Radix Sorts
 
-
-
-
-
-
-
-
-
-
-
+  +;
+Module 10: Sorting and Searching Sorted Data,
+  Goals:
+  - Enumerate at least 10 factors that need to be considered in selecting a sort.
+  - Discuss the pros and costs, including costs, of each of the standard sorting strategies. Consider best, average, and worst cases, and implementation and application needs, where appropriate.
+  - Identify sorts that optimize a simpler strategy. Name the underlying, simpler sorting strategy and explain what aspects of the sort are leveraged.
+  - Evaluate multiple sort strategies and recommend an appropriate sort for a specified example application. Justify your recommendation based on the strengths and weaknesses of the selected sort and the correspondence to the strengths and weaknesses of the application.
+  - Enumerate at least 10 factors that need to be considered in selecting a search strategy.
+  - Distinguish between searches based on sorted data and those based on other ordering schemes. Give examples of applications appropriate for each type.
+  - Distinguish search trees from ordinary m-ary trees.
+  +;
+Selection sort,
+  - sorting algorithm that treats the input as two parts, a sorted part and an unsorted part, and repeatedly selects the proper next value to move from the unsorted part to the end of the sorted part.
+  +;
+Insertion sort,
+  - sorting algorithm that treats the input as two parts, a sorted part and an unsorted part, and repeatedly inserts the next value from the unsorted part into the correct location in the sorted part.
+  +;
 
 
 
