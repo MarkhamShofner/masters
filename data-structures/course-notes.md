@@ -589,13 +589,156 @@ Binary Search Trees,
   - an in-order traversal will yield the values in a sorted order
   +;
 
-
-
-
-
-
-
-
+Module 9 - Huffman Encoding and Sorting,
+  Goals:
+    - Given an alphabet, a set of protocols, and a frequency table, construct a Huffman Encoded Tree. Code and decode example messages.
+    - Discuss the viability of using Huffman Encoding as a compression technique.
+    - Discuss the costs of Huffman Encoding, as a function of various possible implementations.
+    - Enumerate at least 10 factors that need to be considered in selecting a sort.
+    - Discuss the pros and cons, including costs, of each of the standard sorting strategies. Consider best, average, and worst cases, and implementation and application needs, where appropriate.
+    - Apply material on List Structures (Modules 2,4, and 6) to the discussion.
+  +;
+Quicksort,
+  - sorting algorithm that repeatedly partitions the input into low and high parts (each part unsorted), and then recursively sorts each of those parts. To partition the input, quicksort chooses a pivot to divide the data into low and high parts. The _pivot_ can be any value within the array being sorted, commonly the value of the middle array element.
+  - quicksort algorithm's runtime is typically O(N log N). Quicksort has several partitioning levels , the first level dividing the input into 2 parts, the second into 4 parts, the third into 8 parts, etc. At each level, the algorithm does at most N comparisons moving the l and h indices. If the pivot yields two equal-sized parts, then there will be log N levels, requiring the N * log N comparisons.
+  +;
+Huffman Encoding,
+  - application of binary trees
+  - useful for data compression. can require fewer bits to represent information.
+  - ciphers
+  - sometimes substitution codes can be decoded via frequency analysis. huffman encoding cannot be decoded in this fashion.
+  - binary code
+  - more frequently used letters get shorter codes
+  - less frequently used letters get longer codes
+  +;
+Sorting Terminology,
+  - Record: unit or piece of data. (what gets sorted)
+  - File: collection of records
+  - Key: identifier, searchable. Primary (unique identifier, SSN). Secondary (not necessarily unique, address).
+  - External Key: outside the record.
+  - External vs. Internal Sorting
+    - internal sorting can occur when the amount of data is small enough that the sort can be handled in main memory
+    - external is when the files are too large. can chunk parts of the file and sort and merge in pieces.
+  +;
+Sort Types,
+  Exchange Sorts
+    - Bubble Sorts
+      - simple, inefficient
+      - good for small data files because it needs to be done in an array
+      - simple double nested for-loop
+      - pattern: compare across 2 indeces at a time (increasing as you go 1 v 2, 2 v 3 etc..) with swaps in between if needed to have the higher value be the higher index. _bubbling_ up the higher values. repeat the process until sorted.
+        - # of comparisons stays constant, # of exchanges goes down with each sort.
+        - BUT we can start to ignore the last index of each progressive comparison (since the top value will bubble up), which will reduce the # of comparisons by one at each level
+        - can also improve by having a test flag to check the # of exchanges, which if it ever reaches 0 can exit the sort (say the list happens to be sorted with 4 or 5 cycles left)
+      - cost:
+        - If just counting the comparisons, we are quadratic. (n(n+1))/2.
+          - If also counting the exchanges, we are still quadratic but with different modifiers. n(n+1).
+        - Not well suited for reverse order files, as every exchange / comparison will occur. In order files are great, would give linear performance.
+    - Quick Sort
+      - quite efficient. comes close to the 'all occasion' sort
+      - primarily recursive
+      - select a pivot, partition, repeat on partitions until sorted
+      - many ways to partition / select pivot
+      - sometimes pivots are selected arbitrarily (beginning, middle, etc...), and sometimes picking the middle makes the most sense if the file happens to be sorted.
+        - could also do something like check beginning/middle/end and pick the median. leads to O(nlogn) performance for all data orders.
+        - could also select the mean of all values in the file. MeanSort. O(n) to get the average. then O(nlogn)
+          - may also not be a value in the file.
+      - cost:
+        - n(k) or n log n. simplified way to look at cost all the way down if assuming fairly even splits. (1x2^k)+(2x2^[k-1]+...+(Nx2^0)).
+  Selection Sorts
+    + select something and put it in it's final position.
+    - Simple Selection Sort
+    - Binary Tree Sort
+    - Simple BT Sort
+    - HeapSort
+      - nlogn regardless or order of data
+    - Quadratic Selection Sort
+  Insertion Sorts
+    + performs well on small data files that tend to be ordered
+    - Simple Insertion Sort
+    - Shell Sort
+      - overall cost: O(n(logn)^2)
+  Merge Sorts
+    + basis for external sorting
+    - Straight Merge
+      - cost: O(nlogn) regardless or order. logn number of levels split, n sorted on each level.
+      - requires O(2n) space
+    - Natural Merge
+      - base the first pass not on splitting every single node into its own file, but rather group an array until the next element is smaller than the last, then start a new array there. (can work better with arrays)
+      - doesn't really help in fairly random files, but hugely helpful in ordered files. would be O(n). reverse order would be O(n^2)
+  Radix Sorts
+    - based on columns
+  +;
+Module 10: Sorting and Searching Sorted Data,
+  Goals:
+  - Enumerate at least 10 factors that need to be considered in selecting a sort.
+  - Discuss the pros and costs, including costs, of each of the standard sorting strategies. Consider best, average, and worst cases, and implementation and application needs, where appropriate.
+  - Identify sorts that optimize a simpler strategy. Name the underlying, simpler sorting strategy and explain what aspects of the sort are leveraged.
+  - Evaluate multiple sort strategies and recommend an appropriate sort for a specified example application. Justify your recommendation based on the strengths and weaknesses of the selected sort and the correspondence to the strengths and weaknesses of the application.
+  - Enumerate at least 10 factors that need to be considered in selecting a search strategy.
+  - Distinguish between searches based on sorted data and those based on other ordering schemes. Give examples of applications appropriate for each type.
+  - Distinguish search trees from ordinary m-ary trees.
+  +;
+Selection sort,
+  - sorting algorithm that treats the input as two parts, a sorted part and an unsorted part, and repeatedly selects the proper next value to move from the unsorted part to the end of the sorted part.
+  +;
+Insertion sort,
+  - sorting algorithm that treats the input as two parts, a sorted part and an unsorted part, and repeatedly inserts the next value from the unsorted part into the correct location in the sorted part.
+  - runtime: Insertion sort's typical runtime is O(N^2). If a list has N elements, the outer loop executes N - 1 times. For each outer loop execution, the inner loop may need to examine all elements in the sorted part. Thus, the inner loop executes on average N2 times. So the total number of comparisons is proportional to (N−1)⋅(N2), or O(N^2).
+  +;
+Shell sort,
+  - sorting algorithm that treats the input as a collection of interleaved lists, and sorts each list individually with a variant of the insertion sort algorithm.
+  - uses gap values to determine the number of interleaved lists
+    - gap value positive integer representing the distance between elements in an interleaved list. For each interleaved list, if an element is at index i, the next element is at index i + gap value.
+  - Shell sort begins by choosing a gap value K and sorting K interleaved lists in place. Shell sort finishes by performing a standard insertion sort on the entire array. Because the interleaved parts have already been sorted, smaller elements will be close to the array's beginning and larger elements towards the end. Insertion sort can then quickly sort the nearly-sorted array.
+  - Shell sort begins by picking an arbitrary collection of gap values. For each gap value K, K calls are made to the insertion sort variant function to sort K interleaved lists. Shell sort ends with a final gap value of 1, to finish with the regular insertion sort.
+  - Shell sort tends to perform well when choosing gap values in descending order. A common option is to choose powers of 2 minus 1, in descending order. Ex: For an array of size 100, gap values would be 63, 31, 15, 7, 3, and 1. This gap selection technique results in shell sort's time complexity being no worse than O(N3/2).
+  +;
+Heap sort,
+  - sorting algorithm that takes advantage of a max-heap's properties by repeatedly removing the max and building a sorted array in reverse order. An array of unsorted values must first be converted into a heap. The heapify operation is used to turn an array into a heap. Since leaf nodes already satisfy the max heap property, heapifying to build a max-heap is achieved by percolating down on every non-leaf node in reverse order.
+  - Heapsort uses 2 loops to sort an array. The first loop heapifies the array using MaxHeapPercolateDown. The second loop removes the maximum value, stores that value at the end index, and decrements the end index, until the end index is 0.
+  +;
+Merge sort,
+  - sorting algorithm that divides a list into two halves, recursively sorts each half, and then merges the sorted halves to produce a sorted list. The recursive partitioning continues until a list of 1 element is reached, as list of 1 element is already sorted.
+  - partitioning - merge sort algorithm uses three index variables to keep track of the elements to sort for each recursive function call. The index variable i is the index of first element in the list, and the index variable k is the index of the last element. The index variable j is used to divide the list into two halves. Elements from i to j are in the left half, and elements from j + 1 to k are in the right half.
+  - Merge sort merges the two sorted partitions into a single list by repeatedly selecting the smallest element from either the left or right partition and adding that element to a temporary merged list. Once fully merged, the elements in the temporary merged list are copied back to the original list.
+  - merge sort algorithm's runtime is O(N log N). Merge sort divides the input in half until a list of 1 element is reached, which requires log N partitioning levels. At each level, the algorithm does about N comparisons selecting and copying elements from the left and right partitions, yielding N * log N comparisons.
+  - Merge sort requires O(N) additional memory elements for the temporary array of merged elements. For the final merge operation, the temporary list has the same number of elements as the input. Some sorting algorithms sort the list elements in place and require no additional memory, but are more complex to write and understand.
+  +;
+Radix sort,
+  - sorting algorithm designed specifically for integers. The algorithm makes use of a concept called buckets.
+  - Any array of integer values can be subdivided into buckets by using the integer values' digits. A bucket is a collection of integer values that all share a particular digit value. Ex: Values 57, 97, 77, and 17 all have a 7 as the 1's digit, and would all be placed into bucket 7 when subdividing by the 1's digit.
+  - The algorithm processes one digit at a time starting with the least significant digit and ending with the most significant. Two steps are needed for each digit. First, all array elements are placed into buckets based on the current digit's value. Then, the array is rebuilt by removing all elements from buckets, in order from lowest bucket to highest.
+  +;
+Counting sort,
+  - not a comparison based sort, so can reach complexity of O(n), whereas floor for most comparison based sorts is O(nlogn)
+  +;
+Searching,
+  - retrieving a record to be updated or to be used in a computation
+  - range in complexity from O(1) to O(n)
+  +;
+Algorithm,
+  - a sequence of steps for accomplishing a task. Linear search is a search algorithm that starts from the beginning of a list, and checks each element until the search key is found or the end of the list is reached.
+  +;
+Runtime,
+  - the time the algorithm takes to execute. If each comparison takes 1 µs (1 microsecond), a linear search algorithm's runtime is up to 1 s to search a list with 1,000,000 elements, 10 s for 10,000,000 elements, and so on
+  +;
+Linear/Sequential Search,
+  - naive/brute force. O(n/2) on average
+  +;
+Binary Search,
+  - faster algorithm for searching a list if the list's elements are sorted and directly accessible (such as an array). Binary search first checks the middle element of the list. If the search key is found, the algorithm returns the matching location. If the search key is not found, the algorithm repeats the search on the remaining left sublist (if the search key was less than the middle element) or the remaining right sublist (if the search key was greater than the middle element).
+  - suitable for small files (that can fit in memory)
+  - O(log n) performance on average
+  +;
+Interpolation Search,
+  - attempts to calculate where a search item might be based on previous data points.
+  - at peak, can be O(log log n) if the keys are uniformly distributed, if not, it can deteriorate to a sequential search O(n)
+  +;
+Indexed Sequential Search,
+  - jumps to specific indices (hopefully evenly split depending on the dataset) sequentially and then locates from there
+  - optimizes sequential search
+  +;
 
 
 
