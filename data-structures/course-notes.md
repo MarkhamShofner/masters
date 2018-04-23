@@ -646,19 +646,28 @@ Sort Types,
       - cost:
         - n(k) or n log n. simplified way to look at cost all the way down if assuming fairly even splits. (1x2^k)+(2x2^[k-1]+...+(Nx2^0)).
   Selection Sorts
+    + select something and put it in it's final position.
     - Simple Selection Sort
     - Binary Tree Sort
     - Simple BT Sort
     - HeapSort
+      - nlogn regardless or order of data
     - Quadratic Selection Sort
   Insertion Sorts
+    + performs well on small data files that tend to be ordered
     - Simple Insertion Sort
     - Shell Sort
+      - overall cost: O(n(logn)^2)
   Merge Sorts
+    + basis for external sorting
     - Straight Merge
+      - cost: O(nlogn) regardless or order. logn number of levels split, n sorted on each level.
+      - requires O(2n) space
     - Natural Merge
+      - base the first pass not on splitting every single node into its own file, but rather group an array until the next element is smaller than the last, then start a new array there. (can work better with arrays)
+      - doesn't really help in fairly random files, but hugely helpful in ordered files. would be O(n). reverse order would be O(n^2)
   Radix Sorts
-
+    - based on columns
   +;
 Module 10: Sorting and Searching Sorted Data,
   Goals:
@@ -675,7 +684,65 @@ Selection sort,
   +;
 Insertion sort,
   - sorting algorithm that treats the input as two parts, a sorted part and an unsorted part, and repeatedly inserts the next value from the unsorted part into the correct location in the sorted part.
+  - runtime: Insertion sort's typical runtime is O(N^2). If a list has N elements, the outer loop executes N - 1 times. For each outer loop execution, the inner loop may need to examine all elements in the sorted part. Thus, the inner loop executes on average N2 times. So the total number of comparisons is proportional to (N−1)⋅(N2), or O(N^2).
   +;
+Shell sort,
+  - sorting algorithm that treats the input as a collection of interleaved lists, and sorts each list individually with a variant of the insertion sort algorithm.
+  - uses gap values to determine the number of interleaved lists
+    - gap value positive integer representing the distance between elements in an interleaved list. For each interleaved list, if an element is at index i, the next element is at index i + gap value.
+  - Shell sort begins by choosing a gap value K and sorting K interleaved lists in place. Shell sort finishes by performing a standard insertion sort on the entire array. Because the interleaved parts have already been sorted, smaller elements will be close to the array's beginning and larger elements towards the end. Insertion sort can then quickly sort the nearly-sorted array.
+  - Shell sort begins by picking an arbitrary collection of gap values. For each gap value K, K calls are made to the insertion sort variant function to sort K interleaved lists. Shell sort ends with a final gap value of 1, to finish with the regular insertion sort.
+  - Shell sort tends to perform well when choosing gap values in descending order. A common option is to choose powers of 2 minus 1, in descending order. Ex: For an array of size 100, gap values would be 63, 31, 15, 7, 3, and 1. This gap selection technique results in shell sort's time complexity being no worse than O(N3/2).
+  +;
+Heap sort,
+  - sorting algorithm that takes advantage of a max-heap's properties by repeatedly removing the max and building a sorted array in reverse order. An array of unsorted values must first be converted into a heap. The heapify operation is used to turn an array into a heap. Since leaf nodes already satisfy the max heap property, heapifying to build a max-heap is achieved by percolating down on every non-leaf node in reverse order.
+  - Heapsort uses 2 loops to sort an array. The first loop heapifies the array using MaxHeapPercolateDown. The second loop removes the maximum value, stores that value at the end index, and decrements the end index, until the end index is 0.
+  +;
+Merge sort,
+  - sorting algorithm that divides a list into two halves, recursively sorts each half, and then merges the sorted halves to produce a sorted list. The recursive partitioning continues until a list of 1 element is reached, as list of 1 element is already sorted.
+  - partitioning - merge sort algorithm uses three index variables to keep track of the elements to sort for each recursive function call. The index variable i is the index of first element in the list, and the index variable k is the index of the last element. The index variable j is used to divide the list into two halves. Elements from i to j are in the left half, and elements from j + 1 to k are in the right half.
+  - Merge sort merges the two sorted partitions into a single list by repeatedly selecting the smallest element from either the left or right partition and adding that element to a temporary merged list. Once fully merged, the elements in the temporary merged list are copied back to the original list.
+  - merge sort algorithm's runtime is O(N log N). Merge sort divides the input in half until a list of 1 element is reached, which requires log N partitioning levels. At each level, the algorithm does about N comparisons selecting and copying elements from the left and right partitions, yielding N * log N comparisons.
+  - Merge sort requires O(N) additional memory elements for the temporary array of merged elements. For the final merge operation, the temporary list has the same number of elements as the input. Some sorting algorithms sort the list elements in place and require no additional memory, but are more complex to write and understand.
+  +;
+Radix sort,
+  - sorting algorithm designed specifically for integers. The algorithm makes use of a concept called buckets.
+  - Any array of integer values can be subdivided into buckets by using the integer values' digits. A bucket is a collection of integer values that all share a particular digit value. Ex: Values 57, 97, 77, and 17 all have a 7 as the 1's digit, and would all be placed into bucket 7 when subdividing by the 1's digit.
+  - The algorithm processes one digit at a time starting with the least significant digit and ending with the most significant. Two steps are needed for each digit. First, all array elements are placed into buckets based on the current digit's value. Then, the array is rebuilt by removing all elements from buckets, in order from lowest bucket to highest.
+  +;
+Counting sort,
+  - not a comparison based sort, so can reach complexity of O(n), whereas floor for most comparison based sorts is O(nlogn)
+  +;
+Searching,
+  - retrieving a record to be updated or to be used in a computation
+  - range in complexity from O(1) to O(n)
+  +;
+Algorithm,
+  - a sequence of steps for accomplishing a task. Linear search is a search algorithm that starts from the beginning of a list, and checks each element until the search key is found or the end of the list is reached.
+  +;
+Runtime,
+  - the time the algorithm takes to execute. If each comparison takes 1 µs (1 microsecond), a linear search algorithm's runtime is up to 1 s to search a list with 1,000,000 elements, 10 s for 10,000,000 elements, and so on
+  +;
+Linear/Sequential Search,
+  - naive/brute force. O(n/2) on average
+  +;
+Binary Search,
+  - faster algorithm for searching a list if the list's elements are sorted and directly accessible (such as an array). Binary search first checks the middle element of the list. If the search key is found, the algorithm returns the matching location. If the search key is not found, the algorithm repeats the search on the remaining left sublist (if the search key was less than the middle element) or the remaining right sublist (if the search key was greater than the middle element).
+  - suitable for small files (that can fit in memory)
+  - O(log n) performance on average
+  +;
+Interpolation Search,
+  - attempts to calculate where a search item might be based on previous data points.
+  - at peak, can be O(log log n) if the keys are uniformly distributed, if not, it can deteriorate to a sequential search O(n)
+  +;
+Indexed Sequential Search,
+  - jumps to specific indices (hopefully evenly split depending on the dataset) sequentially and then locates from there
+  - optimizes sequential search
+  +;
+
+
+
+
 
 
 
