@@ -20,20 +20,33 @@ public class BinaryTree {
     // height - optional
     
     // constructor, initialize empty tree
-//    public void BinaryTree() {
-    BinaryTree() {
+    // public void BinaryTree() {
+    BinaryTree () {
         Tree = null;
         Here = null;
         Parent_of_Here = null;
         System.out.println("BinaryTree(Class):BinaryTree()");
     }
-    BinaryTree(FreqData item) {
+    
+    BinaryTree (FreqData item) {
         this.Tree = new TreeNode(item);
         this.Here = this.Tree;
         this.Parent_of_Here = null;
         System.out.println("BinaryTree(Class):BinaryTree(Item)");
     }
-    
+//    
+//    BinaryTree (TreeNode LeftNode, TreeNode RightNode) {
+//        this.Tree = new TreeNode (LeftNode, RightNode);
+//        this.Here = this.Tree;
+//        this.Parent_of_Here = null;
+//        System.out.println("BinaryTree(Class):BinaryTree(Node, Node)");
+//    }
+    BinaryTree (BinaryTree LeftTree, BinaryTree RightTree) {
+        this.Tree = new TreeNode (LeftTree.Tree, RightTree.Tree);
+        this.Here = this.Tree;
+        this.Parent_of_Here = null;
+        System.out.println("BinaryTree(Class):BinaryTree(Node, Node)");
+    }
     // MakeTree - create tree containing 1 value as root with empty (no) children
         // left
         // data
@@ -46,7 +59,13 @@ public class BinaryTree {
         return Temp;
     }
     
-
+    public TreeNode MakeTree (TreeNode LeftNode, TreeNode RightNode) {
+        this.Tree = new TreeNode (LeftNode, RightNode);
+        this.Here = this.Tree;
+        this.Parent_of_Here = null;
+        System.out.println("BinaryTree(Class):BinaryTree(Node, Node)");
+        return this.Tree;
+    }
         
     // SetRight - attach value as right child
         // calls MakeTree method with argument value and attaches the resulting tree as the right child of the parent argument.
@@ -72,7 +91,7 @@ public class BinaryTree {
         TreeNode P = Here;
         if (P == null) {
             throw new java.lang.RuntimeException("BinaryTree(class):SetLeft(method)::Tree Node 'Here' must exist.");
-        } else if (P.Right != null) {
+        } else if (P.Left != null) {
             throw new java.lang.RuntimeException("BinaryTree(class):SetLeft(method)::Tree Node 'Here' cannot already have a Right child.");
         } else {
             TreeNode Temp = MakeTree (item);
@@ -80,6 +99,8 @@ public class BinaryTree {
         }
     } 
 
+    
+    
     public void TreeInsert (FreqData item, TreeNode Root) {
         if (Root == null) {
             Root = MakeTree (item); // TODO (this.Tree instead of Root?)
@@ -97,6 +118,18 @@ public class BinaryTree {
         System.out.println("BinaryTree(Class):DisplayTree(Method):: " + this.Tree.Data.value);
         System.out.println("BinaryTree(Class):DisplayTree(Method):: " + this.Tree.Right.Data.value);
         System.out.println("BinaryTree(Class):DisplayTree(Method):: " + this.Tree.Right.Right.Data.value);
+        // use a preorder traversal
+            // visit root
+            // traverse left sub tree
+            // traverse right sub tree
+    }
+    
+    public void Traverse (TreeNode T) {
+        if (T != null) {
+            System.out.println("{value: " + T.Data.value + ", frequency: " + T.Data.frequency + "}");
+            Traverse (T.Left); // visit left subtree
+            Traverse (T.Right); // visit right subtree
+        }
     }
     
     

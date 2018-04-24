@@ -10,16 +10,26 @@ package huffmanencoding;
  * @author mark8604
  */
 public class TreeNode {
-     FreqData Data;
-     TreeNode Left;
-     TreeNode Right;
+    FreqData Data;
+    TreeNode Left;
+    TreeNode Right;
+    // TODO - optionally add parent pointers
     
-//    TreeNode();
-//    could have GetData or SetDate if needed
+    // could have GetData or SetDate if needed
+    
+    // Constructor for Treenode based on FreqData item
     TreeNode(FreqData item) {
         this.Data = item;
         this.Left = null;
         this.Right = null;
-        System.out.println("TreeNode(Class):TreeNode():: {Data: " + this.Data + "}" + " " + "{Data.value: " + this.Data.value + "}");
+        System.out.println("TreeNode(Class):TreeNode(FreqData):: {Data: " + this.Data + "}" + " " + "{Data.value: " + this.Data.value + "}");
+    }
+    
+    // Constructor for TreeNode based on a Left and Right TreeNode
+    TreeNode (TreeNode Left, TreeNode Right) {
+        this.Data = new FreqData (Left.Data, Right.Data);
+        this.Left = Left;
+        this.Right = Right;
+        System.out.println("TreeNode(Class):TreeNode(FreqData):: {Data: " + this.Data + "}" + " " + "{Data.value: " + this.Data.value + "}"); 
     }
 }
