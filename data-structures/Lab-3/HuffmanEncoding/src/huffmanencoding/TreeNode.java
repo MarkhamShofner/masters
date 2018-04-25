@@ -13,10 +13,11 @@ public class TreeNode {
     FreqData Data;
     TreeNode Left;
     TreeNode Right;
-    // TODO - optionally add parent pointers
+    String binaryTrace;
     
-    // could have GetData or SetDate if needed
-    
+    // optional future properties for extension
+        // parent pointers
+        
     // Constructor for Treenode based on FreqData item
     TreeNode(FreqData item) {
         this.Data = item;

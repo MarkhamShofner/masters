@@ -25,6 +25,5 @@ public class FreqData {
         this.value = Left.value + Right.value;
         this.frequency = Left.frequency + Right.frequency;
         System.out.println("FreqData(Class):FreqData(FreqData, FreqData):: {value: " + this.value + ", frequency:" + this.frequency + "}");
-
     }
 }

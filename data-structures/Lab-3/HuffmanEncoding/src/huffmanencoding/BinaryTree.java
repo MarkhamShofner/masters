@@ -5,6 +5,10 @@
  */
 package huffmanencoding;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  *
  * @author mark8604
@@ -16,11 +20,12 @@ public class BinaryTree {
     TreeNode Here;
     // reference node to make traversal easier
     TreeNode Parent_of_Here;
+    
+    // option future data to track
     // numNodes - optional
     // height - optional
     
     // constructor, initialize empty tree
-    // public void BinaryTree() {
     BinaryTree () {
         Tree = null;
         Here = null;
@@ -28,29 +33,23 @@ public class BinaryTree {
         System.out.println("BinaryTree(Class):BinaryTree()");
     }
     
+    // constructor, initialize tree with a root node that is the item passed in
     BinaryTree (FreqData item) {
         this.Tree = new TreeNode(item);
         this.Here = this.Tree;
         this.Parent_of_Here = null;
         System.out.println("BinaryTree(Class):BinaryTree(Item)");
     }
-//    
-//    BinaryTree (TreeNode LeftNode, TreeNode RightNode) {
-//        this.Tree = new TreeNode (LeftNode, RightNode);
-//        this.Here = this.Tree;
-//        this.Parent_of_Here = null;
-//        System.out.println("BinaryTree(Class):BinaryTree(Node, Node)");
-//    }
+
+    // constructor, merge two trees that have already been constructed to form a combined tree
     BinaryTree (BinaryTree LeftTree, BinaryTree RightTree) {
         this.Tree = new TreeNode (LeftTree.Tree, RightTree.Tree);
         this.Here = this.Tree;
         this.Parent_of_Here = null;
         System.out.println("BinaryTree(Class):BinaryTree(Node, Node)");
     }
+    
     // MakeTree - create tree containing 1 value as root with empty (no) children
-        // left
-        // data
-        // right
     public TreeNode MakeTree(FreqData item) {
         TreeNode Temp = new TreeNode(item);
         Temp.Data = item;
@@ -59,6 +58,7 @@ public class BinaryTree {
         return Temp;
     }
     
+    // MakeTree from two nodes
     public TreeNode MakeTree (TreeNode LeftNode, TreeNode RightNode) {
         this.Tree = new TreeNode (LeftNode, RightNode);
         this.Here = this.Tree;
@@ -67,10 +67,9 @@ public class BinaryTree {
         return this.Tree;
     }
         
-    // SetRight - attach value as right child
-        // calls MakeTree method with argument value and attaches the resulting tree as the right child of the parent argument.
-        // returns an error if the parent already has a right child
-    // add right child [to existing node P]
+    // SetRight - attach value as right child [to existing node P]
+    // calls MakeTree method with argument value and attaches the resulting tree as the right child of the parent argument.
+    // returns an error if the parent already has a right child
     public void SetRight (FreqData item) {
         TreeNode P = Here;
         if (P == null) {
@@ -83,10 +82,9 @@ public class BinaryTree {
         }
     }
     
-    // SetLeft (value, parent) - attach value as left child
-        // calls MakeTree method with argument value and attaches the resulting tree as the left child of the parent argument.
-        // returns an error if the parent already has a left child
-    // add left child [to existing node P]
+    // SetLeft (value, parent) - attach value as left child [to existing node P]
+    // calls MakeTree method with argument value and attaches the resulting tree as the left child of the parent argument.
+    // returns an error if the parent already has a left child
     public void SetLeft (FreqData item) {
         TreeNode P = Here;
         if (P == null) {
@@ -98,20 +96,6 @@ public class BinaryTree {
             P.Left = Temp;
         }
     } 
-
-    
-    
-    public void TreeInsert (FreqData item, TreeNode Root) {
-        if (Root == null) {
-            Root = MakeTree (item); // TODO (this.Tree instead of Root?)
-        } else if (item.frequency < Root.Data.frequency) {
-            // insert at root of the Tree
-            TreeInsert (item, Root.Left);
-        } else {
-            TreeInsert (item, Root.Right);
-        }
-    // also an iterative version that could be drawn from
-    }
     
     // DisplayTree
     public void DisplayTree () {
@@ -124,42 +108,44 @@ public class BinaryTree {
             // traverse right sub tree
     }
     
-    public void Traverse (TreeNode T) {
+    // Move through tree in orderly fashion and write the traversal to an external file
+    // print the huffman tree with binary values for each letter
+    public void DisplayTraverse (TreeNode T, BufferedWriter bw) {
         if (T != null) {
-            System.out.println("{value: " + T.Data.value + ", frequency: " + T.Data.frequency + "}");
-            Traverse (T.Left); // visit left subtree
-            Traverse (T.Right); // visit right subtree
+            System.out.println("{value: " + T.Data.value + ", frequency: " + T.Data.frequency + ", binaryTrace: " + T.binaryTrace + "}");
+            try {
+                bw.write("{value: " + T.Data.value + ", frequency: " + T.Data.frequency + ", binaryTrace: " + T.binaryTrace + "}\n");
+            }
+            catch (IOException e) {
+                System.out.println("Error: " + e); 
+            }
+            DisplayTraverse (T.Left, bw); // visit left subtree
+//            trace = trace.substring(0, trace.length()-1);
+            DisplayTraverse (T.Right, bw); // visit right subtree
+        }
+    }
+    
+    public void AssignTrace (TreeNode T, String trace) {
+        if (T != null) {
+            T.binaryTrace = trace;
+            AssignTrace (T.Left, trace = trace + "0"); // visit left subtree
+            trace = trace.substring(0, trace.length()-1);
+            AssignTrace (T.Right, trace = trace + "1"); // visit right subtree
+        }    
+    }
+    
+    public void printInfo (TreeNode T) {
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter("../OutputFiles/HuffmanTree.txt"))) {
+            DisplayTraverse (T, bw);
+        }
+        catch (IOException e) {
+            System.out.println("Error: " + e); 
         }
     }
     
     
-    // SearchTree -  look for specified value
-    // Search tree for value. Return result in the class variable Here.
-    // Sets Here to null if the tree is impty or the item is not present
-    public void TreeSearch (FreqData item) { // TODO maybe shift this to the value of the item
-        // Start at root of existing tree
-        Here = Tree;
-        Parent_of_Here = null;
-        // look through non-empty tree
-        if (Here != null) { 
-            while ((Here != null) && (Here.Data != item)) {
-                Parent_of_Here = Here;
-                if (item.frequency < Here.Data.frequency) { // TODO update the lookup values here
-                    Here = Here.Left;
-                } else {
-                    Here = Here.Right;
-                }
-            }
-            if (Here == null) { // item not in tree
-                Parent_of_Here = null;
-            }
-        }
-    }
+    // TreeSearch (item or node)
     
-    // TraverseTree - move through tree in orderly fashion
-    
-    public boolean TreeEmpty() {
-        return (Tree == null);
-    }
-    
+    // optional methods for future
+        // isEmpty ()    
 }
