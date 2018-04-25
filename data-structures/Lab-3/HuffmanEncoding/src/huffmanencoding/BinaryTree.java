@@ -10,21 +10,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- *
- * @author mark8604
+ * The binary tree class tracks the root of the tree and where we are in the tree (for an actions). 
+ * The binary tree class offers constructors based on a frequency data item, two existing trees, or nothing. 
+ * The binary tree class also supports classic methods such as MakeTree, SetRight, SetLeft 
+ * as well as additional ones such as DisplayTraverse, PrintInfo and others.  * @author Markham Shofner
  */
 public class BinaryTree {
     // reference to root
-    TreeNode Tree; 
+    TreeNode Tree;
     // reference to node in Tree where actions occur
     TreeNode Here;
     // reference node to make traversal easier
     TreeNode Parent_of_Here;
-    
+
     // option future data to track
     // numNodes - optional
     // height - optional
-    
+
     // constructor, initialize empty tree
     BinaryTree () {
         Tree = null;
@@ -32,7 +34,7 @@ public class BinaryTree {
         Parent_of_Here = null;
         System.out.println("BinaryTree(Class):BinaryTree()");
     }
-    
+
     // constructor, initialize tree with a root node that is the item passed in
     BinaryTree (FreqData item) {
         this.Tree = new TreeNode(item);
@@ -48,7 +50,7 @@ public class BinaryTree {
         this.Parent_of_Here = null;
         System.out.println("BinaryTree(Class):BinaryTree(Node, Node)");
     }
-    
+
     // MakeTree - create tree containing 1 value as root with empty (no) children
     public TreeNode MakeTree(FreqData item) {
         TreeNode Temp = new TreeNode(item);
@@ -57,7 +59,7 @@ public class BinaryTree {
         Temp.Right = null;
         return Temp;
     }
-    
+
     // MakeTree from two nodes
     public TreeNode MakeTree (TreeNode LeftNode, TreeNode RightNode) {
         this.Tree = new TreeNode (LeftNode, RightNode);
@@ -66,7 +68,7 @@ public class BinaryTree {
         System.out.println("BinaryTree(Class):BinaryTree(Node, Node)");
         return this.Tree;
     }
-        
+
     // SetRight - attach value as right child [to existing node P]
     // calls MakeTree method with argument value and attaches the resulting tree as the right child of the parent argument.
     // returns an error if the parent already has a right child
@@ -81,7 +83,7 @@ public class BinaryTree {
             P.Right = Temp;
         }
     }
-    
+
     // SetLeft (value, parent) - attach value as left child [to existing node P]
     // calls MakeTree method with argument value and attaches the resulting tree as the left child of the parent argument.
     // returns an error if the parent already has a left child
@@ -95,19 +97,8 @@ public class BinaryTree {
             TreeNode Temp = MakeTree (item);
             P.Left = Temp;
         }
-    } 
-    
-    // DisplayTree
-    public void DisplayTree () {
-        System.out.println("BinaryTree(Class):DisplayTree(Method):: " + this.Tree.Data.value);
-        System.out.println("BinaryTree(Class):DisplayTree(Method):: " + this.Tree.Right.Data.value);
-        System.out.println("BinaryTree(Class):DisplayTree(Method):: " + this.Tree.Right.Right.Data.value);
-        // use a preorder traversal
-            // visit root
-            // traverse left sub tree
-            // traverse right sub tree
     }
-    
+
     // Move through tree in orderly fashion and write the traversal to an external file
     // print the huffman tree with binary values for each letter
     public void DisplayTraverse (TreeNode T, BufferedWriter bw) {
@@ -117,35 +108,65 @@ public class BinaryTree {
                 bw.write("{value: " + T.Data.value + ", frequency: " + T.Data.frequency + ", binaryTrace: " + T.binaryTrace + "}\n");
             }
             catch (IOException e) {
-                System.out.println("Error: " + e); 
+                System.out.println("Error: " + e);
             }
             DisplayTraverse (T.Left, bw); // visit left subtree
-//            trace = trace.substring(0, trace.length()-1);
             DisplayTraverse (T.Right, bw); // visit right subtree
         }
     }
-    
+
     public void AssignTrace (TreeNode T, String trace) {
         if (T != null) {
             T.binaryTrace = trace;
             AssignTrace (T.Left, trace = trace + "0"); // visit left subtree
             trace = trace.substring(0, trace.length()-1);
             AssignTrace (T.Right, trace = trace + "1"); // visit right subtree
-        }    
+        }
     }
-    
+
     public void printInfo (TreeNode T) {
         try(BufferedWriter bw = new BufferedWriter(new FileWriter("../OutputFiles/HuffmanTree.txt"))) {
             DisplayTraverse (T, bw);
         }
         catch (IOException e) {
-            System.out.println("Error: " + e); 
+            System.out.println("Error: " + e);
+        }
+    }
+
+    // SearchTree -  look for specified value
+    // Search tree for value. Return result.
+    public void TreeSearch (TreeNode T, String rawstring, BufferedWriter bw) {        
+        if (T != null) {
+            if (T.Data.value.equals(rawstring)) {
+                try {
+                    System.out.print(T.binaryTrace);
+                    bw.write(T.binaryTrace);
+                }
+                catch (IOException e) {
+                    System.out.println("Error: " + e);
+                }
+            }
+            TreeSearch (T.Left, rawstring, bw); // visit left subtree
+            TreeSearch (T.Right, rawstring, bw); // visit right subtree
         }
     }
     
+    public void encodeMessage (TreeNode T, String rawstring) {
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter("../OutputFiles/EncodedMessage.txt"))) {
+            for (int i=0; i<rawstring.length(); i++) {
+                String str = rawstring.substring(i, i+1);
+                str = str.toUpperCase();
+                TreeSearch (T, str, bw);
+            }
+        }
+        catch (IOException e) {
+            System.out.println("Error: " + e);
+        }
+    }
     
-    // TreeSearch (item or node)
+
     
+
     // optional methods for future
-        // isEmpty ()    
+        // isEmpty ()
 }

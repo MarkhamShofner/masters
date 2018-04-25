@@ -6,8 +6,9 @@
 package huffmanencoding;
 
 /**
- *
- * @author mark8604
+ * The tree node class houses the Data, Left, and Right pointers that comprise the tree itself, 
+ * as well as a String that tracks the binaryTrace needed to get to a certain node. 
+ * @author Markham Shofner
  */
 public class TreeNode {
     FreqData Data;

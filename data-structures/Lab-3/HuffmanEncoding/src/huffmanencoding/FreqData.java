@@ -6,8 +6,9 @@
 package huffmanencoding;
 
 /**
- *
- * @author mark8604
+ * The frequency data class houses String values and frequencies, 
+ * and can combine existing frequency data to create a new aggregated data structure.
+ * @author Markham Shofner
  */
 public class FreqData {
     String value;

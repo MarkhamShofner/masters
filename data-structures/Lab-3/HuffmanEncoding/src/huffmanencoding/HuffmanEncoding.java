@@ -12,13 +12,13 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 
 /**
- *
- * @author mark8604
+ * This application can encode strings and decode binary in the Huffman pattern, 
+ * based on a chosen Frequency table. This file contains the primary logic of the app. 
+ * Determines files to read from and write to, as well as combination and ordering
+ * of the queue for the Trees themselves.
+ * @author Markham Shofner
  */
 public class HuffmanEncoding {
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         System.out.println("-------------Start Of Main Method-------------");
 
@@ -66,11 +66,45 @@ public class HuffmanEncoding {
         finalTree.AssignTrace(finalTree.Tree, "");
         finalTree.printInfo(finalTree.Tree);
         
-        translateEncoded(finalTree);
+        // set up encoding
+        String messageToEncode = "";
+        // open up the file reader and create the message to encode
+        try(BufferedReader br = new BufferedReader(new FileReader("../InputFiles/ClearText.txt"))) {
+            String line = br.readLine();
+            while (line != null) {
+                messageToEncode = messageToEncode + line;
+                line = br.readLine();
+            }
+        }
+        catch (IOException e) {
+            System.out.println("Error: " + e); 
+        }
+        
+        // set up decoding
+        String messageToDecode = "";
+        // open up the file reader and create the message to decode
+        try(BufferedReader br = new BufferedReader(new FileReader("../InputFiles/Encoded.txt"))) {
+            String line = br.readLine();
+            while (line != null) {
+                messageToDecode = messageToDecode + line;
+                line = br.readLine();
+            }
+        }
+        catch (IOException e) {
+            System.out.println("Error: " + e); 
+        }
+        
+        translateEncoded(finalTree, messageToDecode);
+        
+        System.out.println("messageToEncode: " + messageToEncode);
+        System.out.println("encodedMessage: ");
+        finalTree.encodeMessage(finalTree.Tree, messageToEncode);
+        System.out.println();
         
         System.out.println("-------------End Of Main Method-------------");
     }
     
+    // output the huffman tree
     public static void printInfo (String treeString) {
         try(BufferedWriter bw = new BufferedWriter(new FileWriter("../OutputFiles/HuffmanTree.txt"))) {
             bw.write(treeString);
@@ -80,13 +114,9 @@ public class HuffmanEncoding {
         }
     }
     
-    public static void translateEncoded (BinaryTree huffTree) {
+    // translate an encoded string based on the created tree
+    public static void translateEncoded (BinaryTree huffTree, String encodedString) {
         try(BufferedWriter bw = new BufferedWriter(new FileWriter("../OutputFiles/DecodedMessage.txt"))) {
-//            String encodedString = "010110010101100111110110111011000010101001101110110110001011001010110001011100011011111111110001000111111101011111011001111111000100011111000001010000001110010111"; // EIEIOHZEPHYRQZULUABRACADABRAMERLIN
-//            String encodedString = "01011001010110011111011011"; // EIEIOH
-//            String encodedString = "10110000101010011011101101100010110010101100010111000110111"; // ZEPHYRQZULU
-            String encodedString = "11111110001000111111101011111011001111111000100011111000001010000001110010111"; // ABRACADABRAMERLIN
-//            String encodedString = "1101101000010001111100011111101000000101100"; // HELLOWORLD
             String decodedMessage = "";
             
             // while there is a next val
@@ -128,6 +158,7 @@ public class HuffmanEncoding {
         return arr;
     }
     
+    // sort subroutine manager. frequency as primary, then length, then alphabetically
     public static BinaryTree[] sort(BinaryTree arr[]) {
         frequencySort(arr);
         lengthSort(arr);
@@ -159,6 +190,7 @@ public class HuffmanEncoding {
         return arr;
     }
     
+    // insertion sort based on string length if needed
     public static BinaryTree[] lengthSort(BinaryTree arr[])
     {
         int n = arr.length;
@@ -181,6 +213,7 @@ public class HuffmanEncoding {
         return arr;
     }
     
+    // intsertion sort based on alphabetical ordering if needed
     public static BinaryTree[] alphabeticalSort(BinaryTree arr[])
     {
         int n = arr.length;
@@ -213,14 +246,3 @@ public class HuffmanEncoding {
     }     
     /* The above sort is built on top of work done by Rajat Mishra. https://www.geeksforgeeks.org/insertion-sort/ */
 }
-
-// encode the strings in one file
-
-// decode the binary digits in another file
-
-// read three different files: 
-    // a file containing the frequency table, //Use the frequency table in the supplied FreqTable.txt file. Consider experimenting
-    // with other frequency tables.
-    // a file containing clear text to be encoded. //Encode the strings in the supplied ClearText.txt file, plus several others of your
-    // choice:
-    // file containing encoded strings. //Decode the strings the supplied Encoded.txt file, plus some others of your choice:
