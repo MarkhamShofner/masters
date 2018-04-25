@@ -76,29 +76,40 @@ public class HuffmanEncoding {
     
     public static void translateEncoded (BinaryTree huffTree) {
         try(BufferedWriter bw = new BufferedWriter(new FileWriter("../OutputFiles/DecodedMessage.txt"))) {
-            
-//            String encodedString = "010110010101100111110110111011000010101001101110110110001011001010110001011100011011111111110001000111111101011111011001111111000100011111000001010000001110010111";
-            String encodedString = "1101101000010001111100011111101000000101100";
+//            String encodedString = "010110010101100111110110111011000010101001101110110110001011001010110001011100011011111111110001000111111101011111011001111111000100011111000001010000001110010111"; // EIEIOHZEPHYRQZULUABRACADABRAMERLIN
+//            String encodedString = "01011001010110011111011011"; // EIEIOH
+//            String encodedString = "10110000101010011011101101100010110010101100010111000110111"; // ZEPHYRQZULU
+//            String encodedString = "11111110001000111111101011111011001111111000100011111000001010000001110010111"; // ABRACADABRAMERLIN
+            String encodedString = "1101101000010001111100011111101000000101100"; // HELLOWORLD
             String decodedMessage = "";
+            
             // while there is a next val
             int counter = 0;
             while (counter < encodedString.length()) {
                 // take next val
                 String val = encodedString.substring(counter, counter+1);
-//                System.out.println("translateEncoded:whileLoop::val" + val);
+                System.out.println("translateEncoded:whileLoop::val" + val);
                 if (huffTree.Here.Left != null) {
+                    System.out.println("not null");
                     if (val.equals("0")) {
+                        System.out.println("0 from " + huffTree.Here.Data.value + " to " + huffTree.Here.Left.Data.value);
                         huffTree.Here = huffTree.Here.Left; 
                     } else {
+                        System.out.println("1 from " + huffTree.Here.Data.value + " to " + huffTree.Here.Right.Data.value);
                         huffTree.Here = huffTree.Here.Right; 
                     }
                 } else {
                     String foundValue = huffTree.Here.Data.value;
+                    System.out.println("returning " + foundValue);                    
                     decodedMessage = decodedMessage + foundValue;
                     huffTree.Here = huffTree.Tree;
+                    counter--;
                 }
                 counter++;
             }
+            String foundValue = huffTree.Here.Data.value;
+            System.out.println("returning " + foundValue);                    
+            decodedMessage = decodedMessage + foundValue;
             System.out.println(decodedMessage);            
             
             bw.write(decodedMessage);
@@ -113,42 +124,49 @@ public class HuffmanEncoding {
         BinaryTree Left = arr[index];
         BinaryTree Right = arr[index+1];
         // if three have the same frequency
-        if (arr[index].Tree.Data.frequency == arr[index+1].Tree.Data.frequency) {
-            System.out.println("RED ALERT");
-        }
+//        if (arr[index].Tree.Data.frequency == arr[index+1].Tree.Data.frequency) {
+//            System.out.println("RED ALERT");
+//        }
         // if same frequency
-        if (arr[index].Tree.Data.frequency == arr[index+1].Tree.Data.frequency) {
-            // and if same number chars
-            if (arr[index].Tree.Data.value.length() == arr[index+1].Tree.Data.value.length()) {
-                System.out.println("SAME Length arr[index].Tree.Data.value.length() == " + arr[index].Tree.Data.value.length() +  "== arr[index+1].Tree.Data.value.length()" + arr[index+1].Tree.Data.value.length());
-                // set left to whichever Tree is alphabetically earlier
-                int compare = arr[index].Tree.Data.value.compareTo(arr[index+1].Tree.Data.value);
-                if (compare > 0) {
-                    Left = arr[index+1];
-                    Right = arr[index];
-                }
-            } else {
-                System.out.println("DIFFERENT Length arr[index].Tree.Data.value.length() == " + arr[index].Tree.Data.value.length() +  "== arr[index+1].Tree.Data.value.length()" + arr[index+1].Tree.Data.value.length());
-                // set left as whichever Tree has fewer characters
-                if (arr[index+1].Tree.Data.value.length() < arr[index].Tree.Data.value.length()) {
-                    Left = arr[index+1];
-                    Right = arr[index];
-                }
-            }
-        } else {
-            System.out.println("DIFF Freq");
-//            BinaryTree newTree = new BinaryTree (arr[index], arr[index+1]);
-//            arr[index+1] = newTree;
-        }
+//        if (arr[index].Tree.Data.frequency == arr[index+1].Tree.Data.frequency) {
+//            // and if same number chars
+//            if (arr[index].Tree.Data.value.length() == arr[index+1].Tree.Data.value.length()) {
+//                System.out.println("SAME Length arr[index].Tree.Data.value.length() == " + arr[index].Tree.Data.value.length() +  "== arr[index+1].Tree.Data.value.length()" + arr[index+1].Tree.Data.value.length());
+//                // set left to whichever Tree is alphabetically earlier
+//                int compare = arr[index].Tree.Data.value.compareTo(arr[index+1].Tree.Data.value);
+//                if (compare > 0) {
+//                    Left = arr[index+1];
+//                    Right = arr[index];
+//                }
+//            } else {
+//                System.out.println("DIFFERENT Length arr[index].Tree.Data.value.length() == " + arr[index].Tree.Data.value.length() +  "== arr[index+1].Tree.Data.value.length()" + arr[index+1].Tree.Data.value.length());
+//                // set left as whichever Tree has fewer characters
+//                if (arr[index+1].Tree.Data.value.length() < arr[index].Tree.Data.value.length()) {
+//                    Left = arr[index+1];
+//                    Right = arr[index];
+//                }
+//            }
+//        } else {
+//            System.out.println("DIFF Freq");
+////            BinaryTree newTree = new BinaryTree (arr[index], arr[index+1]);
+////            arr[index+1] = newTree;
+//        }
         BinaryTree newTree = new BinaryTree (Left, Right);
         arr[index+1] = newTree;
         return arr;
     }
     
     
+    public static BinaryTree[] sort(BinaryTree arr[]) {
+        frequencySort(arr);
+        lengthSort(arr);
+        alphabeticalSort(arr);
+        return arr;
+    }
+    
     /* The below sort is built on top of work done by Rajat Mishra. https://www.geeksforgeeks.org/insertion-sort/ */
     /*Function to sort array using insertion sort*/
-    public static BinaryTree[] sort(BinaryTree arr[])
+    public static BinaryTree[] frequencySort(BinaryTree arr[])
     {
         int n = arr.length;
         for (int i=1; i<n; ++i)
@@ -170,6 +188,59 @@ public class HuffmanEncoding {
         return arr;
     }
     
+    public static BinaryTree[] lengthSort(BinaryTree arr[])
+    {
+        int n = arr.length;
+        for (int i=1; i<n; ++i)
+        {
+            int key = arr[i].Tree.Data.frequency;
+            int j = i-1;
+ 
+            /* Move elements of arr[0..i-1], that are
+               greater than key, to one position ahead
+               of their current position */
+            while (j>=0 && arr[j].Tree.Data.frequency == key)
+            {
+                // set left as whichever Tree has fewer characters
+                if (arr[j+1].Tree.Data.value.length() < arr[j].Tree.Data.value.length()) {
+                    System.out.println("zomg DIFFERENT Length arr[index].Tree.Data.value.length() == " + arr[j].Tree.Data.value +  "== arr[index+1].Tree.Data.value.length()" + arr[j+1].Tree.Data.value);
+                    BinaryTree temp = arr[j+1];
+                    arr[j+1] = arr[j];
+                    arr[j] = temp;
+                }
+                j = j-1;
+            }
+        }
+        return arr;
+    }
+    
+    public static BinaryTree[] alphabeticalSort(BinaryTree arr[])
+    {
+        int n = arr.length;
+        for (int i=1; i<n; ++i)
+        {
+            int key = arr[i].Tree.Data.frequency;
+            int j = i-1;
+ 
+            /* Move elements of arr[0..i-1], that are
+               greater than key, to one position ahead
+               of their current position */
+            while ((j>=0 && arr[j].Tree.Data.frequency == key) && arr[j+1].Tree.Data.value.length() == arr[j].Tree.Data.value.length())
+            {
+                // set left to whichever Tree is alphabetically earlier
+                int compare = arr[j].Tree.Data.value.compareTo(arr[j+1].Tree.Data.value);
+                if (compare > 0) {
+                    System.out.println("Length arr[index].Tree.Data.value.length() == " + arr[j].Tree.Data.value.length() +  "== arr[index+1].Tree.Data.value.length()" + arr[j+1].Tree.Data.value.length());
+                    BinaryTree temp = arr[j+1];
+                    arr[j+1] = arr[j];
+                    arr[j] = temp;
+                }
+                j = j-1;
+            }
+        }
+        return arr;
+    }
+    
         //Resolve ties by 
         // giving single letter groups precedence (put to the left) over multiple letter groups, 
         // then alphabetically
@@ -179,8 +250,9 @@ public class HuffmanEncoding {
     static void printArray(BinaryTree arr[], int index) {
         System.out.println("-------------------------------------");
         int n = arr.length;
-        for (int i=index; i<n; ++i)
-            System.out.println("HuffmanEncoding:printArray(TreeArray):: {Data: " + arr[i].Tree.Data + "}" + " " + "{Data.value: " + arr[i].Tree.Data.value +", Data.frequency: " + arr[i].Tree.Data.frequency + "}");
+        for (int i=index; i<n; ++i) {
+//            System.out.println("HuffmanEncoding:printArray(TreeArray):: {Data: " + arr[i].Tree.Data + "}" + " " + "{Data.value: " + arr[i].Tree.Data.value +", Data.frequency: " + arr[i].Tree.Data.frequency + "}");
+        }
     }     
     /* The above sort is built on top of work done by Rajat Mishra. https://www.geeksforgeeks.org/insertion-sort/ */
 }
