@@ -5,59 +5,69 @@
  */
 package huffmanencoding;
 
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  *
  * @author mark8604
  */
 public class HuffmanEncoding {
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        FreqData x = new FreqData("X", 3);
-        FreqData y = new FreqData("Y", 1);
-        FreqData z = new FreqData("Z", 2);
-        FreqData n = new FreqData("N", 4);
-        FreqData m = new FreqData("M", 5);
-//        
-//        FreqData yz = new FreqData("YZ", 3);
-//        FreqData xyz = new FreqData("XYZ", 6);
-        
-//        BinaryTree yzt = new BinaryTree(yz);
-//        yzt.SetRight(z);
-//        yzt.SetLeft(y);
-//        yzt.Traverse(yzt.Tree);
-//        
-        BinaryTree xt = new BinaryTree (x);
-//        xt.Traverse(xt.Tree);
-//
-//        BinaryTree xyzt = new BinaryTree (xt, yzt);
-//        xyzt.Traverse(xyzt.Tree);
-  
-        
-//        int arr[] = {12, 11, 13, 5, 6};
-        BinaryTree yt = new BinaryTree (y);
-        BinaryTree zt = new BinaryTree (z);
-        BinaryTree nt = new BinaryTree (n);
-        BinaryTree mt = new BinaryTree (m);
-        BinaryTree arr[] = {nt, yt, mt, xt, zt};
-//        InsertionSort ob = new InsertionSort();        
-        printArray(arr);
-        arr = sort(arr);
-        printArray(arr);
+        System.out.println("-------------Start Of Main Method-------------");
 
-        
+        FreqData freqDataArray[] = new FreqData[27];
+
+        // open up the file reader and create the frequency data array
+        try(BufferedReader br = new BufferedReader(new FileReader("../InputFiles/FreqTable1.txt"))) {
+            String line = br.readLine();
+            int indexCount = 0;
+            while (line != null) {
+                String character = line.substring(0,1);
+                int frequency = Integer.parseInt(line.substring(4));                
+                freqDataArray[indexCount] = new FreqData (character, frequency);
+                line = br.readLine();
+                indexCount++;
+            }
+        }
+        catch (IOException e) {
+            System.out.println("Error: " + e); 
+        }
+
+        int j = 0;
+        int count = 0;
+        while (freqDataArray[j] != null) {
+            j++;
+            count++;
+        }
+        // create a binary tree array that is as long as the length of the frequency data array
+        BinaryTree streamlinedTreeArray[] = new BinaryTree[count];
+        for (int i = 0; i<count; i++) {
+            streamlinedTreeArray[i] = new BinaryTree(freqDataArray[i]);
+        }
+
+        BinaryTree arr[] = streamlinedTreeArray;
+
+        printArray(arr, 0);
+        arr = sort(arr);
+        printArray(arr, 0);
+
         for (int i=0; i<arr.length-1; ++i)
         {
             arr = combineNodes (arr, i);
-            printArray(arr);
+            printArray(arr, i);
             arr = sort(arr);
-            printArray(arr);
+            printArray(arr, i);
         }
+        System.out.println("-------------------********--------------");
         BinaryTree finalTree = arr[arr.length-1];
         finalTree.Traverse(finalTree.Tree);
+        System.out.println("-------------End Of Main Method-------------");
     }
     
     public static BinaryTree[] combineNodes (BinaryTree arr[], int index) {
@@ -66,7 +76,7 @@ public class HuffmanEncoding {
         return arr;
     }
     
-    /* The below is sort built on top of work done by Rajat Mishra. https://www.geeksforgeeks.org/insertion-sort/ */
+    /* The below sort is built on top of work done by Rajat Mishra. https://www.geeksforgeeks.org/insertion-sort/ */
     /*Function to sort array using insertion sort*/
     public static BinaryTree[] sort(BinaryTree arr[])
     {
@@ -91,42 +101,13 @@ public class HuffmanEncoding {
     }
     
     /* A utility function to print array of size n*/
-    static void printArray(BinaryTree arr[]) {
+    static void printArray(BinaryTree arr[], int index) {
         System.out.println("-------------------------------------");
         int n = arr.length;
-        for (int i=0; i<n; ++i)
+        for (int i=index; i<n; ++i)
             System.out.println("HuffmanEncoding:printArray(TreeArray):: {Data: " + arr[i].Tree.Data + "}" + " " + "{Data.value: " + arr[i].Tree.Data.value +", Data.frequency: " + arr[i].Tree.Data.frequency + "}");
-    }    
-
-//    public static void sort(int arr[])
-//    {
-//        int n = arr.length;
-//        for (int i=1; i<n; ++i)
-//        {
-//            int key = arr[i];
-//            int j = i-1;
-//
-//            /* Move elements of arr[0..i-1], that are
-//               greater than key, to one position ahead
-//               of their current position */
-//            while (j>=0 && arr[j] > key)
-//            {
-//                arr[j+1] = arr[j];
-//                j = j-1;
-//            }
-//            arr[j+1] = key;
-//        }
-//    }
-// 
-//    /* A utility function to print array of size n*/
-//    static void printArray(int arr[])
-//    {
-//        int n = arr.length;
-//        for (int i=0; i<n; ++i)
-//            System.out.print(arr[i] + " ");
-//        System.out.println();
-//    }    
-    /* The above code built on top of work done by Rajat Mishra. https://www.geeksforgeeks.org/insertion-sort/ */
+    }     
+    /* The above sort is built on top of work done by Rajat Mishra. https://www.geeksforgeeks.org/insertion-sort/ */
 }
 
 // It is extremely useful to walk through the construction of the tree manually, in order to clarify assumptions.  This is not necessary, but you may get some insights from the exercise.
