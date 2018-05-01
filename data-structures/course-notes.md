@@ -740,6 +740,106 @@ Indexed Sequential Search,
   - optimizes sequential search
   +;
 
+Module 12: Search Trees and Transposition and Hashing,
+  Goals:
+  - Enumerate at least 10 factors that need to be considered in selecting a search strategy.
+  - Distinguish between searches based on sorted data and those based on other ordering schemes. Give examples of applications appropriate for each type.
+  - Distinguish search trees from ordinary m-ary trees.
+  - Insert and delete data values into search trees, including B-Trees.
+  - Summarize basic hashing strategies.
+  - Define a collision and summarize resolution strategies.
+  - Discuss the cost of each search strategy and the factors that affect the cost in best, average, and worst cases. Consider implementation as well as application needs.
+  - Evaluate multiple search strategies and recommend an appropriate search strategy for a specified example application. Justify your recommendation based on the strengths and weaknesses of the selected strategy and the correspondence to the strengths and weaknesses of the application.
+  +;
+Binary search tree,
+  - especially useful form of binary tree is a binary search tree (BST), which has an ordering property that any node's left subtree keys ≤ the node's key, and the right subtree's keys ≥ the node's key.
+  - Searching a nearly-full BST with N nodes requires only O(Height), so O(logN) comparisons.
+BST insert,
+  - follow down from the root and insert on a null child
+  - Inserting in random order keeps tree height near the minimum. Inserting in sorted order yields the maximum.
+  +;
+BST Removal,
+  - Remove a leaf node: If X has a parent (so X is not the root), the parent's left or right child (whichever points to X) is assigned with null. Else, if X was the root, the root pointer is assigned with null, and the BST is now empty.
+  - Remove an internal node with single child: If X has a parent (so X is not the root), the parent's left or right child (whichever points to X) is assigned with X's single child. Else, if X was the root, the root pointer is assigned with X's single child.
+  - Remove an internal node with two children: This case is the hardest. First, the algorithm locates X's successor (the leftmost child of X's right subtree), and copies the successor to X. Then, the algorithm recursively removes the successor from the right subtree.
+  +;
+B-tree,
+  - with order K is a tree where nodes can have up to K-1 keys and up to K children. The order is the maximum number of children a node can have. Ex: In a B-tree with order 4, a nodes can have 1, 2, or 3 keys, and up to 4 children. B-trees have the following properties:
+    - All keys in a B-tree must be distinct.
+    - All leaf nodes must be at the same level.
+    - An internal node with N keys must have N+1 children.
+    - Keys in a node are stored in sorted order from smallest to largest.
+    - Each key in a B-tree internal node has one left subtree and one right subtree. All left subtree keys are < that key, and all right subtree keys are > that key.
+  +;
+2-3-4 tree,
+  - order 4 B-tree
+  - 2-3-4 tree node are labeled as A, B and C. The child nodes of a 2-3-4 tree internal node are labeled as left, middle1, middle2, and right. If a node contains 1 key, then keys B and C, as well as children middle2 and right, are not used. If a node contains 2 keys, then key C, as well as the right child, are not used. A 2-3-4 tree node containing exactly 3 keys is said to be full, and uses all keys and children.
+  - A node with 1 key is called a 2-node. A node with 2 keys is called a 3-node. A node with 3 keys is called a 4-node.
+  +;
+2-3-4 tree rotation,
+  - Removing an item from a 2-3-4 tree may require rearranging keys to maintain tree properties. A rotation is a rearrangement of keys between 3 nodes that maintains all 2-3-4 tree properties in the process. The 2-3-4 tree removal algorithm uses rotations to transfer keys between sibling nodes. A right rotation on a node causes the node to lose one key and the node's right sibling to gain one key. A left rotation on a node causes the node to lose one key and the node's left sibling to gain one key.
+  +;
+2-3-4 tree fusion,
+  - When rearranging values in a 2-3-4 tree during deletions, rotations are not an option for nodes that do not have a sibling with 2 or more keys. Fusion provides an additional option for increasing the number of keys in a node. A fusion is a combination of 3 keys: 2 from adjacent sibling nodes that have 1 key each, and a third from the parent of the siblings. Fusion is the inverse operation of a split
+  +;
+B-Tree merge,
+  - A node's 2 adjacent siblings are checked first during a merge, and if either has 2 or more keys, a key is transferred via a rotation. Such a rotation increases the number of keys in the merged node from 1 to 2. If all adjacent siblings of the node being merged have 1 key, then fusion is used to increase the number of keys in the node from 1 to 3. The merge operation can be performed on any node that has 1 key and a non-null parent node with at least 2 keys.
+  +;
+2-3-4 remove algorithm,
+  - removes the first-found matching key, restructuring the tree to preserve all 2-3-4 tree rules. Each successful removal results in a key being removed from a leaf node. Two cases are possible when removing a key, the first being that the key resides in a leaf node, and the second being that the key resides in an internal node.
+  - key can only be removed from a leaf node that has 2 or more keys. The preemptive merge removal scheme involves increasing the number of keys in all single-key, non-root nodes encountered during traversal. The merging always happens before any key removal is attempted. Preemptive merging ensures that any leaf node encountered during removal will have 2 or more keys, allowing a key to be removed from the leaf node without violating the 2-3-4 tree rules.
+  - remove a key from an internal node, the key to be removed is replaced with the minimum key in the rightmost child subtree (known as the key's successor), or the maximum key in the leftmost child subtree. First, the key chosen for replacement is stored in a temporary variable, then the chosen key is removed recursively, and lastly the temporary key replaces the key to be removed.
+  +;
+AVL Tree (inventors Adelson-Velsky and Landis),
+  - BST with a height balance property and specific operations to rebalance the tree when a node is inserted or removed. This section discusses the balance property; another section discusses the operations. A BST is height balanced if for any node, the heights of the node's left and right subtrees differ by only 0 or 1.
+  - A node's balance factor is the left subtree height minus the right subtree height, which is 1, 0, or -1 in an AVL tree.
+  - Minimizing binary tree height yields fastest searches, insertions, and removals. If nodes are inserted and removed dynamically, maintaining a minimum height tree requires extensive tree rearrangements. In contrast, an AVL tree only requires a few local rotations (discussed in a later section), so is more computationally efficient, but doesn't guarantee a minimum height. However, theoreticians have shown that an AVL tree's worst case height is no worse than about 1.5x the minimum binary tree height, so the height is still O(log N) where N is the number of nodes. Furthermore, experiments show that AVL tree heights in practice are much closer to the minimum.
+AVL rotation,
+  - rearrange nodes to maintain height balance
+  +;
+AVL insertion,
+  - Sometimes, the imbalance is due to an insertion on the inside of a subtree, rather than on the outside as above. One rotation won't rebalance. A double rotation is needed.
+  - After inserting a node, nodes on the path from the new node to the root should be checked for a balance factor of 2 or -2. The first such node P triggers rebalancing. Four cases exist (2,1; 2,-1; -2,1; -2,-1. and each requires a separate type of rebalance. right, left-right, right-left, left: respectively), distinguishable by the balance factor of node P and one of P's children.
+  +;
+AVL removal,
+  - removes the first-found matching node, restructuring the tree to preserve all AVL tree requirements. Removal begins by removing the node using the standard BST removal algorithm. After removing a node, all ancestors of the removed node, from the nodes' parent up to the root, are rebalanced. A node is rebalanced by first computing the node's balance factor, then performing rotations if the balance factor is 2 or -2
+  - In the worst case scenario, the AVL removal algorithm traverses the tree from the root to the lowest level to find the node to remove, then traverses back up to the root to rebalance. One node is visited per level, and at most 2 rotations are needed for a single node. Each rotation is an O(1) operation. Therefore, the runtime complexity of an AVL tree removal is O(log N).
+  +;
+Hash tables,
+  - data structure that stores unordered items by mapping (or hashing) each item to a location in an array (or vector). Ex: Given an array with indices 0..9 to store integers from 0..500, the modulo (remainder) operator can be used to map 25 to index 5 (25 % 10 = 5), and 149 to index 9 (149 % 10 = 9). A hash table's main advantage is that searching (or inserting / removing) an item may require only O(1), in contrast to O(N) for searching a list or to O(log N) for binary search
+  - item's key is the value used to map to an index. For all items that might possibly be stored in the hash table, every key is ideally unique, so that the hash table's algorithms can search for a specific item by that key.
+  - Each hash table array element is called a bucket. A hash function computes a bucket index from the item's key.
+  +;
+Collision,
+  occurs when an item being inserted into a hash table maps to the same bucket as an existing item in the hash table. Ex: For a hash function of key % 10, 55 would be inserted in bucket 55 % 10 = 5; later inserting 75 would yield a collision because 75 % 10 is also 5. Various techniques are used to handle collisions during insertions, such as chaining or open addressing. Chaining is a collision resolution technique where each bucket has a list of items (so bucket 5's list would become 55, 75). Open addressing is a collision resolution technique where collisions are resolved by looking for an empty bucket elsewhere in the table (so 75 might be stored in bucket 6). Such techniques are discussed later in this material.
+  +;
+Chaining,
+  handles hash table collisions by using a list for each bucket, where each list may store multiple items that map to the same bucket. The insert operation first uses the item's key to determine the bucket, and then inserts the item in that bucket's list. Searching also first determines the bucket, and then searches the bucket's list. Likewise for removes
+  +;
+Linear Probing,
+  - handles a collision by starting at the key's mapped bucket, and then linearly searches subsequent buckets until an empty bucket is found
+  - actually, linear probing distinguishes two types of empty buckets. An empty-since-start bucket has been empty since the hash table was created. An empty-after-removal bucket had an item removed that caused the bucket to now be empty. The distinction will be important during searches (basically, searching only stops for empty-since-start, not for empty-after-removal)
+  +;
+Quadratic Probing,
+  handles a collision by starting at the key's mapped bucket, and then quadratically searches subsequent buckets until an empty bucket is found. If an item's mapped bucket is H, the formula (H+c1∗i+c2∗i2)mod(tablesize) is used to determine the item's index in the hash table. c1 and c2 are programmer-defined constants for quadratic probing. Inserting a key uses the formula, starting with i = 0, to repeatedly search the hash table until an empty bucket is found. Each time an empty bucket is not found, i is incremented by 1. Iterating through sequential i values to obtain the desired table index is called the probing sequence
+  +;
+Double hashing,
+  open-addressing collision resolution technique that uses 2 different hash functions to compute bucket indices. Using hash functions h1 and h2, a key's index in the table is computed with the formula (h1(key)+h2(key)∗i)mod(tablesize).
+  +;
+Common hash functions,
+  - good hash functions minimize collisions
+  - runtime for insert, search, and remove is O(1) with a perfect hash function
+  - good hash function should uniformly distribute items into buckets. With chaining, a good hash function results in short bucket lists and thus fast inserts, searches, and removes. With linear probing, a good hash function will avoid hashing multiple items to consecutive buckets and thus minimize the average linear probing length to achieve fast inserts, searches, and removes. On average, a good hash function will achieve O(1) inserts, searches, and removes, but in the worst-case may require O(N)
+  - modulo, mid-square hash, multiplicative string hash
+  +;
+Direct Hashing,
+  - uses the item's key as the bucket index. Ex: If the key is 937, the index is 937. A hash table with a direct hash function is called a direct access table. Given a key, a direct access table search algorithm returns the item at index key if the bucket is not empty, and returns null (indicating item not found) if empty
+  - All keys must be non-negative integers, but for some applications keys may be negative.
+  - The hash table's size equals the largest key value plus 1, which may be very large.
+  +;
+
+
+
 
 
 
