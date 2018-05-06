@@ -790,7 +790,7 @@ B-Tree merge,
   - key can only be removed from a leaf node that has 2 or more keys. The preemptive merge removal scheme involves increasing the number of keys in all single-key, non-root nodes encountered during traversal. The merging always happens before any key removal is attempted. Preemptive merging ensures that any leaf node encountered during removal will have 2 or more keys, allowing a key to be removed from the leaf node without violating the 2-3-4 tree rules.
   - remove a key from an internal node, the key to be removed is replaced with the minimum key in the rightmost child subtree (known as the key's successor), or the maximum key in the leftmost child subtree. First, the key chosen for replacement is stored in a temporary variable, then the chosen key is removed recursively, and lastly the temporary key replaces the key to be removed.
   +;
-AVL Tree (inventors Adelson-Velsky and Landis),
+AVL Tree (inventors Adelson-Velsky and Landis) - Height Balanced Tree,
   - BST with a height balance property and specific operations to rebalance the tree when a node is inserted or removed. This section discusses the balance property; another section discusses the operations. A BST is height balanced if for any node, the heights of the node's left and right subtrees differ by only 0 or 1.
   - A node's balance factor is the left subtree height minus the right subtree height, which is 1, 0, or -1 in an AVL tree.
   - Minimizing binary tree height yields fastest searches, insertions, and removals. If nodes are inserted and removed dynamically, maintaining a minimum height tree requires extensive tree rearrangements. In contrast, an AVL tree only requires a few local rotations (discussed in a later section), so is more computationally efficient, but doesn't guarantee a minimum height. However, theoreticians have shown that an AVL tree's worst case height is no worse than about 1.5x the minimum binary tree height, so the height is still O(log N) where N is the number of nodes. Furthermore, experiments show that AVL tree heights in practice are much closer to the minimum.
@@ -837,7 +837,23 @@ Direct Hashing,
   - All keys must be non-negative integers, but for some applications keys may be negative.
   - The hash table's size equals the largest key value plus 1, which may be very large.
   +;
-
+Transposition,
+  - sequential search, except with some ordering done around the data to optimize search times. (i.e. the less frequently a data record is needed, the farther back it is sequentially - this can be achieved naturally by bumping a record up in the order every time it is accessed)
+  - depends on the frequency of the data in terms of whether or not it is a worthwhile strategy
+  - not a good strategy if the data is uniformly distributed in terms of access
+  +;
+Move-to-the-Front,
+  - cousin to transposition. Moves data record to the front
+  - responds faster to pattern (in frequency of access) changes
+  - can be adjusted to move halfway to the front, or something like that
+  +;
+Hashing,
+  - default is linear probing with division
+  - tends to waste space
+  - as utilization increases, so do collisions (above 2/3 generally starts to cause problems)
+  - one quick way to reduce the collisions is to enlarge the table, which can waste space
+  - not suitable when you need sorted data
+  +;
 
 
 
