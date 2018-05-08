@@ -60,12 +60,49 @@ public class SortComparison {
 //       quickSort(arr, 0, arr.length-1);
 
         iterativeQuickSort(dataArray);
+//        insertionSort(dataArray, dataArray.length);
 
-//        quickSort(dataArray, 0, length-1);
+//        recursiveQuickSort(dataArray, 0, length-1);
 //        for (int i=0; i<dataArray.length; ++i) {
 //            System.out.println(dataArray[i]);
 //        }
+//        for (int i=0; i<arr.length; ++i) {
+//            System.out.println(arr[i]);
+//        }
     }
+
+    // insertion sort
+    // linked implementation better?
+    public static void insertionSort (int arr[], int size) {
+        int i = 0;
+        int j = 0;
+        int temp = 0;  // Temporary variable for swap
+
+        for (i = 1; i < size; ++i) {
+            j = i;
+            // Insert numbers[i] into sorted part
+            // stopping once numbers[i] in correct position
+            while (j > 0 && arr[j] < arr[j - 1]) {
+
+              // Swap arr[j] and arr[j - 1]
+              temp = arr[j];
+              arr[j] = arr[j - 1];
+              arr[j - 1] = temp;
+              --j;
+            }
+        }
+    }
+
+    // Quicksort
+        // (divides the data into 2 partitions separated by a pivot)
+        // The first partition contains all the items which are smaller than the pivot.
+        // The remaining items are in the other partition
+        // 4 versions:
+            // first item as pivot, partition of size one and two as a stopping case
+                // While the partition size of two may stop with two elements that are not in sorted order, you can trivially test them directly and swap as appropriate
+            // first item as pivot, stopping case of a partition of size k=100. then insertion sort
+            // first item as pivot, stopping case of a partition of size k=50. then insertion sort
+            // median-of-three as the pivot. Treat a partition of size one and two as a stopping case.
 
     public static void iterativeQuickSort (int arr[]) {
         Stack quickStack = new Stack();
@@ -73,22 +110,23 @@ public class SortComparison {
         // initial start and end values put on the stack
         quickStack.push(0);
         quickStack.push(arr.length-1);
-        
+
         for (int m=0; m<arr.length; ++m) {
             System.out.println(arr[m]);
         }
-        
+
         System.out.println("-start loop-");
         while (!quickStack.isEmpty()) {
-            System.out.println("-loop iteration-");
+//            System.out.println("-loop iteration-");
             int k = quickStack.pop();
             int i = quickStack.pop();
-            System.out.println("--k-" + k + "--i-" + i);
+//            System.out.println("--k-" + k + "--i-" + i);
             if (i >= k) { // stopping case
                 System.out.println("stopping case");
             } else {
                 // find the partition
                 int p = partition (arr, i, k);
+                System.out.println("p:" + p);
                 // second group (put on first since it's a stack)
                 quickStack.push(p+1);
                 quickStack.push(k);
@@ -98,11 +136,10 @@ public class SortComparison {
             }
         }
         System.out.println("-end loop-");
-        
-        for (int m=0; m<arr.length; ++m) {
-            System.out.println(arr[m]);
-        }
-
+//
+//        for (int m=0; m<arr.length; ++m) {
+//            System.out.println(arr[m]);
+//        }
     }
 
     public static void recursiveQuickSort (int arr[], int i, int k) {
@@ -169,7 +206,7 @@ public class SortComparison {
         }
         return h;
     }
-    
+
     // Build the heap and then extract the elements in sorted order from the heap.
     public static void heapSort (int arr[], int length) {
         for (int i=0; i<length; ++i) {
