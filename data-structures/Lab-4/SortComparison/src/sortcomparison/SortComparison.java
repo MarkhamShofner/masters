@@ -38,15 +38,14 @@ public class SortComparison {
                 // if a space, new line, or carriage return
                 if (((r) == 32) || ((r) == 10) || ((r) == 13)) {
                     if (numberString.trim().length() > 0) {
-                        System.out.println("--" + numberString + "--");
-                        
+//                        System.out.println("--" + numberString + "--");
                         dataArray[i] = Integer.parseInt(numberString);
                         i++;
                     }
                     numberString = "";
                 } else {
                     numberString = numberString + ch;
-                    System.out.println("Add " + ch + " to " + numberString);
+//                    System.out.println("Add " + ch + " to " + numberString);
                 }
             }
         }
@@ -55,20 +54,58 @@ public class SortComparison {
         }
 
         int arr[] = {3, 5, 7, 1, 2, 99, 12, -1, 45, 69, 100000};
-//        int length = arr.length;
+
         int length = dataArray.length;
 //        heapSort(dataArray, length);
 //       quickSort(arr, 0, arr.length-1);
-        quickSort(dataArray, 0, dataArray.length-1);
+
+        iterativeQuickSort(dataArray);
+
+//        quickSort(dataArray, 0, length-1);
 //        for (int i=0; i<dataArray.length; ++i) {
 //            System.out.println(dataArray[i]);
 //        }
     }
 
+    public static void iterativeQuickSort (int arr[]) {
+        Stack quickStack = new Stack();
 
-    // pull from zybook for quicksort roots
+        // initial start and end values put on the stack
+        quickStack.push(0);
+        quickStack.push(arr.length-1);
+        
+        for (int m=0; m<arr.length; ++m) {
+            System.out.println(arr[m]);
+        }
+        
+        System.out.println("-start loop-");
+        while (!quickStack.isEmpty()) {
+            System.out.println("-loop iteration-");
+            int k = quickStack.pop();
+            int i = quickStack.pop();
+            System.out.println("--k-" + k + "--i-" + i);
+            if (i >= k) { // stopping case
+                System.out.println("stopping case");
+            } else {
+                // find the partition
+                int p = partition (arr, i, k);
+                // second group (put on first since it's a stack)
+                quickStack.push(p+1);
+                quickStack.push(k);
+                // first group (put on second since it's a stack)
+                quickStack.push(i);
+                quickStack.push(p);
+            }
+        }
+        System.out.println("-end loop-");
+        
+        for (int m=0; m<arr.length; ++m) {
+            System.out.println(arr[m]);
+        }
 
-    public static void quickSort (int arr[], int i, int k) {
+    }
+
+    public static void recursiveQuickSort (int arr[], int i, int k) {
         for (int j=0; j<arr.length; ++j) {
             System.out.println(arr[j]);
         }
@@ -80,11 +117,10 @@ public class SortComparison {
         // from partitioning is location of last element in low partition.
         p = partition(arr, i, k);
 
-
         // Recursively sort low partition (i to j) and
         // high partition (j + 1 to k)
-        quickSort(arr, i, p);
-        quickSort(arr, p + 1, k);
+        recursiveQuickSort(arr, i, p);
+        recursiveQuickSort(arr, p + 1, k);
 
         for (int j=0; j<arr.length; ++j) {
             System.out.println(arr[j]);
@@ -133,20 +169,6 @@ public class SortComparison {
         }
         return h;
     }
-
-    // Quicksort
-        // (divides the data into 2 partitions separated by a pivot)
-        // The first partition contains all the items which are smaller than the pivot.
-        // The remaining items are in the other partition
-        // 4 versions:
-            // first item as pivot, partition of size one and two as a stopping case
-                // While the partition size of two may stop with two elements that are not in sorted order, you can trivially test them directly and swap as appropriate
-            // first item as pivot, stopping case of a partition of size k=100. then insertion sort
-            // first item as pivot, stopping case of a partition of size k=50. then insertion sort
-            // median-of-three as the pivot. Treat a partition of size one and two as a stopping case. 
-
-    // insertion sort
-        // linked implementation better?
     
     // Build the heap and then extract the elements in sorted order from the heap.
     public static void heapSort (int arr[], int length) {
