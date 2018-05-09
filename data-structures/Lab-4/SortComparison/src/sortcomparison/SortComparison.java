@@ -22,11 +22,20 @@ public class SortComparison {
      */
     public static void main(String[] args) {
         System.out.println("-------------Start Of Main Method-------------");
+        System.out.println("file input: " + args[0] + ", selected algorithm: " + args[1]);
+        
+        String fileInput = args[0]; // ran50.dat dup20k.dat rev5k.dat etc...
+        String algorithm = args[1]; // quick1 quick2 quick3 quick4 heap
 
-        int dataArray[] = new int[50]; // TODO grab size of array based on file input
+        // use regex to replace all non integers with an empty string
+        String intString = fileInput.replaceAll("[^0-9]", "");
+        int dataSize = Integer.parseInt(intString);
+        // set size of array based on file input
+        int dataArray[] = new int[dataSize];
+        int length = dataArray.length;
 
         // open up the file reader and create the data array
-        try(BufferedReader br = new BufferedReader(new FileReader("../InputData/ran50.dat"))) {
+        try(BufferedReader br = new BufferedReader(new FileReader("../InputData/" + fileInput))) {
             System.out.println("---Begin File Read---");
             int c;
             int r;
@@ -38,14 +47,12 @@ public class SortComparison {
                 // if a space, new line, or carriage return
                 if (((r) == 32) || ((r) == 10) || ((r) == 13)) {
                     if (numberString.trim().length() > 0) {
-//                        System.out.println("--" + numberString + "--");
                         dataArray[i] = Integer.parseInt(numberString);
                         i++;
                     }
                     numberString = "";
                 } else {
                     numberString = numberString + ch;
-//                    System.out.println("Add " + ch + " to " + numberString);
                 }
             }
         }
@@ -53,26 +60,86 @@ public class SortComparison {
             System.out.println("Error: " + e);
         }
 
-        int arr[] = {3, 5, 7, 1, 2, 99, 12, -1, 45, 69, 100000};
+        // declare variables that will be used to track execution time
+        long startTime; // could move these closer to the function
+        long endTime;
+        long totalTime = 0;
+        long totalTimeSeconds;
+//        long totalTimeSeconds;
+        
+        System.out.println("Running " + algorithm + " sort on " + fileInput);
+        totalTime = sortTriage (dataArray, algorithm);
+        totalTimeSeconds = totalTime / 1000000000;
+        System.out.println("hi");
+        
+        // create a file writer, start the timer, and solve the problem
+        try (FileWriter fw = new FileWriter("../OutputData/" + fileInput + ".out")) {
+//            startTime = System.nanoTime();
 
-        int length = dataArray.length;
-//        heapSort(dataArray, length);
-//       quickSort(arr, 0, arr.length-1);
+            fw.write("Iteratively solving the Towers of Hanoi problem.\n-------------------------\n");
 
-        iterativeQuickSort(dataArray);
-//        insertionSort(dataArray, dataArray.length);
-
-//        recursiveQuickSort(dataArray, 0, length-1);
-//        for (int i=0; i<dataArray.length; ++i) {
-//            System.out.println(dataArray[i]);
-//        }
+//            endTime = System.nanoTime();
+//            totalTime = endTime - startTime;
+//            totalTimeSeconds = totalTime / 1000000000;
+//            fw.write("\n-------------\n It took " + totalTime + " nano seconds (" + totalTimeSeconds + " seconds rounding down) to solve the Towers of Hanoi for " + n + " discs.");
+//            System.out.println("\n-------------\n It took " + totalTime + " nano seconds (" + totalTimeSeconds + " seconds rounding down) to solve the Towers of Hanoi for " + n + " discs.");
+            
+            for (int m=0; m<dataArray.length; ++m) {
+                fw.write("\n" + dataArray[m]);
+                System.out.println(dataArray[m]);
+            }
+        } catch (IOException e) { // catch any IO errors and print to the console
+            System.out.println("I/O Error: " + e);
+        }        
+        System.out.println("hiza");
+        System.out.println(totalTime);
+        System.out.println(totalTimeSeconds);
 //        for (int i=0; i<arr.length; ++i) {
 //            System.out.println(arr[i]);
 //        }
     }
 
+    // triaged the passed in array and algorithm into the proper sorting subroutine
+    // returns the length of time a sort operation took
+    public static long sortTriage (int arr[], String algorithm) {
+        long startTime = 0;
+        long endTime = 0;
+        // the below timing variables for the case statements are a bit repetitive
+        // but we want them as close as possible to the sorting subroutines
+        switch (algorithm) {
+            case "quick1":
+                startTime = System.nanoTime();
+                iterativeQuickSort(arr, 3, "first");
+                endTime = System.nanoTime();
+                break;
+            case "quick2":
+                startTime = System.nanoTime();
+                iterativeQuickSort(arr, 51, "first");
+                endTime = System.nanoTime();
+                break;
+            case "quick3":
+                startTime = System.nanoTime();
+                iterativeQuickSort(arr, 101, "first");
+                endTime = System.nanoTime();
+                break;
+            case "quick4":
+                startTime = System.nanoTime();
+                iterativeQuickSort(arr, 3, "median");
+                endTime = System.nanoTime();
+                break;
+            case "heap":
+                startTime = System.nanoTime();
+                heapSort(arr, arr.length);
+                endTime = System.nanoTime();
+                break;
+            default:
+                System.out.println("You shouldn't be here: Improper algorithm argument -- " + algorithm);
+        }
+        long totalTime = endTime - startTime;
+        return totalTime;
+    }
+
     // insertion sort
-    // linked implementation better?
     public static void insertionSort (int arr[], int size) {
         int i = 0;
         int j = 0;
@@ -93,86 +160,66 @@ public class SortComparison {
         }
     }
 
-    // Quicksort
-        // (divides the data into 2 partitions separated by a pivot)
-        // The first partition contains all the items which are smaller than the pivot.
-        // The remaining items are in the other partition
-        // 4 versions:
-            // first item as pivot, partition of size one and two as a stopping case
-                // While the partition size of two may stop with two elements that are not in sorted order, you can trivially test them directly and swap as appropriate
-            // first item as pivot, stopping case of a partition of size k=100. then insertion sort
-            // first item as pivot, stopping case of a partition of size k=50. then insertion sort
-            // median-of-three as the pivot. Treat a partition of size one and two as a stopping case.
-
-    public static void iterativeQuickSort (int arr[]) {
+    // Iterative QuickSort, divides the data into 2 partitions separated by a pivot
+    // Determines the style of type of QuickSort based on a pased in flag
+    public static void iterativeQuickSort (int arr[], int caseNum, String pivot) {
         Stack quickStack = new Stack();
 
         // initial start and end values put on the stack
         quickStack.push(0);
         quickStack.push(arr.length-1);
 
-        for (int m=0; m<arr.length; ++m) {
-            System.out.println(arr[m]);
-        }
-
         System.out.println("-start loop-");
         while (!quickStack.isEmpty()) {
-//            System.out.println("-loop iteration-");
+            System.out.println("-loop iteration-");
             int k = quickStack.pop();
             int i = quickStack.pop();
-//            System.out.println("--k-" + k + "--i-" + i);
+            System.out.println("--k-" + k + "--i-" + i);
             if (i >= k) { // stopping case
                 System.out.println("stopping case");
             } else {
                 // find the partition
-                int p = partition (arr, i, k);
-                System.out.println("p:" + p);
-                // second group (put on first since it's a stack)
-                quickStack.push(p+1);
-                quickStack.push(k);
-                // first group (put on second since it's a stack)
-                quickStack.push(i);
-                quickStack.push(p);
+                int p = partition (arr, i, k, pivot);
+                int partSize = k-i;
+                System.out.println("p: " + p + " partSize: " + partSize);
+                if (partSize < caseNum) {
+                    System.out.println(partSize);
+                    System.out.println("!!!-----------------move to insertion sort!");
+                    insertionSort(arr, arr.length);
+                } else {
+                    // second group (put on first since it's a stack)
+                    quickStack.push(p+1);
+                    quickStack.push(k);
+                    // first group (put on second since it's a stack)
+                    quickStack.push(i);
+                    quickStack.push(p);
+                }
             }
         }
         System.out.println("-end loop-");
 //
-//        for (int m=0; m<arr.length; ++m) {
-//            System.out.println(arr[m]);
-//        }
-    }
-
-    public static void recursiveQuickSort (int arr[], int i, int k) {
-        for (int j=0; j<arr.length; ++j) {
-            System.out.println(arr[j]);
-        }
-        int p = 0;
-        if (i >= k) {
-            return;
-        }
-        // Partition the data within the array. Value j returned
-        // from partitioning is location of last element in low partition.
-        p = partition(arr, i, k);
-
-        // Recursively sort low partition (i to j) and
-        // high partition (j + 1 to k)
-        recursiveQuickSort(arr, i, p);
-        recursiveQuickSort(arr, p + 1, k);
-
-        for (int j=0; j<arr.length; ++j) {
-            System.out.println(arr[j]);
+        for (int m=0; m<arr.length; ++m) {
+            System.out.println(arr[m]);
         }
     }
 
-    public static int partition (int arr[], int i, int k) {
+    public static int partition (int arr[], int i, int k, String pivotType) {
         int l = 0;
         int h = 0;
         int pivot = 0;
+        int midpoint = 0;
         int temp = 0;
         boolean done = false;
 
-        // Pick first element as pivot
-        pivot = arr[i];
+        if (pivotType.equals("first")) {
+            // Pick first element as pivot
+            pivot = arr[i];
+            System.out.println("-----------------------------------firstSort" + midpoint + "----" + pivot);
+        } else if (pivotType.equals("median")) {
+            midpoint = i + (k-i) / 2;
+            pivot = arr[midpoint];
+            System.out.println("-----------------------------------medianSort" + midpoint + "----" + pivot);
+        }
 
         l = i;
         h = k;
@@ -182,12 +229,10 @@ public class SortComparison {
             while (arr[l] < pivot) {
                 ++l;
             }
-
             // Decrement h while pivot < arr[h]
             while (pivot < arr[h]) {
               --h;
             }
-
             // If there are zero or one elements remaining,
             // all arr are partitioned. Return h
             if (l >= h) {
@@ -205,6 +250,28 @@ public class SortComparison {
             }
         }
         return h;
+    }
+
+    public static void recursiveQuickSort (int arr[], int i, int k) {
+        for (int j=0; j<arr.length; ++j) {
+            System.out.println(arr[j]);
+        }
+        int p = 0;
+        if (i >= k) {
+            return;
+        }
+        // Partition the data within the array. Value j returned
+        // from partitioning is location of last element in low partition.
+        p = partition(arr, i, k, "first");
+
+        // Recursively sort low partition (i to j) and
+        // high partition (j + 1 to k)
+        recursiveQuickSort(arr, i, p);
+        recursiveQuickSort(arr, p + 1, k);
+
+        for (int j=0; j<arr.length; ++j) {
+            System.out.println(arr[j]);
+        }
     }
 
     // Build the heap and then extract the elements in sorted order from the heap.
