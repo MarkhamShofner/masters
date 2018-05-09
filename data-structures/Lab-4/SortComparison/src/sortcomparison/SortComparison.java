@@ -22,8 +22,12 @@ public class SortComparison {
      */
     public static void main(String[] args) {
         System.out.println("-------------Start Of Main Method-------------");
-        System.out.println("file input: " + args[0] + ", selected algorithm: " + args[1]);
         
+        // override args for number testing
+        // 
+        
+        System.out.println("file input: " + args[0] + ", selected algorithm: " + args[1]);
+
         String fileInput = args[0]; // ran50.dat dup20k.dat rev5k.dat etc...
         String algorithm = args[1]; // quick1 quick2 quick3 quick4 heap
 
@@ -66,37 +70,23 @@ public class SortComparison {
         long totalTime = 0;
         long totalTimeSeconds;
 //        long totalTimeSeconds;
-        
+
         System.out.println("Running " + algorithm + " sort on " + fileInput);
         totalTime = sortTriage (dataArray, algorithm);
         totalTimeSeconds = totalTime / 1000000000;
-        System.out.println("hi");
-        
+
         // create a file writer, start the timer, and solve the problem
         try (FileWriter fw = new FileWriter("../OutputData/" + fileInput + ".out")) {
-//            startTime = System.nanoTime();
-
-            fw.write("Iteratively solving the Towers of Hanoi problem.\n-------------------------\n");
-
-//            endTime = System.nanoTime();
-//            totalTime = endTime - startTime;
-//            totalTimeSeconds = totalTime / 1000000000;
-//            fw.write("\n-------------\n It took " + totalTime + " nano seconds (" + totalTimeSeconds + " seconds rounding down) to solve the Towers of Hanoi for " + n + " discs.");
-//            System.out.println("\n-------------\n It took " + totalTime + " nano seconds (" + totalTimeSeconds + " seconds rounding down) to solve the Towers of Hanoi for " + n + " discs.");
-            
             for (int m=0; m<dataArray.length; ++m) {
                 fw.write("\n" + dataArray[m]);
+                fw.write("\n TotalTime " + totalTime);
                 System.out.println(dataArray[m]);
             }
         } catch (IOException e) { // catch any IO errors and print to the console
             System.out.println("I/O Error: " + e);
-        }        
-        System.out.println("hiza");
+        }
         System.out.println(totalTime);
         System.out.println(totalTimeSeconds);
-//        for (int i=0; i<arr.length; ++i) {
-//            System.out.println(arr[i]);
-//        }
     }
 
     // triaged the passed in array and algorithm into the proper sorting subroutine
@@ -169,22 +159,19 @@ public class SortComparison {
         quickStack.push(0);
         quickStack.push(arr.length-1);
 
-        System.out.println("-start loop-");
+//        System.out.println("-start loop-");
         while (!quickStack.isEmpty()) {
-            System.out.println("-loop iteration-");
+//            System.out.println("-loop iteration-");
             int k = quickStack.pop();
             int i = quickStack.pop();
-            System.out.println("--k-" + k + "--i-" + i);
             if (i >= k) { // stopping case
-                System.out.println("stopping case");
+//                System.out.println("stopping case");
             } else {
                 // find the partition
                 int p = partition (arr, i, k, pivot);
                 int partSize = k-i;
-                System.out.println("p: " + p + " partSize: " + partSize);
+//                System.out.println("p: " + p + " partSize: " + partSize);
                 if (partSize < caseNum) {
-                    System.out.println(partSize);
-                    System.out.println("!!!-----------------move to insertion sort!");
                     insertionSort(arr, arr.length);
                 } else {
                     // second group (put on first since it's a stack)
@@ -196,11 +183,7 @@ public class SortComparison {
                 }
             }
         }
-        System.out.println("-end loop-");
-//
-        for (int m=0; m<arr.length; ++m) {
-            System.out.println(arr[m]);
-        }
+//        System.out.println("-end loop-");
     }
 
     public static int partition (int arr[], int i, int k, String pivotType) {
@@ -214,11 +197,9 @@ public class SortComparison {
         if (pivotType.equals("first")) {
             // Pick first element as pivot
             pivot = arr[i];
-            System.out.println("-----------------------------------firstSort" + midpoint + "----" + pivot);
         } else if (pivotType.equals("median")) {
             midpoint = i + (k-i) / 2;
             pivot = arr[midpoint];
-            System.out.println("-----------------------------------medianSort" + midpoint + "----" + pivot);
         }
 
         l = i;
@@ -276,10 +257,6 @@ public class SortComparison {
 
     // Build the heap and then extract the elements in sorted order from the heap.
     public static void heapSort (int arr[], int length) {
-        for (int i=0; i<length; ++i) {
-            System.out.println(arr[i]);
-        }
-
         // Heapify the array
         for (int i = length / 2 - 1; i >= 0; i--) {
             MaxHeapPercolateDown(i, arr, length);
@@ -292,11 +269,6 @@ public class SortComparison {
             arr[i]=tempInt;
             MaxHeapPercolateDown(0, arr, i);
         }
-        System.out.println("---------------------------");
-        for (int i=0; i<length; ++i) {
-            System.out.println(arr[i]);
-        }
-        //        return sortedArr;
     }
 
     public static int MaxHeapPercolateDown(int nodeIndex, int heapArray[], int arraySize) {
