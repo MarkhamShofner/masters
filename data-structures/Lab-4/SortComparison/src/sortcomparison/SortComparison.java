@@ -12,20 +12,21 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 
 /**
- *
- * @author mark8604
+ * Sort a series of integers based on a passed in data file a selected algorithm
+ * Supported algorithms include QuickSort (with a few different implementations)
+ * and HeapSort.
+ * @author Markham Shofner
  */
 public class SortComparison {
 
     /**
+     * Set up the data array based on the data file,
+     * Call the requested sorting function, determine the total time
+     * required by the sort, and write the ordered file
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         System.out.println("-------------Start Of Main Method-------------");
-        
-        // override args for number testing
-        // 
-        
         System.out.println("file input: " + args[0] + ", selected algorithm: " + args[1]);
 
         String fileInput = args[0]; // ran50.dat dup20k.dat rev5k.dat etc...
@@ -64,32 +65,25 @@ public class SortComparison {
             System.out.println("Error: " + e);
         }
 
-        // declare variables that will be used to track execution time
-        long startTime; // could move these closer to the function
-        long endTime;
-        long totalTime = 0;
-        long totalTimeSeconds;
-//        long totalTimeSeconds;
-
         System.out.println("Running " + algorithm + " sort on " + fileInput);
-        totalTime = sortTriage (dataArray, algorithm);
-        totalTimeSeconds = totalTime / 1000000000;
+        
+        // determine the totalTime, and call the sortTriage function
+        long totalTime = sortTriage (dataArray, algorithm);
 
         // create a file writer, start the timer, and solve the problem
         try (FileWriter fw = new FileWriter("../OutputData/" + fileInput + ".out")) {
             for (int m=0; m<dataArray.length; ++m) {
                 fw.write("\n" + dataArray[m]);
-                fw.write("\n TotalTime " + totalTime);
                 System.out.println(dataArray[m]);
             }
+            fw.write("\n TotalTime " + totalTime);
         } catch (IOException e) { // catch any IO errors and print to the console
             System.out.println("I/O Error: " + e);
         }
         System.out.println(totalTime);
-        System.out.println(totalTimeSeconds);
     }
 
-    // triaged the passed in array and algorithm into the proper sorting subroutine
+    // triage the passed in array and algorithm into the proper sorting subroutine
     // returns the length of time a sort operation took
     public static long sortTriage (int arr[], String algorithm) {
         long startTime = 0;
@@ -129,7 +123,7 @@ public class SortComparison {
         return totalTime;
     }
 
-    // insertion sort
+    // insertion sort. based on the ZyBooks pseudocode
     public static void insertionSort (int arr[], int size) {
         int i = 0;
         int j = 0;
@@ -152,6 +146,7 @@ public class SortComparison {
 
     // Iterative QuickSort, divides the data into 2 partitions separated by a pivot
     // Determines the style of type of QuickSort based on a pased in flag
+    // based on the recursive ZyBooks pseudocode and built from there
     public static void iterativeQuickSort (int arr[], int caseNum, String pivot) {
         Stack quickStack = new Stack();
 
@@ -171,13 +166,13 @@ public class SortComparison {
                 int p = partition (arr, i, k, pivot);
                 int partSize = k-i;
 //                System.out.println("p: " + p + " partSize: " + partSize);
-                if (partSize < caseNum) {
+                if (partSize < caseNum) { // insertionSort() if the caseNum is met
                     insertionSort(arr, arr.length);
                 } else {
-                    // second group (put on first since it's a stack)
+                    // second group on first since it's a stack
                     quickStack.push(p+1);
                     quickStack.push(k);
-                    // first group (put on second since it's a stack)
+                    // first group on second since it's a stack
                     quickStack.push(i);
                     quickStack.push(p);
                 }
@@ -186,6 +181,7 @@ public class SortComparison {
 //        System.out.println("-end loop-");
     }
 
+    // partition function. based on the ZyBooks pseudocode
     public static int partition (int arr[], int i, int k, String pivotType) {
         int l = 0;
         int h = 0;
@@ -233,6 +229,7 @@ public class SortComparison {
         return h;
     }
 
+    // recurisve QuickSort. based on the ZyBooks pseudocode
     public static void recursiveQuickSort (int arr[], int i, int k) {
         for (int j=0; j<arr.length; ++j) {
             System.out.println(arr[j]);
@@ -255,7 +252,9 @@ public class SortComparison {
         }
     }
 
+    
     // Build the heap and then extract the elements in sorted order from the heap.
+    // based on the ZyBooks pseudocode
     public static void heapSort (int arr[], int length) {
         // Heapify the array
         for (int i = length / 2 - 1; i >= 0; i--) {
@@ -271,6 +270,7 @@ public class SortComparison {
         }
     }
 
+    // MaxHeapPercolateDown. based on the ZyBooks pseudocode
     public static int MaxHeapPercolateDown(int nodeIndex, int heapArray[], int arraySize) {
         int childIndex = 2 * nodeIndex + 1;
         int value = heapArray[nodeIndex];
