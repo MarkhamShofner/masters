@@ -37,7 +37,6 @@ More Big O Notation Notes,
   - can break a piece of code into little components and derive the cost of each section (N for linear expressions, N^2 for quadratic, etc...). Then simplify according to the O Notation rules.
   +;
 
-TODO - define the below with the book definition
 Upper Bound,
   - g only has to be greater than f beyond a certain point
   - f will do no worse than g (its upper bound)
@@ -489,7 +488,7 @@ Binary trees,
   +;
 Types of binary trees,
   - A binary tree is full if every node contains 0 or 2 children.
-  - A binary tree is complete if all levels, except possibly the last level, are completely full and all nodes in the last level are as far left as possible.
+  - A binary tree is complete if all levels, except possibly the last level, are completely full and all nodes in the last level are as far left as possible. (height of binary tree (complete) - 2^k leaves and 2^(k+1) total vertices in a tree of height k.)
   - A binary tree is perfect, if all internal nodes have 2 children and all leaf nodes are at the same level.
 Minimum spanning tree,
   Subset of the graph's edges that connect all vertices in the graph together with the minimum sum of edge weights. The graph must be weighted and connected. A connected graph contains a path between every pair of vertices.
@@ -532,7 +531,7 @@ M-ary tree,
   m describes the maximum (out) degree of the tree
   +;
 Regular m-ary tree,
-  Every node that has children has to have the same number of children (o or m).
+  Every node that has children has to have the same number of children (0 or m).
   +;
 Complete m-ary tree,
   regular and has all the leaves at same level k (which is the height)
@@ -587,6 +586,7 @@ Binary Search Trees,
   - "Search Tree" characteristic defines that everything in the LST is <= the root of the subtree. And everything in the RST is >= the root of the subtree.
   - recursive characteristic
   - an in-order traversal will yield the values in a sorted order
+  - average cost of Binary Search is O(log n).
   +;
 
 Module 9 - Huffman Encoding and Sorting,
@@ -600,7 +600,7 @@ Module 9 - Huffman Encoding and Sorting,
   +;
 Quicksort,
   - sorting algorithm that repeatedly partitions the input into low and high parts (each part unsorted), and then recursively sorts each of those parts. To partition the input, quicksort chooses a pivot to divide the data into low and high parts. The _pivot_ can be any value within the array being sorted, commonly the value of the middle array element.
-  - quicksort algorithm's runtime is typically O(N log N). Quicksort has several partitioning levels , the first level dividing the input into 2 parts, the second into 4 parts, the third into 8 parts, etc. At each level, the algorithm does at most N comparisons moving the l and h indices. If the pivot yields two equal-sized parts, then there will be log N levels, requiring the N * log N comparisons.
+  - quicksort algorithm's runtime is typically O(N log N). Quicksort has several partitioning levels, the first level dividing the input into 2 parts, the second into 4 parts, the third into 8 parts, etc. At each level, the algorithm does at most N comparisons moving the l and h indices. If the pivot yields two equal-sized parts, then there will be log N levels, requiring the N * log N comparisons.
   +;
 Huffman Encoding,
   - application of binary trees
@@ -626,7 +626,7 @@ Sort Types,
       - simple, inefficient
       - good for small data files because it needs to be done in an array
       - simple double nested for-loop
-      - pattern: compare across 2 indeces at a time (increasing as you go 1 v 2, 2 v 3 etc..) with swaps in between if needed to have the higher value be the higher index. _bubbling_ up the higher values. repeat the process until sorted.
+      - pattern: compare across 2 indices at a time (increasing as you go 1 v 2, 2 v 3 etc..) with swaps in between if needed to have the higher value be the higher index. _bubbling_ up the higher values. repeat the process until sorted.
         - # of comparisons stays constant, # of exchanges goes down with each sort.
         - BUT we can start to ignore the last index of each progressive comparison (since the top value will bubble up), which will reduce the # of comparisons by one at each level
         - can also improve by having a test flag to check the # of exchanges, which if it ever reaches 0 can exit the sort (say the list happens to be sorted with 4 or 5 cycles left)
@@ -704,6 +704,7 @@ Merge sort,
   - Merge sort merges the two sorted partitions into a single list by repeatedly selecting the smallest element from either the left or right partition and adding that element to a temporary merged list. Once fully merged, the elements in the temporary merged list are copied back to the original list.
   - merge sort algorithm's runtime is O(N log N). Merge sort divides the input in half until a list of 1 element is reached, which requires log N partitioning levels. At each level, the algorithm does about N comparisons selecting and copying elements from the left and right partitions, yielding N * log N comparisons.
   - Merge sort requires O(N) additional memory elements for the temporary array of merged elements. For the final merge operation, the temporary list has the same number of elements as the input. Some sorting algorithms sort the list elements in place and require no additional memory, but are more complex to write and understand.
+  - number of passes for a straight 2-way merge sort: ceiling(log2n)
   +;
 Radix sort,
   - sorting algorithm designed specifically for integers. The algorithm makes use of a concept called buckets.
@@ -738,6 +739,10 @@ Interpolation Search,
 Indexed Sequential Search,
   - jumps to specific indices (hopefully evenly split depending on the dataset) sequentially and then locates from there
   - optimizes sequential search
+  +;
+General Sort notes,
+  - Quadratic Selection Sort, Simple Selection Sort, Merge Sort, Shell Sort are relatively insensitive to the order of the data. Same with Heap Sort.
+  - Natural Merge,  Bubble Sort, Binary Tree Sort, and Insertion Sort are sensitive to the order of the data
   +;
 
 Module 12: Search Trees and Transposition and Hashing,
@@ -854,11 +859,6 @@ Hashing,
   - one quick way to reduce the collisions is to enlarge the table, which can waste space
   - not suitable when you need sorted data
   +;
-
-
-
-
-
 
 
 
