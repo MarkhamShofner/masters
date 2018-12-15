@@ -13,7 +13,7 @@ Introduces the concept of computer architecture and contrasts computer architect
   - Use Amdahl’s law.
   +;
 Response time,
-  Also called execution time. Thee total time required for the computer to complete a task, including disk accesses, memory accesses, I/O activities, operating system overhead, CPU execution time, and so on.
+  Also called execution time. The total time required for the computer to complete a task, including disk accesses, memory accesses, I/O activities, operating system overhead, CPU execution time, and so on.
   +;
 Classic CPU Performance Equation,
   CPU time = Instruction count x CPI x Clock cycle time
@@ -107,7 +107,7 @@ Semantic gap,
 CISC,
   - CISC type instructions allow the use of multiple memory operands, each of which may be referenced using a different addressing mode.
   - Instructions support a large and flexible set of operations.
-  - Tend to vary in size from as little as one byte to as many as 15 or more byes
+  - Tend to vary in size from as little as one byte to as many as 15 or more bytes
   examples -
     - string scan
     - translate (table lookup)
@@ -265,9 +265,9 @@ Module 5 - Microprogrammed Implementation,
   - Explain how micro-programming can serve as a basis for processor emulation.
   +;
 Control,
-- Control typically has two parts: a combinational part that lacks state and a sequential control unit that handles sequencing and the main control in a multicycle design. Combinational control units are oft en used to handle part of the decode and control process.
+- Control typically has two parts: a combinational part that lacks state and a sequential control unit that handles sequencing and the main control in a multicycle design. Combinational control units are often used to handle part of the decode and control process.
 - ALU is an Example
-- The most straightforward way to implement a sequential control function is with a block of logic that takes as inputs the current state and the opcode fi eld of the Instruction register and produces as outputs the datapath control signals and the value of the next state
+- The most straightforward way to implement a sequential control function is with a block of logic that takes as inputs the current state and the opcode field of the Instruction register and produces as outputs the datapath control signals and the value of the next state
   +;
 Multi-cycle Implementation,
   - instructions are broken up in to a number of microinstructions, where each takes one cycle to move through the data path
@@ -276,6 +276,7 @@ Multi-cycle Implementation,
 Programmable logic array,
   a kind of programmable logic device used to implement combinational logic circuits. The PLA has a set of programmable AND gate planes, which link to a set of programmable OR gate planes, which can then be conditionally complemented to produce an output
   +;
+
 Module 6 - Pipelined Implementation,
   introduces the concept of instruction pipelining and describes the basic MIPS 5-stage pipeline. The function of each pipeline stage is explained and the flow of instructions through the pipeline is illustrated by several examples. Improvement in processor throughput and performance is demonstrated by comparing the sequential execution of instructions with pipelined execution as a means of achieving instruction level parallelism (ILP).
   - Describe the operation of instruction pipelines and their impact on computer performance.
@@ -292,8 +293,232 @@ latency,
 Other terms,
   - forwarding (data values to registers (or bypassing the registers) so they don't hold up the pipelining process)
   - Hazards (data, control, resource) that hold up pipeline
+  - nops, stalls, bubbled
+Control Hazards,
+  - assume branch not taken, then flush the instructions if it ended up being taken.
+  - can use dynamic branch prediction. prediction of branches at runtime. by using a branch prediction buffer or branch history table.
   +;
 
+-------------------------------------------------------------------,
+  -------------------------------------------------------------------------------------------------------
+  -------------------------------------------------------------------------------------------------------
+  +;
 
+Module 7 - Multiple Functional Units and Superscalar Operations,
+  - completes the coverage of pipelining by explaining how branch instructions disrupt the flow of instructions through the pipeline and examining techniques to handle these “control hazards". It also explains how the use of multiple functional units and superscalar techniques push the throughput of the system beyond the one instruction per cycle goal of scalar pipeline.
+  - Identify how the hardware detects if there is a hazard and compensates for that hazard using forwarding and stalls.
+  - Describe how superscalar pipelines issue multiple instructions.
+  +;
+Exception,
+  an unscheduled event that disrupts program execution; used to detect Overflow
+  +;
+Interrupt,
+  an exception that comes from outside [in MIPs definition] of the processor
+  +;
+Multiple issue,
+  a scheme whereby multiple instructions are launched in one clock cycle.
+  +;
+Static multiple issue,
+  an approach to implementing a multiple-issue processor where many decisions are made by the compiler before execution.
+  +;
+Dynamic multiple issue,
+  an approach to implementing a multiple-issue processor where many decisions are made during execution by the processor.
+  +;
+Issue slots,
+  the positions from which instructions could issue in a given clock cycle (starting blocks for a track sprint).
+  +;
+Speculation,
+  compiler or processor guesses the outcome of an instruction to remove it as a dependence in executing other instructions.
+  +;
+Loop unrolling,
+  A technique to get more performance form loops that access arrays, in which multiple copies of the loop body are made and instructions from different iterations are overlapped
+  +;
+Superscalar,
+  An advanced pipelining technique that enables the processor to execute more than one instruction per clock cycle by selecting them during execution.
+  +;
+Dynamic pipeline scheduling,
+  hardware support for reordering the order of instruction execution so as to avoid stalls.
+  +;
+Commit unit,
+  decides when it is safe to release the result of an operation to programmer-visible registers and memory
+  +;
 
-+;
+Module 8 - The Memory System,
+  +;
+Principle of locality,
+  states that programs access a relatively small portion of their address space at any instant of time.
+  +;
+Temporal locality,
+  principle stating that if a data location is referenced, then it will tend to be referenced again soon.
+  +;
+Spatial locality,
+  principle stating that if a data location is referenced, data locations with nearby addresses will tend to be referenced again soon.
+  +;
+Memory Hierarchy,
+  - structure that uses multiple levels of memories; as the distance from the processor increases, the size of the memories and the access time both increase.
+  - SRAM -> DRAM -> Magnetic disc (small --> large, fast --> slow)
+  +;
+General memory terms,
+  - hit rate (fraction of accesses found in a level of the hierarchy)
+  - miss rate
+  - hit time
+  - miss penalty (time required to fetch block)
+  +;
+DRAM,
+  Dynamic Random Access Memory. Main memory.
+  +;
+SRAM,
+  Static Random Access Memory. Levels closer to the processor (caches). More expensive ($) and space per bit, faster.
+  +;
+Flash memory,
+  type of EEPROM (electrically erasable programmable read-only memory)
+  +;
+Magnetic Disk,
+  largest and slowest
+  +;
+RAM,
+  read/write, can be changed or updated
+  +;
+ROM,
+  read only, can be read but not changed
+  +;
+Big endian,
+  - most significant bits would be stored in lowest address (so 4 byte words, would store most important in first byte - 200 would have 1&2, 201 would have 3&4, etc.. in terms of importance)
+  - this storage order is used in MIPS
+  +;
+Little endian,
+  - least significant bits in the first byte
+  +;
+S-R Latch,
+  Set-Reset circuit/latch
+  +;
+S-R flip-flop,
+  similar to S-R latch, but controlled by clock edge
+  +;
+D-latch,
+  when C (the clock) is high, Q takes on the same value as D
+  chances wi
+  +;
+D flip-flop,
+  same as d-latch but changes with the falling edge of the clock
+  +;
+
+9: Cache Organization and Virtual Memory,
+how the different types of computer storage (registers, cache memory, main memory, disk systems, etc.) can be viewed as a multi-level hierarchical system and discusses the variation in the speed, capacity and management of the various levels. The concept of a cache memory will be explained along with techniques for mapping blocks from memory into lines within direct mapped, set associative, and fully associative caches. The impact of the cache hit ratio on the average access time to memory and on overall performance will also be examined. A distinction is drawn between logical addresses and physical address and the concepts underlying virtual memory systems are also explained.
+  - Define the concept of locality.
+  - Distinguish between temporal and spatial locality.
+  - Explain the different levels in the memory hierarchy.
+  - Calculate the effective memory access time using cache.
+  - Compare different cache organizations.
+  - Analyze various cache mapping schemes.
+  - Explain the concepts that underlie virtual memory.
+  - Contrast the operation of virtual memory and cache memory.
+  +;
+Direct-mapped cache,
+  A cache structure in which each memory location is mapped to exactly one location in the cache.
+  +;
+Types,
+  - Fully Associative - separate comparator is required for every cache line
+  - Direct-mapped - only one comparator is required for entire cache
+  - Set Associative -
+  +;
+Methods to replace lines in cache if cache is full,
+  - Random
+  - FIFO
+  - LRU (Least Recently Used) - most common and sensical choice
+  +;
+Virtual Memory,
+  - cache makes memory appear to be faster
+    - blocks/lines
+  - virtual memory makes main memory appear to be larger
+    - pages/frames that map from virtual to physical memory
+  +;
+Some terms,
+  - Address mapping
+  - Direct mapping
+  - 2-way set associative
+  - 4-way set associative
+
+  notes
+  - block address = B * block size
+  - slide 21
+  - cache size / block size = number of blocks
+  - offset calculated by taking log2 size of block
+  +;
+
+Module 10: Input/Output Systems,
+  how the different types of computer storage (registers, cache memory, main memory, disk systems, etc.) can be viewed as a multi-level hierarchical system and discusses the variation in the speed, capacity and management of the various levels. The concept of a cache memory will be explained along with techniques for mapping blocks from memory into lines within direct mapped, set associative and fully associative caches. The impact of the cache hit ratio on the average access time to memory and on overall performance will also be examined. A distinction is drawn between logical addresses and physical address and the concepts underlying virtual memory systems are also explained. Goals:
+  - Identify the hardware components that make up the I/O system.
+  - Describe the operation of I/O components.
+  - Explain the role of software such as device drivers in facilitating I/O.
+  - Contrast Memory-mapped I/O with port-mapped I/O.
+  - Analyze the different options for controlling I/O.
+  - Explain the operation and use of interrupts.
+  - Assess the impact of I/O on system performance.
+  +;
+I/O performance measurements,
+  - I/O throughput or bandwidth
+  - I/O transactions per unit time
+  +;
+Amdahl's law,
+  formula which gives the theoretical speedup in latency of the execution of a task at fixed workload that can be expected of a system whose resources are improved.
+  +;
+
+Module 11: Bus Systems and Internal Communication,
+   the bus system as a mechanism for communication and data transfer among the CPU, main memory and I/O devices within the computer system. The different types of buses are identified and the steps involved in typical bus transactions are explained along with techniques for controlling and arbitrating the use of the bus system. The module also defines the concept of disk arrays and describes the properties and operation of the most common RAID systems.
+   - Define “bus” and explain the role it plays in performing I/O.
+   - Describe the different types of buses used within the computer.
+   - Assess the relative performance of parallel and serial buses.
+   - Explain different bus arbitration techniques.
+   - Analyze bus timing strategies.
+   - Explain the operation of disk arrays (RAID).
+   - Assess the relative performance of different RAID systems.
+   - Compare how different RAID systems provide redundancy.
+   +;
+RAID (Redundant Arrays of Inexpensive Disks)
+  An organization of disks that uses an array of small and inexpensive disks so as to increase both performance and reliability
+  +;
+Bus Systems,
+  - data lines, control lines, address lines
+  - can be serial or parallel
+  - bus bandwidth
+  +;
+
+Module 12: Multi-Processor and Multi-Core Systems,
+  - Parallel Processing
+  - Flynn's Taxonomy and Vector Processing
+  - MIMD
+  - GPUs
+  - Multi-threading and Clustering
+  +;
+Parallel Processing,
+  - connecting multiple computers to achieve higher performance
+  - tends to be more valuable (in terms of overhead, partitioning, communication cost etc.) as the size of the problem increases
+  +;
+Flynn's Taxonomy,
+  categorizing multiprogramming architectures
+                                 | Data Streams                |
+                                 | Single       | Multiple     |
+  Instruction Streams | Single   | SISD (scalar)| SIMD (vector)|
+                      | Multiple | MISD (none)  | MIMD         |
+  +;
+Vector Processing,
+  - can do many calculations/operations at a time.
+  - vector chaining
+  +;
+MIMD,
+  SMP - shared memory multiprocessor
+    there is a need to synchronize shared variables using locks
+    UMA - Uniform Memory Access
+    NUMA - Non-uniform Memory Access
+      - faster local processor memory access than UMA, slower remote access
+  +;
+Multithreading,
+  Fine-grain - switch threads after each cycle
+  Course-grain - switch on long stall (miss, etc.)
+  Simultaneous
+  +;
+GPUs (Graphics Processing Unit),
+  Highly data-parallel. Many threads running at a time
+  
+  +;
