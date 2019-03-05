@@ -6,8 +6,9 @@
 package closestpairs;
 
 /**
- *
- * @author mark8604
+ * The Point class that simplifies the way we track x/y coordinates 
+ * and return the x value for the ranges of vals
+ * @author Markham Shofner
  */
 public class Point {
     int x; // x coordinate

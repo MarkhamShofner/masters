@@ -6,8 +6,10 @@
 package deterministicturingmachine;
 
 /**
- *
- * @author mark8604
+ * The TransitionAction class that simplifies the way we lookup and return options
+ * from the "table". Each TransitionAction has a related move, inputState, inputTape,
+ * outputState, and outputTape.
+ * @author Markham Shofner
  */
 public class TransitionAction {
     int move; // move to make
@@ -16,9 +18,7 @@ public class TransitionAction {
     String outputState; // state that is written
     int outputTape; // tape that is written
     
-    
     // TransitionAction constructor 
-    // based on an input state, input tape, and set of transitions
     TransitionAction (String inputState, int inputTape, String outputState, int outputTape, int move) {
         this.move = move;
         this.inputState = inputState;
@@ -26,16 +26,4 @@ public class TransitionAction {
         this.outputState = outputState;
         this.outputTape = outputTape;
     }
-    
-//    public int returnMove () {
-//        return move;
-//    }
-//    
-//    public String returnState () {
-//        return outputState;
-//    }
-//        
-//    public int returnTape () {
-//        return outputTape;
-//    }
 }

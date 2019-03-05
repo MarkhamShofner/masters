@@ -1,11 +1,5 @@
 Java Version - 8
 IDE - NetBeans
 
-///// Command line args are - <data1000.file> <algorithmType>
-///// Algorithm types may be quick1, quick2, quick3, quick4, and heap.,
-/////
-///// Data files may be formatted with delimiters being spaces, carriage returns, or new lines, but there are two requirements
-/////  - manually add a delimiter at the end of the data files so that the program picks up the last integer
-/////  - in the file name, change the 20k --> 20000 (5k --> 5000, etc...) to simplify the file read logic
-/////
-///// Files read from the /InputData directory and write to the /OutputData directory.
+•	The file read/write and argument pass is in not the best here. I haven’t worked a ton in Java so a lot of the flagging (in terms of arrays, or which type of algorithm to use) has to be done with commenting code in/out. And most of the outputs are just logged to the console. I feel comfortable with the principles we’ve covered, if not as much the implementations.
+•	^ For portions where the User can/should make changes, do a search for the text “*USER*” in the main method of either project, and the comment following will explain the options that the user has.

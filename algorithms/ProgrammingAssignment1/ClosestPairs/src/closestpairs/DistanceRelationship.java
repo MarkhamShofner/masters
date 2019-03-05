@@ -6,8 +6,9 @@
 package closestpairs;
 
 /**
- *
- * @author mark8604
+ * The DistanceRelationship class that tracks a two points - point A, point B - 
+ * and the distance between the two.
+ * @author Markham Shofner
  */
 public class DistanceRelationship {
     double distance; // distance

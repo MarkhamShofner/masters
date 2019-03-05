@@ -11,48 +11,29 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 /**
- // set of states Q
- // tape alphabet S
- // for every q in Q and s in S, define the move
- // move(q,s) = (p,t,D) // in state q with s on the tape, change to state p, write t on the tape, the move the head D (left or right)
- * @author mark8604
+ * The TuringMachine class houses the tape itself, the current index of the tape,
+ * the current state, the transition options (which can be thought of as a table),
+ * and boolean trackers regarding whether the machine isStillWorking, if it didFinish
+ * and whether or not the result isTrue.
+ * @author Markham Shofner
  */
 public class TuringMachine {
-    // TuringState turingState;
     ArrayList<Integer> tape; // tape array - should hold values of 0, 1, or b
-    Set<String> states; // states set - can hold values of q
     String currentState; // current state
     int currentIndex; // current position in the tape
-    Set<TransitionAction> transitionOptions;
-    boolean isStillWorking; // 
+    Set<TransitionAction> transitionOptions; // options set that the main method adds to
+    boolean isStillWorking; // TODO
     boolean didFinish; //
     boolean isTrue; // 
  
-    
-    // Machine constructor
-    TuringMachine (ArrayList<Integer> turingArray, Set<String> turingStates) {
-        this.transitionOptions = new HashSet<TransitionAction>();
+    // TuringMachine constructor
+    TuringMachine (ArrayList<Integer> turingArray) {
+        this.transitionOptions = new HashSet<TransitionAction>(); // initialize an empty options set
         this.tape = turingArray;
-        this.states = turingStates;
         this.isStillWorking = true;
     }
-    
-    public int findActionMove (String inputState, int inputTape) {
-        TransitionAction foundTransitionAction = findTransitionAction (inputState, inputTape);
-        System.out.println("fn findActionMove found move of ("+foundTransitionAction.move+") of found state ("+foundTransitionAction.inputState+") and tapeValue ("+foundTransitionAction.inputTape+")");
-        return foundTransitionAction.move;
-    }
-    
-    public int findActionTape (String inputState, int inputTape) {
-        TransitionAction foundTransitionAction = findTransitionAction (inputState, inputTape);
-        return foundTransitionAction.outputTape;
-    }
-    
-    public String findActionState (String inputState, int inputTape) {
-        TransitionAction foundTransitionAction = findTransitionAction (inputState, inputTape);
-        return foundTransitionAction.outputState;
-    }
  
+    // based on an input state and tape, identify the TransitionAction (output state, tape, and direction)
     public TransitionAction findTransitionAction (String inputState, int inputTape) {
         TransitionAction foundTransitionAction = null;
         TransitionAction tempTransitionAction = null;
@@ -65,7 +46,27 @@ public class TuringMachine {
         }
         return foundTransitionAction;
     }
+        
+    // use the findTransitionAction function and return the output move
+    public int findActionMove (String inputState, int inputTape) {
+        TransitionAction foundTransitionAction = findTransitionAction (inputState, inputTape);
+        System.out.println("fn findActionMove found move of ("+foundTransitionAction.move+") of found state ("+foundTransitionAction.inputState+") and tapeValue ("+foundTransitionAction.inputTape+")");
+        return foundTransitionAction.move;
+    }
     
+    // use the findTransitionAction function and return the output tape
+    public int findActionTape (String inputState, int inputTape) {
+        TransitionAction foundTransitionAction = findTransitionAction (inputState, inputTape);
+        return foundTransitionAction.outputTape;
+    }
+    
+    // use the findTransitionAction function and return the output state
+    public String findActionState (String inputState, int inputTape) {
+        TransitionAction foundTransitionAction = findTransitionAction (inputState, inputTape);
+        return foundTransitionAction.outputState;
+    }
+    
+    // write a transition option to the set of transition options
     public void addTransitionActionToOptions (String inputState, int inputTape, String outputState, int outputTape, int move) {
         TransitionAction actionToAdd = new TransitionAction(inputState, inputTape, outputState, outputTape, move);
         transitionOptions.add(actionToAdd);
