@@ -21,7 +21,12 @@ public class TuringMachine {
     // TuringState turingState;
     ArrayList<Integer> tape; // tape array - should hold values of 0, 1, or b
     Set<String> states; // states set - can hold values of q
+    String currentState; // current state
+    int currentIndex; // current position in the tape
     Set<TransitionAction> transitionOptions;
+    boolean isStillWorking; // 
+    boolean didFinish; //
+    boolean isTrue; // 
  
     
     // Machine constructor
@@ -29,22 +34,12 @@ public class TuringMachine {
         this.transitionOptions = new HashSet<TransitionAction>();
         this.tape = turingArray;
         this.states = turingStates;
+        this.isStillWorking = true;
     }
-    
-    // shift tape left
-    // shift tape right
-    
-    // generateTransition
-        // receive inputTape, inputState
-            // if thens
-        // is finished yay/nay?
-            // set decision and finish program
-        // setState
-        // writeTape
-        // move
     
     public int findActionMove (String inputState, int inputTape) {
         TransitionAction foundTransitionAction = findTransitionAction (inputState, inputTape);
+        System.out.println("fn findActionMove found move of ("+foundTransitionAction.move+") of found state ("+foundTransitionAction.inputState+") and tapeValue ("+foundTransitionAction.inputTape+")");
         return foundTransitionAction.move;
     }
     
@@ -60,9 +55,13 @@ public class TuringMachine {
  
     public TransitionAction findTransitionAction (String inputState, int inputTape) {
         TransitionAction foundTransitionAction = null;
+        TransitionAction tempTransitionAction = null;
         Iterator<TransitionAction> itrtr = transitionOptions.iterator();
         while(itrtr.hasNext()){
-           foundTransitionAction = itrtr.next();
+            tempTransitionAction = itrtr.next();
+            if ((tempTransitionAction.inputState == inputState) && (tempTransitionAction.inputTape == inputTape)) {
+                foundTransitionAction = tempTransitionAction;
+            }
         }
         return foundTransitionAction;
     }

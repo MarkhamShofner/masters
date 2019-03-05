@@ -19,65 +19,66 @@ public class DeterministicTuringMachine {
     /**
      * @param args the command line arguments
      */
+    // set of states
+    // tape alphabet
+    // for every state and tape option, define the transition (new state, tape write, direction move)
     public static void main(String[] args) {
         System.out.println("-------------Start Of Main Method-------------");
-        
-        ArrayList<Integer> myArrayList = new ArrayList(); 
+
+        ArrayList<Integer> myArrayList = new ArrayList();
+        myArrayList.add(-1);
         myArrayList.add(1);
         myArrayList.add(1);
         myArrayList.add(0);
         myArrayList.add(1);
         myArrayList.add(0);
+        myArrayList.add(0);
+        myArrayList.add(0);
+        myArrayList.add(0);
+        myArrayList.add(-1);
         
         String states[] = { "q0", "q1", "q2", "q3", "qY", "qN" };
         Set statesSet = new HashSet(Arrays.asList(states));
-        
-        // implement tape as an array, with values of either 0, 1, or some blank
-        TuringMachine myTuringMachine = new TuringMachine(myArrayList, statesSet);
-        
-        myTuringMachine.addTransitionActionToOptions("qO", 0, "q0", 0, 1);
-        myTuringMachine.addTransitionActionToOptions("qO", 1, "q0", 1, 1);
-        myTuringMachine.addTransitionActionToOptions("qO", -1, "q1", -1, -1);
-        myTuringMachine.addTransitionActionToOptions("q1", 0, "q2", -1, -1);
-        myTuringMachine.addTransitionActionToOptions("q1", 1, "q3", -1, -1);
-        myTuringMachine.addTransitionActionToOptions("q1", -1, "qN", -1, -1);
-        myTuringMachine.addTransitionActionToOptions("q2", 0, "qY", -1, -1);
-        myTuringMachine.addTransitionActionToOptions("q2", 1, "qN", -1, -1);
-        myTuringMachine.addTransitionActionToOptions("q2", -1, "qN", -1, -1);
-        myTuringMachine.addTransitionActionToOptions("q3", 0, "qN", -1, -1);
-        myTuringMachine.addTransitionActionToOptions("q3", 1, "qN", -1, -1);
-        myTuringMachine.addTransitionActionToOptions("q3", -1, "qN", -1, -1);
 
-        TransitionAction transitionAction = myTuringMachine.findTransitionAction("q1", 0);
-        int move = myTuringMachine.findActionMove("q1", 0);
-        String writeState =myTuringMachine.findActionState("q1", 0);
-        int writeTape =myTuringMachine.findActionTape("q1", 0);
-        System.out.println("Write: "+writeState+", Tape: "+writeTape+", Move: "+move);
+        // implement tape as an array, with values of either 0, 1, or some blank
+        TuringMachine myTM = new TuringMachine(myArrayList, statesSet);
+
+        myTM.addTransitionActionToOptions("q0", 0, "q0", 0, 1);
+        myTM.addTransitionActionToOptions("q0", 1, "q0", 1, 1);
+        myTM.addTransitionActionToOptions("q0", -1, "q1", -1, -1);
+        myTM.addTransitionActionToOptions("q1", 0, "q2", -1, -1);
+        myTM.addTransitionActionToOptions("q1", 1, "q3", -1, -1);
+        myTM.addTransitionActionToOptions("q1", -1, "qN", -1, -1);
+        myTM.addTransitionActionToOptions("q2", 0, "qY", -1, -1);
+        myTM.addTransitionActionToOptions("q2", 1, "qN", -1, -1);
+        myTM.addTransitionActionToOptions("q2", -1, "qN", -1, -1);
+        myTM.addTransitionActionToOptions("q3", 0, "qN", -1, -1);
+        myTM.addTransitionActionToOptions("q3", 1, "qN", -1, -1);
+        myTM.addTransitionActionToOptions("q3", -1, "qN", -1, -1);
+
+//        TransitionAction transitionAction = myTM.findTransitionAction("q0", 0); // generate the first action
+        int move = 0;
+        String writeState = "";
+        int writeTape = -1;
         
-        for (int i : myTuringMachine.tape) {
-            System.out.println("tape reads: "+i); 
+        myTM.currentState = "q0";
+        myTM.currentIndex = 1;
+
+        while (myTM.isStillWorking) { // while loop until finished
+            move = myTM.findActionMove(myTM.currentState, myTM.tape.get(myTM.currentIndex));
+            writeState = myTM.findActionState(myTM.currentState, myTM.tape.get(myTM.currentIndex));
+            writeTape = myTM.findActionTape(myTM.currentState, myTM.tape.get(myTM.currentIndex));
+            
+            myTM.currentState = writeState; // set state
+            myTM.tape.set(myTM.currentIndex, writeTape); // write tape
+            myTM.currentIndex = myTM.currentIndex + move; // move left or right
+            
+            // if either of the end conditions are reached, end the loop
+            if ((myTM.currentState == "qY") || (myTM.currentState == "qN")) {
+                myTM.isStillWorking = false;
+            }
         }
-        for (String i : myTuringMachine.states) {
-            System.out.println("state reads: "+i); 
-        }
-        for (TransitionAction i : myTuringMachine.transitionOptions) {
-            System.out.println("Action input state reads: "+i.inputState); 
-        }
-        
+        System.out.println("The Machine Landed on "+myTM.currentState);
         System.out.println("-------------End Of Main Method-------------");
     }
-
-
-    
-    // set of states Q
-    // tape alphabet S
-    // for every q in Q and s in S, define the move
-      // move(q,s) = (p,t,D) // in state q with s on the tape, change to state p, write t on the tape, the move the head D (left or right)
-
-    // i. States method, this method should have all of the operations of your TM.
-        // 	[one method that does all the methods in the turing machine]
-    // ii. Program line that executes the operations for each identified state, this should follow the n-tuple TM as described above for M.
-        // 	[18:30ish in module 3]
-    // iii. Print method that outputs the change in tape (x ≤ 30) after each transition function is executed.
-    // iv. Write method, for tape larger than x > 30 write the outputs to a file
 }
