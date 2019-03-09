@@ -286,12 +286,30 @@ Module 5: Randomized Algorithms,
     - Complete an experiment assessing the empirical performance of an algorithm with and without randomization incorporated.
   +;
 
-
-
-
-
-
-
+Module 6: Sorting,
+  - focus on algorithms for handling two aspects of the data management problem—sorting and searching. During this week, several algorithms are presented for sorting data, together with a theoretical model for comparison-based sorting. This model is used to prove a "best case" performance for comparison-based sorting, and then approaches to sorting that "beat" this performance by setting aside the traditional comparison-based approach are presented.
+    - Characterize the fundamental properties of a theoretical model of comparison-based sorting.
+    - Apply the theoretical model of comparison-based sorting to the evaluation of performance claims on various sorting algorithms.
+    - Differentiate between comparison-based sorting and linear sorting.
+    - Assess the merits and applicability of linear sorting to different classes of data sets.
+    - Determine the conditions under which best case, worst case, and average case performance of sorting algorithms occur.
+  +;
+Insertion sort,
+  - This is an O(n^2) algorithm that involves incrementally inserting new elements into an array in order. The sort is in place in that only an additional swap variable is required.
+  +;
+Merge sort,
+  - This is an efficient sorting algorithm in that it can be completed in O(n lg n) time. As we will see later in this lecture, merge sort is considered to be an asymptotically optimal sort.
+  - Unfortunately, because of the recursive nature of the algorithm merge sort is not an in place sort.
+  +;
+Selection sort,
+  - The selection sort algorithm is extremely simple to implement but runs in O(n^2) time. The reason for the poor performance is that selection sort requires every element to be compared with every other element. Selection sort, however, is an in place sort.
+  +;
+Bubble sort,
+  - Perhaps a favorite sort algorithm to implement, bubble sort is very similar to selection sort in that, in the worst case, every element must be compared with every other element. Thus bubble sort has complexity O(n^2) and is an in place sort. Note that the bound is not a theta bound because bubble sort terminates as soon as no swaps are performed.
+  +;
+Heapsort,
+  Like merge sort, but unlike insertion sort, heapsort’s running time is O(n lg n). Like insertion sort, but unlike merge sort, heapsort sorts in place: only a constant number of array elements are stored outside the input array at any time. Thus, heapsort combines the better attributes of the two sorting algorithms we have already discussed.
+  +;
 
 
 
