@@ -307,9 +307,60 @@ Selection sort,
 Bubble sort,
   - Perhaps a favorite sort algorithm to implement, bubble sort is very similar to selection sort in that, in the worst case, every element must be compared with every other element. Thus bubble sort has complexity O(n^2) and is an in place sort. Note that the bound is not a theta bound because bubble sort terminates as soon as no swaps are performed.
   +;
-Heapsort,
+Heap sort,
   Like merge sort, but unlike insertion sort, heapsort’s running time is O(n lg n). Like insertion sort, but unlike merge sort, heapsort sorts in place: only a constant number of array elements are stored outside the input array at any time. Thus, heapsort combines the better attributes of the two sorting algorithms we have already discussed.
   +;
+Counting sort,
+  - NOT a comparison sort
+  - Can be linear, but only situationally
+  - Good candidate for groups with repeat values
+  - Stable sort
+A Stable sort,
+  - numbers with the same value appear in the output array in the same order as they do in the input array.
+  +;
+Radix Sort,
+  - non-comparative integer sorting algorithm that sorts data with integer keys by grouping keys by the individual digits which share the same significant position and value
+  - each sort must be stable (to hold with sorts that occurred before on other integers/magnitudes)
+  +;
+Bucket sort,
+  - assumes that the input is drawn from a uniform distribution and has an average-case running time of O.n/. Like counting sort, bucket sort is fast because it assumes something about the input.
+  +;
+
+Module 7: Selection,
+  How does a computer find a particular piece of data in a large data set? More importantly, how does one find the data efficiently? This week, algorithms for finding specific data elements are examined. Primarily, discussion will focus on the "selection" problem where one wishes to find the nth order statistic in an unordered data set where an order statistic is the nth item in a corresponding ordered data set. The week then proceeds to discuss several more advanced data structures, including binary search trees. A data structure for efficient storage and retrieval of data—the hash table—is also covered, as is a technique for augmenting data structures with additional information to improve performance of an associated algorithm.
+  - Assess the impact on performance of variations on the OSSelect algorithm.
+  - Apply augmentation techniques to data structures to improve algorithm design.
+  - Analyze the theoretical properties of binary search trees.
+  - Construct an augmenting data structure for calculating order statistics.
+  - Construct an augmenting data structure for manipulating numeric intervals.
+  +;
+Order Statistics,
+  The ith order statistic of a set of n elements is the ith smallest element. For example, the minimum of a set of elements is the first order statistic (i D 1), and the maximum is the nth order statistic (i D n). A median, informally, is the “halfway point” of the set.
+  +;
+Binary Search Tree,
+  - The binary search tree property is a property imposed on every vertex of a binary search tree such that the following conditions hold. Let vi and vj be two vertices in the tree. For the sake of discussion, assume all key values are distinct (although, in general, this is not required).
+  - An inorder traversal of this tree yields the sequence 2–3–4–6–8–9–12. In other words, an inorder traversal of any binary search tree will visit the vertices of the tree in non-decreasing order of the key values stored in the tree.
+  +;
+Red-black tree,
+  BST that ensures the tree is balanced.
+  +;
+
+Module 8: Optimization,
+  In algorithm design, two aspects of optimization are important. First, designing an algorithm that minimizes time and space requirements is important, and that aspect has been our focus so far. The second aspect is designing an algorithm whose solution minimizes some cost function. That is the aspect of optimization considered in this unit. Specifically, this unit explores problems that can be represented as a sequence of decisions where each decision has an associated cost. Algorithms are designed that minimize the total cost of a sequence of such decisions using a design method called "dynamic programming." Central to this unit is the emphasis of a common model underlying all dynamic programming problems—the Markov decision process.
+
+  - Argue why all dynamic programming problems correspond to Markov decision problems.
+  - Derive the Bellman optimality equation for at least one dynamic programming problem.
+  - Map a Bellman equation to a corresponding solution table.
+  - Compare and contrast the traditional, bottom-up method applied in dynamic programming to dynamic programming with memoization.
+  +;
+Memoization,
+  A memoized recursive algorithm maintains an entry in a table for the solution to each subproblem.
+  +;
+Optimal Binary Search Trees,
+  - construct a binary search tree such that we can process σ using the smallest expected number of comparison. The issue facing us with this problem is that, because ultimate performance depends upon the sequence σ, we need to know the probabilities of certain members being queried. Thus the final tree will not necessarily be a simple balanced tree.
+  +;
+
+
 
 
 
