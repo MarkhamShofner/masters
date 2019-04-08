@@ -359,6 +359,10 @@ Memoization,
 Optimal Binary Search Trees,
   - construct a binary search tree such that we can process σ using the smallest expected number of comparison. The issue facing us with this problem is that, because ultimate performance depends upon the sequence σ, we need to know the probabilities of certain members being queried. Thus the final tree will not necessarily be a simple balanced tree.
   +;
+Greedy Search,
+  - The greedy choice property is the property of a problem whereby a globally optimal solution can be found by making locally optimal choices. Such choices do not depend on solutions to subproblems.
+  - A problem exhibits optimal substructure if an optimal solution to the problem contains optimal solutions to the subproblems within it. This is sometimes referred to as the principle of optimality.
+  +;
 
 
 
