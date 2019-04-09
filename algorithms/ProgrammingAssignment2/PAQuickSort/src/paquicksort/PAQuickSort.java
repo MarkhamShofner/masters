@@ -24,7 +24,7 @@ public class PAQuickSort {
         System.out.println("-------------Start Of Main Method-------------");
         
         // set up the file read variables
-        String fileInput = "ran500.dat"; // ran50.dat dup20k.dat rev5k.dat etc...
+        String fileInput = "asc10000.dat"; // [USER] ran50.dat dup20k.dat rev5k.dat etc...
 
         // use regex to replace all non integers with an empty string
         String intString = fileInput.replaceAll("[^0-9]", "");
@@ -60,8 +60,10 @@ public class PAQuickSort {
         }
         
         // we can declare "medianOf3", "median", or "first" to compare different partitioning strategies
+        // [USER] toggle the below two lines to chose which type of pivot we use
+//        double totalMoves = iterativeQuickSort (dataArray, 20, "first"); // setting 20 as the static base size for insertion sort
         double totalMoves = iterativeQuickSort (dataArray, 20, "medianOf3"); // setting 20 as the static base size for insertion sort
-        
+
         // create a file writer, start the timer, and solve the problem
         try (FileWriter fw = new FileWriter("../OutputData/" + fileInput + ".out")) {
             for (int m=0; m<dataArray.length; ++m) {
@@ -191,7 +193,6 @@ public class PAQuickSort {
         int i = 0;
         int j = 0;
         int temp = 0;  // Temporary variable for swap
-
         for (i = 1; i < size; ++i) {
             j = i;
             // Insert numbers[i] into sorted part
