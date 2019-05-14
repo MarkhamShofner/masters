@@ -364,10 +364,88 @@ Greedy Search,
   - A problem exhibits optimal substructure if an optimal solution to the problem contains optimal solutions to the subproblems within it. This is sometimes referred to as the principle of optimality.
   +;
 
+Module 9: Advanced Analysis,
+  So far, analysis has focused on determining worst-case bounds for algorithms and has assumed these bounds can be derived from the bounds of individual operations used in the algorithm. This week three alternative approaches to analysis are discussed that provide bounds that can be more realistic with respect to the actual operation of the algorithms. Amortized analysis provides a worst-case bound but considers the interdependence of operations within the algorithm, thus providing a tighter bound on performance. We will consider three approaches to amortized analysis.
+  - Analyze the performance of an algorithm using aggregate analysis.
+  - Analyze the performance of an algorithm using the accounting method.
+  - Analyze the performance of an algorithm, using the potential method.
+  - Compare and contrast the key characteristics of the methods for amortized analysis.
+  +;
 
+Module 10: Data Structures,
+  Often, the performance of an algorithm is driven by the way the data is represented for processing by the algorithm. For this reason, algorithms courses draw upon and extend topics covered in a separate data structures course. This unit begins with a brief review of fundamental data structures, but presents them from the perspective of typical operations on the data structures. Each of these operations is treated as an algorithm in its own right. The week then proceeds to discuss several more advanced data structures, including binary search trees, binomial heaps, and all-dimension trees.
 
+  - Define fundamental data structures as abstract data types.
+  - Analyze the asymptotic performance of operations on fundamental data structures on dynamic sets.
+  - Evaluate the advantages and disadvantages of applying fundamental data structures to dynamic set problems.
+  - Analyze the theoretical properties of binary search trees.
+  - Evaluate alternative data structures for union-find problems.
+  +;
 
+Module 11: Graph Algorithms I,
+  For many problems in computer science, the relationships between objects become important in finding an appropriate solution. When data items or objects are related in some way, a graph can be constructed to represent those relationships. Given a graph representing these relationships, what can a computer do with the graph? For example, maps can be represented as graphs where cities are nodes on the graph and roads are edges between the nodes. How might one use this representation to find a minimum-distance path between two cities on the map?
 
+  This week's material focuses on problems such as this and explores the design of several algorithms applied to graph structures. The algorithms covered range from searching for a particular node in the graph and determining what parts of a graph are connected to determining minimum spanning trees and minimum-cost paths through the graph.
+
+  - Formulate search problems using graph search.
+  - Design at least one algorithm to solve a graph-related problem.
+  - Prove the correctness of the designed graph algorithm.
+  - Argue why a particular graph algorithm does or does not solve a specific problem.
+  +;
+Breadth First Search (BFS),
+  - It starts at the tree root (or some arbitrary node of a graph, sometimes referred to as a 'search key'[1]), and explores all of the neighbor nodes at the present depth prior to moving on to the nodes at the next depth level.
+  +;
+Depth First Search (DFS),
+  - explores the highest-depth nodes first before being forced to backtrack and expand shallower nodes.
+  +;
+
+Module 12: Graph Algorithms II,
+  Modern day computer networks present interesting problems related to issues such as maximizing throughput to determining if alternative paths exist through the network. Mathematically, networks correspond to directed graphs in which a cost weight (usually representing capacity) is associated with each edge in the graph. This week we focus on problems related to determining the amount of some commodity that can flow through a network. The algorithms covered proceed from a graph-theoretic view of the network and utilize the "max-flow, min-cut theorem" to prove their correctness.
+    - Formulate transport and flow problems using network analysis.
+    - Design at least one algorithm, to solve a network flow-related problem.
+    - Map a graph-theoretic problem to an equivalent network flow problem.
+    - Prove the correctness of a network flow-related algorithm.
+    - Complete an experiment assessing the empirical performance of two or more network flow algorithms on a specific problem.
+  +;
+Bellman–Ford algorithm,
+  is an algorithm that computes shortest paths from a single source vertex to all of the other vertices in a weighted digraph.[1] It is slower than Dijkstra's algorithm for the same problem, but more versatile, as it is capable of handling graphs in which some of the edge weights are negative number
+  +;
+Dijkstra's algorithm (or Dijkstra's Shortest Path First algorithm, SPF algorithm),
+  is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks. ... For a given source node in the graph, the algorithm finds the shortest path between that node and every other.
+  +;
+Flow Network,
+  a flow network (also known as a transportation network) is a directed graph where each edge has a capacity and each edge receives a flow. The amount of flow on an edge cannot exceed the capacity of the edge
+  +;
+Ford-Fulkerson Algorithm,
+  greedy algorithm that computes the maximum flow in a flow network
+  +;
+Max-flow Min-cut,
+  theorem states that in a flow network, the maximum amount of flow passing from the source to the sink is equal to the total weight of the edges in the minimum cut, i.e. the smallest total weight of the edges which if removed would disconnect the source from the sink.
+  +;
+
+Module 13: Optimization II,
+  One of the most widely used optimization techniques involves minimizing or maximizing a function subject to several "constraints". One can think of a constraint as a rule or condition that restricts the space of possible solutions to the optimization problem. In fact, such constrained optimization problems can be quite challenging. Within the various of mathematics, computer science, operations research, etc., a particular class of constrained optimization problem keeps appearing as having the ability to handle a wide range of problems—linear programming. In this unit, we will focus on specifying and solving such linear programming problems.
+  - Map an optimization problem to a linear programming formulation
+  - Differentiate between the standard form and the slack form of a linear programming problem.
+  - Assess and apply the roles of primal and dual formulations in solving linear programming problems.
+  - Analyze the behavior of the simplex algorithm in terms of computational complexity and geometric interpretation.
+  +;
+Linear Programming,
+  provides a method to optimize operations within certain constraints. It is used to make processes more efficient and cost-effective. Some areas of application for linear programming include food and agriculture, engineering, transportation, manufacturing and energy.
+  +;
+Simplex Method,
+  +;
+Interior Point Method,
+  +;
+
+Module 14: Approximation Algorithms,
+This course has focused on designing efficient solutions to computational problems and analyzing the resulting performance of those problems. One of the issues discussed is that, for many real-world problems, no known efficient solution exists. Even so, many of these problems find themselves as being representative or applicable to real-world situations. When such situations arise, it is unacceptable to walk away from the situation and simply claim the problem cannot be solved. It is also unacceptable to apply a brute-force approach unless the associated problem size is small. In this unit, we explore alternatives to these two extremes whereby by attempt to derive approximate solutions and to bound the level of such approximation. In this way, we offer a set of tools that enable reasonable solutions to hard problems to be returned with an acceptable (i.e., polynomial) computational burden.
+  - Characterize the type of approximation scheme for approximating the solution to an NP-complete problem.
+  - Design an approximation algorithm based on a greedy approach.
+  - Design an approximation algorithm based on linear programming.
+  - Apply a solution to a simpler problem as an approximate solution to a harder problem.
+  - Analyze the level of approximation achieved by an approximation algorithm.
+  +;
 
 
 +;
