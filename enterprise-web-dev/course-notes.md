@@ -47,7 +47,7 @@ Module 4: Object Oriented Principles. Exceptions. & Collections,
   Be able to override methods in subclasses
   Be able to compare visibility modifiers and explain their differences
   +:
-Basic Colleciton Types,
+Basic Collection Types,
   Collection - This is that base Interface for all of the more specialized Interfaces. It contains a group of Objects, referred to as elements. This interface has some very general metyhods like size(), isEmpty(), add(), remove() and iterator(), that are independent of any of the more specialized interfaces.
   Set - A Set is a Collection that cannot contain duplicate elements. Sets will allow you to try to add a duplicate, but they will not modify the Collection if the element is already present.
   List - Unlike Sets, Lists may contain duplicate information. Lists imply a certain amount of ordering, and some methods are defined to access the list with an index and search the List. This interface adds a ListIterator that allows both forward and backward motion through the list. A List may be sorted by using the Collections.sort(l) method.
@@ -61,3 +61,8 @@ Generics,
   - can still use abstraction over types, but you can at least make sure that you are getting what you expect in a Collection.
   - ex - we can specify a type as part the List definition
     List<Employee> employeeList = new List();
+  +;
+
+Module 5: Java Swing/Graphics,
+
+  +;

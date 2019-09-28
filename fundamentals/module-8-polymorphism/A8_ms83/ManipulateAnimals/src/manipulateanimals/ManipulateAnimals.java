@@ -26,22 +26,22 @@ public class ManipulateAnimals {
         Animal animal2 = new Animal();
         Vehicle vehicle1 = new Vehicle();
         Vehicle vehicle2 = new Vehicle();
-        
+
         Animal aCollection[] = new Animal[2];
         aCollection[0] = animal1;
         aCollection[1] = animal2;
-        
+
         Vehicle vCollection[] = new Vehicle[2];
         vCollection[0] = vehicle1;
         vCollection[1] = vehicle2;
-        
+
         for (int i = 0; i < aCollection.length; i++) {
             aCollection[i].drawObject();
             aCollection[i].rotateObject();
             aCollection[i].resizeObject();
             aCollection[i].playSound();
         }
-        
+
         for (int i = 0; i < vCollection.length; i++) {
             vCollection[i].drawObject();
             vCollection[i].rotateObject();
@@ -52,7 +52,7 @@ public class ManipulateAnimals {
 
     class Animal implements Drawable, Rotatable, Resizable, Sounds {
         private String name;
-        
+
         // non-interface methods
         public String getName() {
             return name;
@@ -60,7 +60,7 @@ public class ManipulateAnimals {
         public void setName(String n) {
             name = n;
         }
-        
+
         // interface overrides
         public void drawObject() {
             System.out.println("Drawing an Animal");
@@ -79,7 +79,7 @@ public class ManipulateAnimals {
     class Vehicle implements Drawable, Rotatable, Resizable, Sounds {
         private String name;
         private int age;
-        
+
         // non-interface methods
         public String getName() {
             return name;
@@ -93,7 +93,7 @@ public class ManipulateAnimals {
         public void setAge(int i) {
             age = i;
         }
-        
+
         // interface overrides
         public void drawObject() {
             System.out.println("Drawing a Vehicle");
