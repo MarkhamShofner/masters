@@ -48,7 +48,7 @@ Module 4: Object Oriented Principles. Exceptions. & Collections,
   Be able to compare visibility modifiers and explain their differences
   +:
 Basic Collection Types,
-  Collection - This is that base Interface for all of the more specialized Interfaces. It contains a group of Objects, referred to as elements. This interface has some very general metyhods like size(), isEmpty(), add(), remove() and iterator(), that are independent of any of the more specialized interfaces.
+  Collection - This is that base Interface for all of the more specialized Interfaces. It contains a group of Objects, referred to as elements. This interface has some very general methods like size(), isEmpty(), add(), remove() and iterator(), that are independent of any of the more specialized interfaces.
   Set - A Set is a Collection that cannot contain duplicate elements. Sets will allow you to try to add a duplicate, but they will not modify the Collection if the element is already present.
   List - Unlike Sets, Lists may contain duplicate information. Lists imply a certain amount of ordering, and some methods are defined to access the list with an index and search the List. This interface adds a ListIterator that allows both forward and backward motion through the list. A List may be sorted by using the Collections.sort(l) method.
   Queue - a Queue is a List that is designed to hold items in sequence prior to processing them. Queues typically operate in a FIFO (First in, First out) scheme. Basically it is a List you load from one "end" and unload from the other.
@@ -64,5 +64,67 @@ Generics,
   +;
 
 Module 5: Java Swing/Graphics,
-
   +;
+
+Module 6: Java IO and Networking,
+  - Code a File object which accesses a file on the native Operating System
+  - Identify and use the basic Java I/O classes for files and streams
+    - Text I/O
+    - Binary I/O
+  - Format output to an output stream.
+  - Describe and use basic Network ports
+  - Identify commonly used Network port numbers
+  - Describe the difference between an network client and server
+  - Code a simple Network Socket Server and a simple Network Socket Client
+  +;
+Basic Networking,
+  Every computer (real or virtual) on a network is identified by a name and/or unique IP address. The names of the computers are there for convenience as they are mapped to IP addresses by a Domain Name Server (DNS), which keeps track of the mapping.
+
+  For example, the computer www.jhuep.com has an address of 128.220.101.101. If you typed "ping www.jhuep.com" the DNS server would map that name to the IP address and direct the network traffic to that address.
+
+  One host can run multiple servers of the same or distinct protocols attached to different ports. A port is a connection point to a computer, and you can think of it as a sub-address to the main IP address. There is a list of "well-known" ports that every computer supports. These are services so basic or common, that they have the same port number on every system. For example
+    ftp: 21
+    ssh: 22
+    telnet: 23
+    smtp: 25
+    httpd: 80
+    pop: 109
+  +;
+
+Module 7: Forms and Servlets,
+  - Describe the different types of basic web form components.
+  - Generate a web page with input forms of various types
+  - Describe what a web container is, and the services it provides
+  - Describe a Servlet life cycle
+  - Describe how a Servlet fits in a web container
+  - Code a Simple Servlet
+    - Text output
+    - HTML output
+  - Debug Servlets
+  - Understand the importance and use of the web.xml file
+  - Map a Servlet in a web.xml file
+  - Extract form submission information from a Servlet Request
+  - Manipulate Header and Response structures
+  - Describe and use Cookies
+  - Place and use information in an HTTP Session.
+  +;
+Cookies,
+  HTTP is fundamentally a "fire and forget" protocol. That means each independent client request gets back a response from the server and for any subsequent request and response there is no memory of the prior transactions. Cookies are a construct that provide a mechanism for maintaining "memory" across request-response transactions. If Cookies are implemented, after an initial request, a server (or servlet) will return a small piece of textual information (Cookie) with the response that is stored on the client. With any subsequent requests from that client to the server, the client sends that cookie back. When the server sees the cookie it can associate it with the previous requests that either resulted in or used the cookie.
+  +;
+Session tracking,
+  enables tracking and persisting of a user's continuous interaction through multiple HTML pages or servlets by a single web application. The idea is that a user visiting a web site is a single "session", and that it would be beneficial to be able to "carry along" information from one page to the next through that session (like a shopping cart). Since HTTP is defined as being a "stateless" protocol, additional mechanism needs to be employed to do this over the basic request-response model. A session is defined as a series of related browser requests that come from the same browser during a certain time period. This implies that sessions have a life span that can "time out" if a web page is left unattended for too long.
+  +;
+
+Module 7: JavaScript,
+  - Scripting language. JavaScript lives entirely in the browser. Modern browsers natively interpret and execute the javascript directly on the client.
+  - The browser sees the script, interprets and runs it. If there is any output to the "document" object (which is the object that describes your current web page), that output is inserted at that specific location in the document.
+  +;
+
+
+
+
+
+
+
+
++;
