@@ -242,11 +242,18 @@ Universal Description Discovery and Integration Service (UDDI),
 Self describing,
   means that a user of the web services doesn't know anything about the implementation when they want to use the web service, they let the web services tell them how it is used.
   +;
-Uniform Resource Indentifier (URI),
-  accesible on a network. The URI's components are used to find the location of a service (host and port) as well as the methods associated with a service endpoint (given in the path component). Data definitions and parameters can also be specified in the path or query parameters that can be part of a URI. The scheme in the URI describes the protocol over which the service can be accessed (most often, but not always http).
+Uniform Resource Identifier (URI),
+  accessible on a network. The URI's components are used to find the location of a service (host and port) as well as the methods associated with a service endpoint (given in the path component). Data definitions and parameters can also be specified in the path or query parameters that can be part of a URI. The scheme in the URI describes the protocol over which the service can be accessed (most often, but not always http).
   +;
 
-
+Module 13: Web Data: JSON Java and ReST,
+  - Have a high level understanding of XML and JSON
+  - Understand the difference between XML and JSON
+  - Understand JSON fundamentals
+  - Understand how to use JSON with JavaScript
+  - Understand how to use JSON with Java, using FasterXML/Jackson API
+  - Build a simple service based application that passes data using Java objects and JSON
+  +;
 
 
 
