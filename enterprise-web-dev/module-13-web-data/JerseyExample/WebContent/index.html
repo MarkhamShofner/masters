@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- saved from url=(0067)https://webdev.jhuep.com/~spiegel/en605681/WebData/HW_Template.html -->
+<html data-ember-extension="1">
+	<head>
+        <title>Beartooth Hiking</title>
+        <script type = "text/javascript" src = "nsftoolsDatepicker.js" ></script>
+		<script type = "text/javascript" src = "script.js" ></script>
+		<link rel="stylesheet" href="nsftoolsDatepicker.css">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
+		<script src="./Test_files/jquery.min.js"></script>
+		<script>
+			function sendRequest(url) {
+				// get form parameters and translate them to a JSON object
+				// that is mapped to a JSON/Java object in service
+				var viewArr = $("#myForm").serializeArray();
+			  	var view = {};
+			  	// need to convert { name:"VarName", value:"ValName"} to {VarName:"ValName"}
+			  	for (var i in viewArr) {
+			    	view[viewArr[i].name] = viewArr[i].value;
+			  	}
+                          
+                // call back to service with post containing JSON data and on
+                // return process results back into page          
+                $.ajax({
+                    type:"POST",
+                    contentType: 'application/json',
+                    dataType: "text json",
+                    data: JSON.stringify(view),
+                    url: url,
+                    // you will want to update success function to get specific
+                    // JSON data fields for output back to the original HTML page
+                    success: function(data) {
+						// this sets the html content of the html object
+						// with id of reponseArea.  
+						$("#responseArea").html(data.response);
+                 	}
+                });
+			};	
+		</script>
+	</head>
+	<body cz-shortcut-listen="true">
+		<!-- the form contains the input elements to collect specific information
+			 as you did in earlier work.  Make sure names of parameters correspond
+			 to the field values in the desired JSON/Java object. -->
+		<h1>Beartooth Hiking Registration Guide:</h1>
+       	<h2>Come Hike With Us</h2>
+		<br /> Please Fill out the following fields:
+		<br />
+		<form id="myForm">
+			<!-- Add your gui widgets and input elements here -->
+			<!-- Keep the button for submitting your form, but you need to 
+				 update the parameter, url, to reference your back end 
+				 service that will process the input data -->			
+			Hike:
+			<input type="RADIO" name="hikingOption" value="Gardiner Lake" checked="checked">Gardiner Lake
+			<input type="RADIO" name="hikingOption" value="Hellroaring Plateau">Hellroaring Plateau
+			<input type="RADIO" name="hikingOption" value="Beaten Path">Beaten Path
+			<br>
+			<br>
+			
+			Party Size: <input type="number" name="partySize" value="1" onChange="partySizeChanged(value)">
+			<br>
+			<br>
+			
+			
+			Duration:
+			<input type="RADIO" name="durationOption" value="2" checked="checked">2
+			<input type="RADIO" name="durationOption" value="3">3
+			<input type="RADIO" name="durationOption" value="4">4
+			<input type="RADIO" name="durationOption" value="5">5
+			<input type="RADIO" name="durationOption" value="7">7
+			<br>
+			<br>
+			
+            <button type="button" onclick="sendRequest(&#39;webresources/example/toObject&#39;)">Get Rate</button>
+		</form>     
+		<!-- This is nothing more than a labelled "output area" for your results or errors -->
+        <div id="responseArea"><pre></pre></div>
+	
+	</body>
+</html>
+
