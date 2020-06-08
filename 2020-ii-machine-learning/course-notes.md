@@ -78,5 +78,5 @@ Naive Bayes,
   - goal is to find the class that best matches the features of the data
   +;
 Bayes Decision Theory,
-  
+
   +;
