@@ -1,0 +1,100 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  font-family:courier,arial,helvetica;
+}
+
+.mobile-header {
+  display: none;
+}
+
+.default-header {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.75em;
+}
+
+.flag-mobile {
+  display: none;
+}
+
+.block {
+  float: left;
+  position: relative;
+  background-color: gray;
+  padding: 10px;
+  outline: 1px solid black;
+  box-sizing: border-box;
+  margin: 20px;
+  overflow: hidden;
+  height: 120px;
+}
+
+.block:hover {
+  overflow: auto;
+}
+
+.flag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 90px;
+  outline: 1px solid black;
+  margin: auto;
+  text-align: center;
+  font-size: 1.25em;
+}
+
+.staff {
+  margin-top: 32px;
+}
+
+.red {
+  background-color: red;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.green {
+  background-color: green;
+}
+
+/* Desktop version of the site when the width of the browser window is 992px and above */
+@media (min-width: 992px) {
+  .large-4 {
+    width: calc(33.3% - 40px);
+  }
+}
+
+/* Tablet view should appear only if the width of the browser window is between 768px and 991px, inclusively */
+@media (min-width: 768px) and (max-width: 991px){
+  .medium-6 {
+    width: calc(50% - 40px);
+  }
+  .medium-12 {
+    width: calc(100% - 40px);
+  }
+}
+
+/* Mobile view should appear only if the width of the browser is equal to or less than 767px. */
+@media (max-width: 767px){
+  .mobile-header {
+    display: block;
+    font-size: 1.25em;
+    font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+    margin: 20 0 0 20;
+  }
+  .flag-mobile {
+    display: block;
+  }
+  .default-header {
+    display: none;
+  }
+  .flag-default {
+    display: none;
+  }
+  .flag {
+    width: 100%;
+  }
+}
