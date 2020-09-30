@@ -22,3 +22,10 @@ Pseudo-selectors,
   etc
   a:hover, a:active etc...
   +;
+
+  Mod 3: Bootstrap,
+    look at docs
+    +;
+
+  Mod 4: Intro to Javascript,
+    +;
