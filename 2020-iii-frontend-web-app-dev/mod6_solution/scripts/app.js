@@ -25,7 +25,7 @@ angular.module('LunchCheck', [])
         $scope.responseFontColor = 'greenFont'
         dishesResponse = 'Too Much!'
       }
-      
+
       $scope.dishesResponse = dishesResponse;
     }
   };
