@@ -9,25 +9,26 @@
     <script src="src/menuapp/menuapp.module.js"></script>
     <!-- Routes -->
     <script src="src/routes.js"></script>
+    <!-- 'MenuApp' module artifacts -->
+    <script src="src/menuapp/data.module.js"></script>
+    <script src="src/menuapp/menudata.service.js"></script>
+    <script src="src/menuapp/categories.component.js"></script>
+    <script src="src/menuapp/categories.controller.js"></script>
+    <script src="src/menuapp/items.component.js"></script>
+    <script src="src/menuapp/items.controller.js"></script>
 
-    <!-- 'ShoppingList' module artifacts -->
-    <!-- <script src="src/shoppinglist/shoppinglist.component.js"></script>
-    <script src="src/shoppinglist/main-shoppinglist.controller.js"></script>
-    <script src="src/shoppinglist/shoppinglist.service.js"></script> -->
-
-    <title>Intro to ui-router</title>
+    <title>Restaurant Views</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/styles.css">
   </head>
   <body>
-    <h1>Intro to ui-router</h1>
+    <h1>Restaurant Views</h1>
 
     <div class="tabs">
       <a ui-sref="home" ui-sref-active="activeTab">Home</a>
       <a ui-sref="categories" ui-sref-active="activeTab">Categories</a>
       <a ui-sref="items" ui-sref-active="activeTab">Items</a>
-      <!-- <button ui-sref="tab2">Tab 2</button> -->
     </div>
     <ui-view></ui-view>
 

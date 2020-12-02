@@ -1,1 +1,7 @@
-<div>This is items content</div>
+<h5 ng-bind="items.items.data.category.name"></h5>
+<ul>
+  <li ng-repeat="item in items.items.data.menu_items">
+    <div>Name: {{item.name}}</div>
+    <div>Description: {{item.description}}</div>
+  </li>
+</ul>

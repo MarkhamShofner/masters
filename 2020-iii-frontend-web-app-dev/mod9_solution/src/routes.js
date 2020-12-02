@@ -1,13 +1,11 @@
 (function () {
 
-// angular.module('MenuApp',['ui.router']);
-
 angular.module('MenuApp')
 .config(RoutesConfig);
 
 RoutesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
 function RoutesConfig($stateProvider, $urlRouterProvider) {
-
+  console.log('routes.js');
   // Redirect to `/` if no other URL matches
   $urlRouterProvider.otherwise('/');
 
@@ -20,13 +18,24 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
 
     .state('categories', {
       url: '/categories',
-      templateUrl: 'src/templates/categories.html'
+      templateUrl: 'src/templates/categories.html',
+      controller: 'CategoriesController as categories', // 'MainShoppingListController as mainList',
+        resolve: {
+          categories: ['MenuDataService', function (MenuDataService) {
+            return MenuDataService.getAllCategories();
+          }]
+        }
     })
 
     .state('items', {
-      url: '/items',
-      templateUrl: 'src/templates/items.html'
+      url: '/items/{categoryShortName}',
+      templateUrl: 'src/templates/items.html',
+      controller: 'ItemsController as items',
+      resolve: {
+        items: ['MenuDataService', '$stateParams', function (MenuDataService, $stateParams) {
+          return MenuDataService.getItemsForCategory($stateParams.categoryShortName)
+        }]
+      }
     });
 }
-
 })();
