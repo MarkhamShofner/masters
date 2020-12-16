@@ -59,8 +59,17 @@ function routeConfig ($stateProvider) {
     .state('public.myinfo', {
       url: '/myinfo',
       templateUrl: 'src/public/signup/index.html',
-      controller: 'SingupController',
-      controllerAs: 'signupCtrl'
+      controller: 'ActualInfoController',
+      controllerAs: 'actualInfoCtrl',
+      resolve: {
+        // menuItems: ['$stateParams','MenuService', function ($stateParams, MenuService) {
+        //   return MenuService.getMenuItems($stateParams.category);
+        // }]
+        // myInfo: ['ActualInfoService', function (ActualInfoService) {
+        //   debugger;
+        //   return ActualInfoService.getMyInfo();
+        // }]
+      }
     })
     ;
 }

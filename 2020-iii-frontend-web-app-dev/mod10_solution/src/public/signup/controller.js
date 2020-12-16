@@ -2,15 +2,15 @@
 'use strict';
 
 angular.module('public')
-.controller('SignupController', SignupController);
+.controller('ActualInfoController', ActualInfoController);
 
 
-SignupController.$inject = ['MenuService', 'Signup'];
-function SignupController(MenuService, Signup) {
-  console.log('SignupController function');
-  let $signup = this;
-  $signup.Signup = Signup;
-  console.log($signup.Signup)
+ActualInfoController.$inject = ['MenuService'];
+function ActualInfoController(MenuService) {
+  console.log('ActualInfoController function');
+  let $actualInfo = this;
+  // $actualInfo.ActualInfo = ActualInfo;
+  // console.log($ActualInfo.ActualInfo)
   // var itemList = this;
   // console.log(items);
   // itemList.items = items;
