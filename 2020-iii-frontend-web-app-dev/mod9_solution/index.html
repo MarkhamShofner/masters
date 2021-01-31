@@ -1,0 +1,36 @@
+<!doctype html>
+<html ng-app="MenuApp" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- Libraries -->
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-ui-router.min.js"></script>
+    <!-- Modules -->
+    <script src="src/menuapp/menuapp.module.js"></script>
+    <!-- Routes -->
+    <script src="src/routes.js"></script>
+    <!-- 'MenuApp' module artifacts -->
+    <script src="src/menuapp/data.module.js"></script>
+    <script src="src/menuapp/menudata.service.js"></script>
+    <script src="src/menuapp/categories.component.js"></script>
+    <script src="src/menuapp/categories.controller.js"></script>
+    <script src="src/menuapp/items.component.js"></script>
+    <script src="src/menuapp/items.controller.js"></script>
+
+    <title>Restaurant Views</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
+  </head>
+  <body>
+    <h1>Restaurant Views</h1>
+
+    <div class="tabs">
+      <a ui-sref="home" ui-sref-active="activeTab">Home</a>
+      <a ui-sref="categories" ui-sref-active="activeTab">Categories</a>
+      <a ui-sref="items" ui-sref-active="activeTab">Items</a>
+    </div>
+    <ui-view></ui-view>
+
+  </body>
+</html>

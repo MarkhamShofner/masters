@@ -1,0 +1,69 @@
+<div class="container" style="color: black;">
+  <h3>Signup What's GOOD</h3>
+  <fieldset>
+    <legend>Fill Me Out</legend>
+    <form name='myInfoForm' novalidate>
+      <input type="text" name="firstName" placeholder="Enter your first name"
+        ng-model="myInfo.user.firstName"
+        required
+        minlength="1"
+        ng-maxlength="100">
+        {{ myInfo.user.firstName }}
+        <span
+          ng-if="(myInfoForm.firstName.$error.minlength || myInfoForm.firstName.$error.required) && myInfoForm.firstName.$touched">
+          Name must be at least 1 character long
+        </span>
+        <span ng-if="myInfoForm.firstName.$error.maxlength && myInfoForm.firstName.$touched">
+          Name must not be longer than 100 characters
+        </span>
+        <br>
+
+      <input type="text" name="lastName" placeholder="Enter your last name"
+        ng-model="myInfo.user.lastName"
+        required
+        minlength="1"
+        ng-maxlength="100">
+        {{ myInfo.user.lastName }}
+        <span
+          ng-if="(myInfoForm.lastName.$error.minlength || myInfoForm.lastName.$error.required) && myInfoForm.lastName.$touched">
+          Name must be at least 1 character long
+        </span>
+        <span ng-if="myInfoForm.lastName.$error.maxlength && myInfoForm.lastName.$touched">
+          Name must not be longer than 100 characters
+        </span>
+        <br>
+
+      <input type="email" name="email" placeholder="Email"
+        ng-model="myInfo.user.email"
+        required>
+        <span ng-if="myInfoForm.email.$invalid && myInfoForm.email.$touched">
+          Must be a valid email address: handle@domain format
+        </span>
+        <br>
+
+      <input type="text" name="phone" placeholder="Phone ###-###-####"
+        ng-model="myInfo.user.phone"
+        pattern="(\d{3})-(\d{3})-(\d{4})">
+        <span ng-if="myInfoForm.phone.$invalid && myInfoForm.phone.$touched">
+          Phone must be in the format ###-###-####.
+        </span>
+        <br>
+
+      <input type="text" name="faveItem"
+        placeholder="What's your favorite item?"
+        ng-model="myInfo.user.info.faveItem"
+        ng-blur="myInfo.user.validateFaveItem()">
+        <span ng-if="myInfo.user.isNotValidItem">This item doesn't exist yo</span>
+        https://calm-savannah-12203.herokuapp.com/menu_items/A1.json
+        <br>
+
+      <button
+        ng-disabled="myInfoForm.$invalid"
+        ng-click="myInfo.submit()">Submit</button>
+
+        <div style="margin-top: 10px;">
+          You have done a good job filling out this form: {{ myInfoForm.$valid }}
+        </div>
+    </form>
+  </fieldset>
+</div>
